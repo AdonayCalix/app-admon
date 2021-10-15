@@ -8,9 +8,6 @@ $this->title = 'App Admon';
 
     <div class="mb-3">
         <h1 class="h3 d-inline align-middle">Feather</h1>
-        <a class="badge bg-dark text-white ms-2" href="upgrade-to-pro.html">
-            Get more icons
-        </a>
     </div>
     <div class="card">
         <div class="card-header">

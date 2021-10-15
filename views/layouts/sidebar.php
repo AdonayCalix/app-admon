@@ -62,7 +62,43 @@ use yii\helpers\Url;
                 </a>
             </li>
 
+            <li class="sidebar-header">
+                Proyecto
+            </li>
 
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/project/project/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Proyectos</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/project/project-period/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Periodos de Ejecucion</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/project/project-budget/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Presupuestos/POAS</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/project/budget-category/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Categorias</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/project/project/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Sub Categorias</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                Libros de Banco
+            </li>
         </ul>
     </div>
 </nav>

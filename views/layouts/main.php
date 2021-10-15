@@ -44,6 +44,8 @@ AppAsset::register($this);
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
 <?php $this->endBody() ?>
 </body>
 </html>

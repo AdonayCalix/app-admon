@@ -12,7 +12,9 @@
         "nesbot/carbon": "^2.53",
         "ext-intl": "*",
         "guzzlehttp/guzzle": "^7.3",
-        "mito/yii2-sentry": "~1.0.0"
+        "mito/yii2-sentry": "~1.0.0",
+        "kartik-v/yii2-number": "dev-master",
+        "kartik-v/yii2-builder": "1.6.7"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

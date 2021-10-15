@@ -79,6 +79,9 @@ $config = [
                 };
             },
         ],
+        'project' => [
+            'class' => 'app\modules\project\Project',
+        ],
     ],
     'params' => $params,
 ];
