@@ -8,10 +8,9 @@
 use app\modules\project\models\Project;
 use webvimark\modules\UserManagement\components\GhostHtml;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use kartik\grid\GridView;
 
-$this->title = 'Project Budget';
+$this->title = 'Presupuestos/POAS';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -35,6 +34,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 $gridColumn = [
                     ['class' => 'yii\grid\SerialColumn'],
                     ['attribute' => 'id', 'visible' => false],
+                    [
+                        'class' => 'kartik\grid\ExpandRowColumn',
+                        'label' => 'Fila Expandible',
+                        'format' => 'raw',
+                        'value' => function ($model, $key, $index, $column) {
+                            return GridView::ROW_COLLAPSED;
+                        },
+                        'detail' => function ($model, $key, $index) {
+                            return Yii::$app->controller->renderPartial('_categoriesDetail', ['model' => $model]);
+                        },
+                        'headerOptions' => ['class' => 'kartik-sheet-style'],
+                        'expandOneOnly' => true,
+                        'width' => '5%'
+                    ],
                     [
                         'attribute' => 'name',
                         'width' => '20%'

@@ -34,6 +34,20 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
                     ['attribute' => 'id', 'visible' => false],
                     [
+                        'class' => 'kartik\grid\ExpandRowColumn',
+                        'label' => 'Fila Expandible',
+                        'format' => 'raw',
+                        'value' => function ($model, $key, $index, $column) {
+                            return GridView::ROW_COLLAPSED;
+                        },
+                        'detail' => function ($model, $key, $index) {
+                            return Yii::$app->controller->renderPartial('_subCategorieDetail', ['model' => $model]);
+                        },
+                        'headerOptions' => ['class' => 'kartik-sheet-style'],
+                        'expandOneOnly' => true,
+                        'width' => '5%'
+                    ],
+                    [
                         'attribute' => 'identifier',
                         'width' => '10px'
                     ],

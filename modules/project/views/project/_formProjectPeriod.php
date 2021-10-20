@@ -7,7 +7,6 @@
     use kartik\widgets\DatePicker;
     use yii\data\ArrayDataProvider;
     use yii\helpers\Html;
-    use yii\widgets\Pjax;
 
     $dataProvider = new ArrayDataProvider([
         'allModels' => $row,
@@ -25,7 +24,7 @@
         ],
         'attributes' => [
             "id" => ['type' => BaseForm::INPUT_HIDDEN, 'columnOptions' => ['hidden' => true]],
-            'name' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Nombre'],
+            'name' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Nombre',  'columnOptions' => ['width' => '20%']],
             'start_date' => [
                 'label' => 'Fecha Inicio',
                 'type' => BaseForm::INPUT_WIDGET,
@@ -37,8 +36,10 @@
                     'language' => 'es',
                     'pluginOptions' => [
                         'autoclose' => true,
+                        'format' => 'yyyy-mm-dd',
                     ]
-                ]
+                ],
+                'columnOptions' => ['width' => '20%']
             ],
             'end_date' => [
                 'label' => 'Fecha Final',
@@ -51,11 +52,22 @@
                     'language' => 'es',
                     'pluginOptions' => [
                         'autoclose' => true,
+                        'format' => 'yyyy-mm-dd',
                     ]
                 ],
                 'option' => [
                     'autocomplete' => 'off'
-                ]
+                ],
+                'columnOptions' => ['width' => '20%']
+            ],
+            'del' => [
+                'type' => 'raw',
+                'label' => '',
+                'value' => function($model, $key) {
+                    return
+                        Html::hiddenInput('Children[' . $key . '][id]', (!empty($model['id'])) ? $model['id'] : "") .
+                        Html::a('<i class="fa fa-trash"></i> ', '#', ['title' =>  'Delete', 'onClick' => 'delRowProjectPeriod(' . $key . '); return false;', 'id' => 'project-period-del-btn']);
+                },
             ],
         ],
         'gridSettings' => [
@@ -64,7 +76,7 @@
                 'type' => GridView::TYPE_DEFAULT,
                 'before' => false,
                 'footer' => false,
-                'after' => Html::button('<i class="align-middle" data-feather="plus-circle"></i>&nbsp; ' . 'Agregar', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowProjectPeriod()']),
+                'after' => Html::button('<i class="fa fa-plus"></i>&nbsp; ' . 'Agregar', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowProjectPeriod()']),
             ]
         ]
     ]);

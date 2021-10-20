@@ -93,6 +93,33 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
         ]
     ]); ?>
 
+    <?php
+    $forms = [
+        [
+            'label' => '<i class="fa fa-clock"></i> ' . Html::encode('Periodo de Ejecucion'),
+            'content' => $this->render('_formProjectPeriod', [
+                'row' => ArrayHelper::toArray($model->projectPeriods),
+            ]),
+        ],
+        [
+            'label' => '<i class="fa fa-book"></i> ' . Html::encode('Presupuestos/POAS'),
+            'content' => $this->render('_formProjectBudget', [
+                'row' => ArrayHelper::toArray($model->projectBudgets),
+            ]),
+        ]
+    ];
+    echo kartik\tabs\TabsX::widget([
+        'items' => $forms,
+        'position' => kartik\tabs\TabsX::POS_ABOVE,
+        'encodeLabels' => false,
+        'pluginOptions' => [
+            'bordered' => true,
+            'sideways' => true,
+            'enableCache' => false,
+        ],
+    ]);
+    ?>
+
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Cancelar'), Yii::$app->request->referrer, ['class' => 'btn btn-danger']) ?>

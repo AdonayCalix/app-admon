@@ -52,9 +52,9 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="row">
-                <?php
-                if ($providerProjectBudget->totalCount) {
-                    $gridColumnProjectBudget = [
+                <?php if ($providerProjectBudget->totalCount): ?>
+                    <h4>Presupuestos/POAS</h4>
+                    <?php $gridColumnProjectBudget = [
                         ['class' => 'yii\grid\SerialColumn'],
                         ['attribute' => 'id', 'visible' => false],
                         'name',
@@ -63,46 +63,33 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo Gridview::widget([
                         'dataProvider' => $providerProjectBudget,
                         'pjax' => true,
-                        'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-project-budget']],
-                        'panel' => [
-                            'type' => GridView::TYPE_PRIMARY,
-                            'heading' => '<span class="glyphicon glyphicon-book"></span> ' . Html::encode('Project Budget'),
-                        ],
-                        'export' => false,
+                        'summary' => false,
                         'columns' => $gridColumnProjectBudget
-                    ]);
-                }
-                ?>
-
+                    ]); ?>
+                <?php endif; ?>
             </div>
 
             <div class="row">
-                <?php
-                if ($providerProjectPeriod->totalCount) {
+                <?php if ($providerProjectPeriod->totalCount): ?>
+
+                    <h4>Periodos de Ejecucion</h4>
+
+                    <?php
                     $gridColumnProjectPeriod = [
                         ['class' => 'yii\grid\SerialColumn'],
                         ['attribute' => 'id', 'visible' => false],
                         'name',
                         'start_date',
                         'end_date',
-                        'crated_by',
                     ];
                     echo Gridview::widget([
                         'dataProvider' => $providerProjectPeriod,
                         'pjax' => true,
-                        'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-project-period']],
-                        'panel' => [
-                            'type' => GridView::TYPE_PRIMARY,
-                            'heading' => '<span class="glyphicon glyphicon-book"></span> ' . Html::encode('Project Period'),
-                        ],
-                        'export' => false,
+                        'summary' => false,
                         'columns' => $gridColumnProjectPeriod
-                    ]);
-                }
-                ?>
-
+                    ]); ?>
+                <?php endif; ?>
             </div>
-
         </div>
     </div>
 </div>

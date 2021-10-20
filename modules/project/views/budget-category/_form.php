@@ -48,7 +48,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos'=> View::POS_END,
     <?php
     $forms = [
         [
-            'label' => '<i class="glyphicon glyphicon-book"></i> ' . Html::encode('Sub Categorias'),
+            'label' => '<i class="fa fa-book"></i> ' . Html::encode('Sub Categorias'),
             'content' => $this->render('_formSubCategory', [
                 'row' => ArrayHelper::toArray($model->subCategories),
             ]),

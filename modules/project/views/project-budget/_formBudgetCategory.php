@@ -29,7 +29,7 @@ echo TabularForm::widget([
             'value' => function($model, $key) {
                 return
                     Html::hiddenInput('Children[' . $key . '][id]', (!empty($model['id'])) ? $model['id'] : "") .
-                    Html::a('<i class="glyphicon glyphicon-trash"></i>', '#', ['title' =>  'Delete', 'onClick' => 'delRowBudgetCategory(' . $key . '); return false;', 'id' => 'budget-category-del-btn']);
+                    Html::a('<i class="fa fa-trash"></i>', '#', ['title' =>  'Delete', 'onClick' => 'delRowBudgetCategory(' . $key . '); return false;', 'id' => 'budget-category-del-btn']);
             },
         ],
     ],
@@ -39,7 +39,7 @@ echo TabularForm::widget([
             'type' => GridView::TYPE_DEFAULT,
             'before' => false,
             'footer' => false,
-            'after' => Html::button('<i class="glyphicon glyphicon-plus"></i>' . 'Agregar', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowBudgetCategory()']),
+            'after' => Html::button('<i class="fa fa-plus"></i> ' . 'Agregar', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowBudgetCategory()']),
         ]
     ]
 ]);
