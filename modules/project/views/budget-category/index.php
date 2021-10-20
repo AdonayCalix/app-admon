@@ -8,7 +8,6 @@
 use app\modules\project\models\ProjectBudget;
 use webvimark\modules\UserManagement\components\GhostHtml;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
 use kartik\grid\GridView;
 
 $this->title = 'Categorias';
@@ -34,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
                     ['attribute' => 'id', 'visible' => false],
                     [
-                        'class' => 'kartik\grid\ExpandRowColumn',
+                        'class' => \kartik\grid\ExpandRowColumn::class,
                         'label' => 'Fila Expandible',
                         'format' => 'raw',
                         'value' => function ($model, $key, $index, $column) {
@@ -43,8 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'detail' => function ($model, $key, $index) {
                             return Yii::$app->controller->renderPartial('_subCategorieDetail', ['model' => $model]);
                         },
-                        'headerOptions' => ['class' => 'kartik-sheet-style'],
-                        'expandOneOnly' => true,
+                        'expandOneOnly' => false,
                         'width' => '5%'
                     ],
                     [

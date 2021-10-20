@@ -7,24 +7,13 @@ use app\modules\project\models\BudgetCategory;
 use app\modules\project\models\BudgetCategorySearch;
 use app\controllers\base\BaseController;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * BudgetCategoryController implements the CRUD actions for BudgetCategory model.
  */
 class BudgetCategoryController extends BaseController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
+
 
     /**
      * Lists all BudgetCategory models.
