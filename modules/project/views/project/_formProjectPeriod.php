@@ -24,7 +24,7 @@
         ],
         'attributes' => [
             "id" => ['type' => BaseForm::INPUT_HIDDEN, 'columnOptions' => ['hidden' => true]],
-            'name' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Nombre',  'columnOptions' => ['width' => '20%']],
+            'name' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Nombre', 'columnOptions' => ['width' => '20%']],
             'start_date' => [
                 'label' => 'Fecha Inicio',
                 'type' => BaseForm::INPUT_WIDGET,
@@ -34,10 +34,7 @@
                         'autocomplete' => 'off'
                     ],
                     'language' => 'es',
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd',
-                    ]
+                    'pluginOptions' => ['autoclose' => true]
                 ],
                 'columnOptions' => ['width' => '20%']
             ],
@@ -50,10 +47,7 @@
                         'autocomplete' => 'off'
                     ],
                     'language' => 'es',
-                    'pluginOptions' => [
-                        'autoclose' => true,
-                        'format' => 'yyyy-mm-dd',
-                    ]
+                    'pluginOptions' => ['autoclose' => true]
                 ],
                 'option' => [
                     'autocomplete' => 'off'
@@ -63,10 +57,10 @@
             'del' => [
                 'type' => 'raw',
                 'label' => '',
-                'value' => function($model, $key) {
+                'value' => function ($model, $key) {
                     return
                         Html::hiddenInput('Children[' . $key . '][id]', (!empty($model['id'])) ? $model['id'] : "") .
-                        Html::a('<i class="fa fa-trash"></i> ', '#', ['title' =>  'Delete', 'onClick' => 'delRowProjectPeriod(' . $key . '); return false;', 'id' => 'project-period-del-btn']);
+                        Html::a('<i class="fa fa-trash"></i> ', '#', ['title' => 'Delete', 'onClick' => 'delRowProjectPeriod(' . $key . '); return false;', 'id' => 'project-period-del-btn']);
                 },
             ],
         ],
@@ -81,5 +75,10 @@
         ]
     ]);
     echo "    </div>\n\n";
+
+    $script = <<< JS
+        $(':input').attr("autocomplete", "off");
+    JS;
+    $this->registerJs($script);
     ?>
 

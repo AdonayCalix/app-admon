@@ -65,5 +65,10 @@
         ]
     ]);
     echo "    </div>\n\n";
+
+    $script = <<< JS
+    $(':input').attr("autocomplete", "off");
+    JS;
+    $this->registerJs($script);
     ?>
 

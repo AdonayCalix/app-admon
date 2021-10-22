@@ -41,28 +41,24 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
 
     <?= $form->field($model, 'id', ['template' => '{input}'])->textInput(['style' => 'display:none']); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'placeholder' => 'Name']) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'placeholder' => 'Nombre']) ?>
 
     <?= $form->field($model, 'alias')->textInput(['maxlength' => true, 'placeholder' => 'Alias']) ?>
 
-    <?= $form->field($model, 'frecuency')->textInput(['maxlength' => true, 'placeholder' => 'Frecuency']) ?>
+    <?= $form->field($model, 'frecuency')->textInput(['maxlength' => true, 'placeholder' => 'Frecuencia']) ?>
 
     <?= $form->field($model, 'start_date',
         [
             'inputOptions' =>
                 [
                     'autocomplete' => 'off',
-                    'placeholder' => 'Indique la fecha de inicio',
+                    'placeholder' => 'Fecha Inicio',
                 ]
         ]
     )->widget(DatePicker::class,
         [
             'language' => 'es',
-            'pluginOptions' =>
-                [
-                    'format' => 'yyyy-mm-dd',
-                    'autoclose' => true,
-                ]
+            'pluginOptions' => ['autoclose' => true]
         ]
     ); ?>
 
@@ -71,17 +67,13 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
             'inputOptions' =>
                 [
                     'autocomplete' => 'off',
-                    'placeholder' => 'Indique la fecha final',
+                    'placeholder' => 'Fecha final',
                 ]
         ]
     )->widget(DatePicker::class,
         [
             'language' => 'es',
-            'pluginOptions' =>
-                [
-                    'format' => 'yyyy-mm-dd',
-                    'autoclose' => true,
-                ]
+            'pluginOptions' => ['autoclose' => true]
         ]
     ); ?>
 
@@ -92,6 +84,10 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
             'rightAlign' => false
         ]
     ]); ?>
+
+    <?= $form->field($model, 'bank')->textInput(['maxlength' => true, 'placeholder' => 'Banco']) ?>
+
+    <?= $form->field($model, 'account_number')->textInput(['maxlength' => true, 'placeholder' => 'Número de Cuenta']) ?>
 
     <?php
     $forms = [

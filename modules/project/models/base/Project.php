@@ -20,6 +20,8 @@ use yii\db\ActiveRecord;
  * @property string $start_date
  * @property string $end_date
  * @property string $budget
+ * @property string $bank
+ * @property string $account_number
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $deleted_by
@@ -67,7 +69,7 @@ class Project extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['name', 'alias', 'start_date', 'end_date', 'budget'], 'required'],
+            [['name', 'alias', 'start_date', 'end_date', 'budget', 'bank', 'account_number'], 'required'],
             [['start_date', 'end_date', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['budget'], 'number'],
             [['created_by', 'updated_by', 'deleted_by'], 'integer'],
@@ -98,6 +100,8 @@ class Project extends ActiveRecord
             'start_date' => 'Fecha de Inicio',
             'end_date' => 'Fecha Final',
             'budget' => 'Presupuesto',
+            'bank' => 'Banco',
+            'account_number' => 'Numero de Cuenta'
         ];
     }
     
@@ -145,5 +149,18 @@ class Project extends ActiveRecord
     public static function find(): ProjectQuery
     {
        return (new ProjectQuery(get_called_class()));
+    }
+
+    /** @noinspection PhpUnusedParameterInspection */
+    public function validateDate($attribute, $params, $validator, $current)
+    {
+        $this->start_date = date('Y-m-d', strtotime(str_replace('/', '-', $this->start_date)));
+        $this->end_date = date('Y-m-d', strtotime(str_replace('/', '-', $this->end_date)));
+
+        if ($this->start_date > $this->end_date) {
+            $this->start_date = date("d/m/Y", strtotime($this->start_date));
+            $this->end_date = date("d/m/Y", strtotime($this->end_date));
+            $this->addError('fecha_inicio', 'La fecha de inicio, no puede ser despues de la fehca de finalización del proyecto');
+        }
     }
 }
