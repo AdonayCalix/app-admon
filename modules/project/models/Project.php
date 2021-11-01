@@ -22,7 +22,12 @@ class Project extends BaseProject
             [['created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['name'], 'string', 'max' => 500],
             [['alias'], 'string', 'max' => 100],
-            [['frecuency'], 'string', 'max' => 20]
+            [['frecuency'], 'string', 'max' => 20],
+            ['start_date', 'validateDates'],
+            ['start_date', 'validateDates'],
+            ['start_date', 'validateStartDateWithFirstPeriod'],
+            ['start_date', 'validateEndDateWithFirstPeriod'],
+            ['budget', 'validateBudget']
         ]);
     }
 }

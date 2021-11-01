@@ -10,7 +10,7 @@ use webvimark\modules\UserManagement\components\GhostHtml;
 use yii\helpers\ArrayHelper;
 use kartik\grid\GridView;
 
-$this->title = 'Project Period';
+$this->title = 'Periodos de Ejecucion';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

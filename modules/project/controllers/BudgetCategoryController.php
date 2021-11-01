@@ -7,6 +7,7 @@ use app\modules\project\models\BudgetCategory;
 use app\modules\project\models\BudgetCategorySearch;
 use app\controllers\base\BaseController;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * BudgetCategoryController implements the CRUD actions for BudgetCategory model.
@@ -69,7 +70,7 @@ class BudgetCategoryController extends BaseController
      * Updates an existing BudgetCategory model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
-     * @return mixed
+     * @return string|Response
      */
     public function actionUpdate($id)
     {

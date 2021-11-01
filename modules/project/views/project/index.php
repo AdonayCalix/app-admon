@@ -6,7 +6,6 @@
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 use webvimark\modules\UserManagement\components\GhostHtml;
-use yii\helpers\Html;
 use kartik\grid\GridView;
 
 $this->title = 'Proyecto';
@@ -36,13 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['attribute' => 'id', 'visible' => false],
                     [
                         'attribute' => 'name',
-                        'width' => '45%'
+                        'width' => '65%'
                     ],
                     [
                         'attribute' => 'alias',
                         'width' => '10%'
                     ],
-                    [
+                   /* [
                         'attribute' => 'start_date',
                         'label' => 'Inicio',
                         'filterType' => GridView::FILTER_DATE,
@@ -81,7 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
                         'width' => '12%',
-                    ],
+                    ],*/
                     [
                         'attribute' => 'budget',
                         'value' => function ($model) {

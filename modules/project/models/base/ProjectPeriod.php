@@ -2,6 +2,8 @@
 
 namespace app\modules\project\models\base;
 
+use app\modules\project\components\CompareDates;
+use app\modules\project\components\FormatDate;
 use app\modules\project\models\ProjectPeriodQuery;
 use mootensai\relation\RelationTrait;
 use yii\behaviors\TimestampBehavior;
@@ -30,6 +32,8 @@ use yii\db\Expression;
 class ProjectPeriod extends ActiveRecord
 {
     use RelationTrait;
+
+    public static $counter = 1;
 
     private $_rt_softdelete;
     private $_rt_softrestore;
@@ -66,7 +70,8 @@ class ProjectPeriod extends ActiveRecord
             [['name', 'start_date', 'end_date', 'project_id'], 'required'],
             [['start_date', 'end_date', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['name'], 'string', 'max' => 225]
+            [['name'], 'string', 'max' => 225],
+            ['start_date', 'validateDates']
         ];
     }
 
@@ -128,5 +133,36 @@ class ProjectPeriod extends ActiveRecord
     public static function find(): ProjectPeriodQuery
     {
         return new ProjectPeriodQuery(get_called_class());
+    }
+
+    /** @noinspection PhpUnusedParameterInspection */
+    public function validateDates($attribute, $params, $validator, $current)
+    {
+        $compareDates = (new CompareDates($this->start_date, $this->end_date, 'd/m/Y'))
+            ->changeFormat()
+            ->parseToDate();
+
+        if ($compareDates->isStartGreaterThanEnd())
+            $this->addError('start_date', "La fecha de inicio, no puede ser despues de la fehca de finalización del periodo $this->name");
+    }
+
+    public function beforeSave($insert): bool
+    {
+        $this->start_date = (new FormatDate($this->start_date, 'd/m/Y', 'Y-m-d'))
+            ->change()
+            ->asString();
+
+        $this->end_date = (new FormatDate($this->end_date, 'd/m/Y', 'Y-m-d'))
+            ->change()
+            ->asString();
+
+        return parent::beforeSave($insert);
+    }
+
+    public function afterFind()
+    {
+        $this->start_date = (new FormatDate($this->start_date, 'Y-m-d', 'd/m/Y'))->change()->asString();
+        $this->end_date = (new FormatDate($this->end_date, 'Y-m-d', 'd/m/Y'))->change()->asString();
+        parent::afterFind();
     }
 }

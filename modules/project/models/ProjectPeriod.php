@@ -19,7 +19,8 @@ class ProjectPeriod extends BaseProjectPeriod
             [['name', 'start_date', 'end_date', 'project_id'], 'required'],
             [['start_date', 'end_date', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['name'], 'string', 'max' => 225]
+            [['name'], 'string', 'max' => 225],
+            ['start_date', 'validateDates']
         ]);
     }
 	

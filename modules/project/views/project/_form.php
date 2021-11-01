@@ -36,8 +36,11 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
 
     <?php $form = ActiveForm::begin([
         'type' => ActiveForm::TYPE_HORIZONTAL,
-        'formConfig' => ['labelSpan' => 2, 'deviceSize' => BootstrapInterface::SIZE_SMALL]
+        'formConfig' => ['labelSpan' => 2, 'deviceSize' => BootstrapInterface::SIZE_SMALL],
+        'errorSummaryCssClass' => 'text-danger'
     ]); ?>
+
+    <?= $form->errorSummary($model); ?>
 
     <?= $form->field($model, 'id', ['template' => '{input}'])->textInput(['style' => 'display:none']); ?>
 

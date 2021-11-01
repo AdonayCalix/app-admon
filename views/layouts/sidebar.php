@@ -17,7 +17,7 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-item active">
-                <a class="sidebar-link" href="<?= Yii::$app->homeUrl ?>">
+                <a v-on:click="showContent" class="sidebar-link" href="<?= Yii::$app->homeUrl ?>">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Menu de Inicio</span>
                 </a>
             </li>
@@ -91,8 +91,18 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/project/project/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Sub Categorias</span>
+                <a class="sidebar-link" href="<?= Url::to(['/project/beneficiary/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Beneficarios</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                Transferencias
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/project/transfer/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Transferencias</span>
                 </a>
             </li>
 

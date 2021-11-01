@@ -5,13 +5,13 @@ use yii\widgets\DetailView;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\project\models\ProjectBudget */
+/* @var $model app\modules\project\models\Beneficiary */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Project Budget', 'url' => ['index']];
+$this->title = 'Visualizando Registro: ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Beneficiary', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="project-budget-view">
+<div class="beneficiary-view">
 
     <div class="mb-3">
         <h1 class="h3 d-inline align-middle"><?= $this->title ?></h1>
@@ -37,11 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     $gridColumn = [
                         ['attribute' => 'id', 'visible' => false],
                         'name',
-                        'amount',
-                        [
-                            'attribute' => 'project.name',
-                            'label' => 'Project',
-                        ],
                     ];
                     echo DetailView::widget([
                         'model' => $model,
@@ -49,28 +44,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]);
                     ?>
                 </div>
-            </div>
-
-            <div class="row">
-
-                <?php
-                if ($providerBudgetCategory->totalCount) {
-                    $gridColumnBudgetCategory = [
-                        ['class' => 'yii\grid\SerialColumn'],
-                        ['attribute' => 'id', 'visible' => false],
-                        'name',
-                        'identifier',
-                    ];
-                    echo Gridview::widget([
-                        'dataProvider' => $providerBudgetCategory,
-                        'pjax' => true,
-                        'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-budget-category']],
-                        'export' => false,
-                        'summary' => false,
-                        'columns' => $gridColumnBudgetCategory
-                    ]);
-                }
-                ?>
             </div>
         </div>
     </div>

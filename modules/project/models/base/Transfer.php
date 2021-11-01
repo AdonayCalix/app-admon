@@ -2,8 +2,7 @@
 
 namespace app\modules\project\models\base;
 
-use app\modules\project\components\ArraySum;
-use app\modules\project\models\ProjectBudgetQuery;
+use app\modules\project\models\TransferQuery;
 use mootensai\relation\RelationTrait;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -12,11 +11,14 @@ use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
- * This is the base model class for table "project_budget".
+ * This is the base model class for table "transfer".
  *
  * @property integer $id
- * @property string $name
+ * @property string $number
  * @property string $amount
+ * @property integer $bank_id
+ * @property string $bank_account
+ * @property integer $beneficiary_id
  * @property integer $project_id
  * @property integer $created_by
  * @property integer $updated_by
@@ -25,10 +27,10 @@ use yii\db\Expression;
  * @property string $updated_at
  * @property string $deleted_at
  *
- * @property \app\modules\project\models\BudgetCategory[] $budgetCategories
  * @property \app\modules\project\models\Project $project
+ * @property \app\modules\project\models\Beneficiary $beneficiary
  */
-class ProjectBudget extends ActiveRecord
+class Transfer extends ActiveRecord
 {
     use RelationTrait;
 
@@ -54,8 +56,8 @@ class ProjectBudget extends ActiveRecord
     public function relationNames(): array
     {
         return [
-            'budgetCategories',
-            'project'
+            'project',
+            'beneficiary'
         ];
     }
 
@@ -65,12 +67,11 @@ class ProjectBudget extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['name', 'amount', 'project_id'], 'required'],
+            [['number', 'amount', 'bank_id', 'bank_account', 'beneficiary_id', 'project_id'], 'required'],
             [['amount'], 'number'],
-            [['project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
+            [['bank_id', 'beneficiary_id', 'project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['name'], 'string', 'max' => 225],
-            ['amount', 'validateBudget']
+            [['number', 'bank_account'], 'string', 'max' => 100]
         ];
     }
 
@@ -79,7 +80,7 @@ class ProjectBudget extends ActiveRecord
      */
     public static function tableName(): string
     {
-        return 'project_budget';
+        return 'transfer';
     }
 
     /**
@@ -89,26 +90,29 @@ class ProjectBudget extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Nombre',
+            'number' => 'No. Cheque/TB',
             'amount' => 'Monto',
-            'project_id' => 'Project ID',
+            'bank_id' => 'Banco',
+            'bank_account' => 'Cuenta',
+            'beneficiary_id' => 'Beneficiario',
+            'project_id' => 'Proyecto',
         ];
     }
     
     /**
      * @return ActiveQuery
      */
-    public function getBudgetCategories(): ActiveQuery
+    public function getProject(): ActiveQuery
     {
-        return $this->hasMany(\app\modules\project\models\BudgetCategory::class, ['budget_id' => 'id']);
+        return $this->hasOne(\app\modules\project\models\Project::class, ['id' => 'project_id']);
     }
         
     /**
      * @return ActiveQuery
      */
-    public function getProject(): ActiveQuery
+    public function getBeneficiary(): ActiveQuery
     {
-        return $this->hasOne(\app\modules\project\models\Project::class, ['id' => 'project_id']);
+        return $this->hasOne(\app\modules\project\models\Beneficiary::class, ['id' => 'beneficiary_id']);
     }
     
     /**
@@ -132,25 +136,12 @@ class ProjectBudget extends ActiveRecord
         ];
     }
 
-
     /**
      * @inheritdoc
-     * @return ProjectBudgetQuery the active query used by this AR class.
+     * @return TransferQuery the active query used by this AR class.
      */
-    public static function find(): ProjectBudgetQuery
+    public static function find(): TransferQuery
     {
-        return new ProjectBudgetQuery(get_called_class());
-    }
-
-    /** @noinspection PhpUnusedParameterInspection */
-    public function validateBudget($attribute, $params, $validator, $current)
-    {
-        $othersBudgetsOfProject = self::find()
-            ->where(['project_id' => $this->project_id])
-            ->where(['<>', 'id', $this->id])
-            ->sum('amount');
-
-        if (ArraySum::make([$this->amount, $othersBudgetsOfProject]) != $this->project->budget)
-            $this->addError('amount', "La suma de los presupuestos debe ser igual al presupuesto del proyecto: {$this->project->budget}");
+        return new TransferQuery(get_called_class());
     }
 }

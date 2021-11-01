@@ -64,6 +64,7 @@ class SubCategory extends ActiveRecord
     {
         return [
             [['name', 'identifier', 'account_number', 'category_id'], 'required'],
+            [['identifier'], 'unique'],
             [['category_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['name'], 'string', 'max' => 225],

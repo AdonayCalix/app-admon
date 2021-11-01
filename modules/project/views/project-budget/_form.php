@@ -76,7 +76,12 @@ JsBlock::widget(['viewFile' => '_script', 'pos'=> View::POS_END,
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Cancelar'), Yii::$app->request->referrer , ['class'=> 'btn btn-danger']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>
+
+<?php
+$script = <<< JS
+$(':input').attr("autocomplete", "off");
+JS;
+$this->registerJs($script);
+?>

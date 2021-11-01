@@ -2,8 +2,7 @@
 
 namespace app\modules\project\models\base;
 
-use app\modules\project\components\ArraySum;
-use app\modules\project\models\ProjectBudgetQuery;
+use app\modules\project\models\BeneficiaryQuery;
 use mootensai\relation\RelationTrait;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -12,12 +11,10 @@ use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
- * This is the base model class for table "project_budget".
+ * This is the base model class for table "beneficiary".
  *
  * @property integer $id
  * @property string $name
- * @property string $amount
- * @property integer $project_id
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $deleted_by
@@ -25,10 +22,9 @@ use yii\db\Expression;
  * @property string $updated_at
  * @property string $deleted_at
  *
- * @property \app\modules\project\models\BudgetCategory[] $budgetCategories
- * @property \app\modules\project\models\Project $project
+ * @property \app\modules\project\models\Transfer[] $transfers
  */
-class ProjectBudget extends ActiveRecord
+class Beneficiary extends ActiveRecord
 {
     use RelationTrait;
 
@@ -54,8 +50,7 @@ class ProjectBudget extends ActiveRecord
     public function relationNames(): array
     {
         return [
-            'budgetCategories',
-            'project'
+            'transfers'
         ];
     }
 
@@ -65,12 +60,10 @@ class ProjectBudget extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['name', 'amount', 'project_id'], 'required'],
-            [['amount'], 'number'],
-            [['project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
+            [['name'], 'required'],
+            [['created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['name'], 'string', 'max' => 225],
-            ['amount', 'validateBudget']
+            [['name'], 'string', 'max' => 200]
         ];
     }
 
@@ -79,7 +72,7 @@ class ProjectBudget extends ActiveRecord
      */
     public static function tableName(): string
     {
-        return 'project_budget';
+        return 'beneficiary';
     }
 
     /**
@@ -89,26 +82,16 @@ class ProjectBudget extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Nombre',
-            'amount' => 'Monto',
-            'project_id' => 'Project ID',
+            'name' => 'Name',
         ];
     }
     
     /**
      * @return ActiveQuery
      */
-    public function getBudgetCategories(): ActiveQuery
+    public function getTransfers(): ActiveQuery
     {
-        return $this->hasMany(\app\modules\project\models\BudgetCategory::class, ['budget_id' => 'id']);
-    }
-        
-    /**
-     * @return ActiveQuery
-     */
-    public function getProject(): ActiveQuery
-    {
-        return $this->hasOne(\app\modules\project\models\Project::class, ['id' => 'project_id']);
+        return $this->hasMany(\app\modules\project\models\Transfer::class, ['beneficiary_id' => 'id']);
     }
     
     /**
@@ -132,25 +115,12 @@ class ProjectBudget extends ActiveRecord
         ];
     }
 
-
     /**
      * @inheritdoc
-     * @return ProjectBudgetQuery the active query used by this AR class.
+     * @return BeneficiaryQuery the active query used by this AR class.
      */
-    public static function find(): ProjectBudgetQuery
+    public static function find(): BeneficiaryQuery
     {
-        return new ProjectBudgetQuery(get_called_class());
-    }
-
-    /** @noinspection PhpUnusedParameterInspection */
-    public function validateBudget($attribute, $params, $validator, $current)
-    {
-        $othersBudgetsOfProject = self::find()
-            ->where(['project_id' => $this->project_id])
-            ->where(['<>', 'id', $this->id])
-            ->sum('amount');
-
-        if (ArraySum::make([$this->amount, $othersBudgetsOfProject]) != $this->project->budget)
-            $this->addError('amount', "La suma de los presupuestos debe ser igual al presupuesto del proyecto: {$this->project->budget}");
+        return new BeneficiaryQuery(get_called_class());
     }
 }

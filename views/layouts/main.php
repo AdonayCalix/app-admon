@@ -4,8 +4,6 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
-use app\widgets\Alert;
-use yii\bootstrap5\Breadcrumbs;
 use yii\bootstrap5\Html;
 use yii\web\View;
 
@@ -33,6 +31,8 @@ AppAsset::register($this);
 
         <?= $this->render('navbar') ?>
 
+        <div id="moose"></div>
+
         <main class="content">
             <div class="container-fluid p-0">
                 <?= $content ?>
@@ -47,6 +47,27 @@ AppAsset::register($this);
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" crossorigin="anonymous"></script>
 
+<script>
+    var loadContent = new Vue({
+        el: '#sidebar',
+        data: {
+            name: ''
+        },
+
+        methods: {
+            showContent: function (event) {
+                event.preventDefault();
+                
+                axios.get('project/project/index')
+                    .then(function (response) {
+                        document.getElementById('moose').innerHTML = response.data;
+
+                    });
+            }
+        }
+    })
+
+</script>
 <?php $this->endBody() ?>
 </body>
 </html>

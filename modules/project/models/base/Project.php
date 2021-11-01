@@ -3,8 +3,12 @@
 namespace app\modules\project\models\base;
 
 
+use app\modules\project\components\ArraySum;
+use app\modules\project\components\CompareDates;
+use app\modules\project\components\FormatDate;
 use app\modules\project\models\ProjectQuery;
 use mootensai\relation\RelationTrait;
+use phpDocumentor\Reflection\Types\This;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveQuery;
@@ -39,7 +43,8 @@ class Project extends ActiveRecord
     private $_rt_softdelete;
     private $_rt_softrestore;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->_rt_softdelete = [
             'deleted_by' => \Yii::$app->user->id,
@@ -52,9 +57,9 @@ class Project extends ActiveRecord
     }
 
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
+     */
     public function relationNames(): array
     {
         return [
@@ -75,7 +80,11 @@ class Project extends ActiveRecord
             [['created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['name'], 'string', 'max' => 500],
             [['alias'], 'string', 'max' => 100],
-            [['frecuency'], 'string', 'max' => 20]
+            [['frecuency'], 'string', 'max' => 20],
+            ['start_date', 'validateDates'],
+            ['start_date', 'validateStartDateWithFirstPeriod'],
+            ['start_date', 'validateEndDateWithFirstPeriod'],
+            ['budget', 'validateBudget']
         ];
     }
 
@@ -104,7 +113,7 @@ class Project extends ActiveRecord
             'account_number' => 'Numero de Cuenta'
         ];
     }
-    
+
     /**
      * @return ActiveQuery
      */
@@ -112,7 +121,7 @@ class Project extends ActiveRecord
     {
         return $this->hasMany(\app\modules\project\models\ProjectBudget::class, ['project_id' => 'id']);
     }
-        
+
     /**
      * @return ActiveQuery
      */
@@ -120,7 +129,7 @@ class Project extends ActiveRecord
     {
         return $this->hasMany(\app\modules\project\models\ProjectPeriod::class, ['project_id' => 'id']);
     }
-    
+
     /**
      * @inheritdoc
      * @return array mixed
@@ -148,19 +157,80 @@ class Project extends ActiveRecord
      */
     public static function find(): ProjectQuery
     {
-       return (new ProjectQuery(get_called_class()));
+        return (new ProjectQuery(get_called_class()));
     }
 
     /** @noinspection PhpUnusedParameterInspection */
-    public function validateDate($attribute, $params, $validator, $current)
+    public function validateDates($attribute, $params, $validator, $current)
     {
-        $this->start_date = date('Y-m-d', strtotime(str_replace('/', '-', $this->start_date)));
-        $this->end_date = date('Y-m-d', strtotime(str_replace('/', '-', $this->end_date)));
+        $compareDates = (new CompareDates($this->start_date, $this->end_date, 'd/m/Y'))
+            ->changeFormat()
+            ->parseToDate();
 
-        if ($this->start_date > $this->end_date) {
-            $this->start_date = date("d/m/Y", strtotime($this->start_date));
-            $this->end_date = date("d/m/Y", strtotime($this->end_date));
-            $this->addError('fecha_inicio', 'La fecha de inicio, no puede ser despues de la fehca de finalización del proyecto');
+        if ($compareDates->isStartGreaterThanEnd())
+            $this->addError('start_date', 'La fecha de inicio, no puede ser despues de la fecha de finalización del proyecto');
+    }
+
+    public function beforeSave($insert): bool
+    {
+        $this->start_date = (new FormatDate($this->start_date, 'd/m/Y', 'Y-m-d'))
+            ->change()
+            ->asString();
+
+        $this->end_date = (new FormatDate($this->end_date, 'd/m/Y', 'Y-m-d'))
+            ->change()
+            ->asString();
+
+        return parent::beforeSave($insert);
+    }
+
+    public function afterFind()
+    {
+        $this->start_date = (new FormatDate($this->start_date, 'Y-m-d', 'd/m/Y'))->change()->asString();
+        $this->end_date = (new FormatDate($this->end_date, 'Y-m-d', 'd/m/Y'))->change()->asString();
+        parent::afterFind();
+    }
+
+    /** @noinspection PhpUnusedParameterInspection */
+    public function validateStartDateWithFirstPeriod($attribute, $params, $validator, $current)
+    {
+        if (!isset($this->projectPeriods[0])) {
+            $this->addError('', 'Debe de ingresar al menos un periodo de ejecucion');
+            return false;
         }
+
+        $compareDates = (new CompareDates($this->start_date, $this->projectPeriods[0]->start_date, 'd/m/Y'))
+            ->changeFormat()
+            ->parseToDate();
+
+        if (!$compareDates->areDateEquals())
+            $this->addError('start_date', 'La fecha de inicio debe ser la misma que la fecha de inicio de los periodos agregados');
+    }
+
+    /** @noinspection PhpUnusedParameterInspection */
+    public function validateEndDateWithFirstPeriod($attribute, $params, $validator, $current)
+    {
+        $total_periods = count($this->projectPeriods);
+
+        if ($total_periods <= 0) {
+            $this->addError('', 'Debe de ingresar al menos un periodo de ejecucion');
+            return false;
+        }
+
+        $compareDates = (new CompareDates($this->end_date, $this->projectPeriods[$total_periods - 1]->end_date, 'd/m/Y'))
+            ->changeFormat()
+            ->parseToDate();
+
+        if (!$compareDates->areDateEquals())
+            $this->addError('end_date', 'La fecha de finalizacion debe ser la misma que la fecha de finalizacion de los periodos agregados');
+    }
+
+    /** @noinspection PhpUnusedParameterInspection */
+    public function validateBudget($attribute, $params, $validator, $current)
+    {
+        $budgets = array_column($this->projectBudgets, 'amount');
+
+        if (ArraySum::make($budgets) != $this->budget)
+            $this->addError('budget', 'La suma de los presupuestos debe ser igual al presupuesto del proyecto');
     }
 }

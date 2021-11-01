@@ -20,7 +20,8 @@ class ProjectBudget extends BaseProjectBudget
             [['amount'], 'number'],
             [['project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['name'], 'string', 'max' => 225]
+            [['name'], 'string', 'max' => 225],
+            ['amount', 'validateBudget']
         ]);
     }
 	

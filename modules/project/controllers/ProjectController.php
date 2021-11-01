@@ -2,6 +2,7 @@
 
 namespace app\modules\project\controllers;
 
+use app\modules\project\components\FormatDate;
 use Yii;
 use app\modules\project\models\Project;
 use app\modules\project\models\ProjectSearch;
@@ -64,7 +65,7 @@ class ProjectController extends BaseController
     {
         $model = new Project();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->renderIsAjax('create', [
@@ -84,7 +85,7 @@ class ProjectController extends BaseController
     {
         $model = $this->findModel($id);
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+        if ($model->loadAll(Yii::$app->request->post()) && $model->validate() && $model->saveAll()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
