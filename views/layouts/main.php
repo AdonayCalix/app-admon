@@ -45,6 +45,7 @@ AppAsset::register($this);
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src='https://unpkg.com/v-calendar'></script>
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" crossorigin="anonymous"></script>
 
 <script>
