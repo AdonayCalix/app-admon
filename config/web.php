@@ -83,6 +83,9 @@ $config = [
         'project' => [
             'class' => 'app\modules\project\Project',
         ],
+        'qb' => [
+            'class' => 'app\modules\qb\Qb',
+        ],
     ],
     'params' => $params,
 ];
