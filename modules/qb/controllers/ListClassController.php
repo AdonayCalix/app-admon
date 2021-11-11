@@ -1,28 +1,28 @@
 <?php
 
-namespace app\modules\project\controllers;
+namespace app\modules\qb\controllers;
 
+use app\modules\qb\components\HierarchyClassList;
 use Yii;
-use app\modules\project\models\Transfer;
-use app\modules\project\models\TransferSearch;
+use app\modules\qb\models\ListClass;
+use app\modules\qb\models\ListClassSearch;
 use app\controllers\base\BaseController;
 use yii\db\Exception;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
- * TransferController implements the CRUD actions for Transfer model.
+ * ListClassController implements the CRUD actions for ListClass model.
  */
-class TransferController extends BaseController
+class ListClassController extends BaseController
 {
-
     /**
-     * Lists all Transfer models.
+     * Lists all ListClass models.
      * @return string
      */
     public function actionIndex(): string
     {
-        $searchModel = new TransferSearch();
+        $searchModel = new ListClassSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -32,7 +32,7 @@ class TransferController extends BaseController
     }
 
     /**
-     * Displays a single Transfer model.
+     * Displays a single ListClass model.
      * @param integer $id
      * @return string
      * @throws NotFoundHttpException
@@ -46,19 +46,19 @@ class TransferController extends BaseController
     }
 
     /**
-     * Creates a new Transfer model.
+     * Creates a new ListClass model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
-     * @throws Exception
      */
     public function actionCreate()
     {
 
-        $model = new Transfer();
+        $model = new ListClass();
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['create']);
         } else {
+
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -66,7 +66,7 @@ class TransferController extends BaseController
     }
 
     /**
-     * Updates an existing Transfer model.
+     * Updates an existing ListClass model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return Response|string
@@ -87,7 +87,7 @@ class TransferController extends BaseController
     }
 
     /**
-     * Deletes an existing Transfer model.
+     * Deletes an existing ListClass model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return Response
@@ -101,17 +101,22 @@ class TransferController extends BaseController
         return $this->redirect(['index']);
     }
 
-    
+    public function actionGetAll()
+    {
+        return json_encode((new HierarchyClassList())->setMainClasses()->setOptions()->get());
+    }
+
+
     /**
-     * Finds the Transfer model based on its primary key value.
+     * Finds the ListClass model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Transfer the loaded model
+     * @return ListClass the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id): Transfer
+    protected function findModel($id): ListClass
     {
-        if (($model = Transfer::findOne($id)) !== null) {
+        if (($model = ListClass::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

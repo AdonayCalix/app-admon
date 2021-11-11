@@ -101,6 +101,12 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/qb/list-class/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Clases</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/qb/chart-account/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Cuentas</span>
                 </a>
@@ -109,12 +115,6 @@ use yii\helpers\Url;
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/qb/chart-account/import']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Importar Cuentas</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/qb/class/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Clases</span>
                 </a>
             </li>
 

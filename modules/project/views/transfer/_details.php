@@ -38,12 +38,11 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                             </div>
                             <div class="col-md-4">
                                 <label for="">Beneficiario</label>
-                                <input class="form-control" type="text" v-model="detail.beneficiary" name="benefiary[]"
-                                       placeholder="Beneficiario">
+                                <treeselect v-model="detail.beneficiary" :multiple="false" placeholder="[SELECCIONE]" name="beneficiary[]" :options="options" />
                             </div>
                             <div class="col-md-4">
                                 <label for="">Tipo de Moviemiento</label>
-                                <input class="form-control" type="text" v-model="detail.kind" name="kind[]" placeholder="Tipo">
+                                <treeselect v-model="detail.kind" :multiple="false" placeholder="[SELECCIONE]" name="kind[]" :options="kindOptions" />
                             </div>
                         </div>
 
@@ -63,16 +62,18 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col" width="33%">Presupuesto/POA</th>
-                                    <th scope="col" width="33%">Partida</th>
-                                    <th scope="col" width="33%">Monto</th>
+                                    <th scope="col" width="25%">Actividad</th>
+                                    <th scope="col" width="25%">Clase</th>
+                                    <th scope="col" width="25%">Cuenta</th>
+                                    <th scope="col" width="25%">Monto</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="(sub_detail, indexSubDetail) in detail.sub_details">
                                     <th scope="row">{{ indexSubDetail + 1 }}</th>
-                                    <td> <input type="text" class="form-control" v-model="sub_detail.budget"></td>
-                                    <td><input type="text" class="form-control" v-model="sub_detail.category"></td>
+                                    <td><treeselect v-model="sub_detail.activity" :multiple="false" placeholder="[SELECCIONE]" :options="options" /></td>
+                                    <td><treeselect v-model="sub_detail.class" :multiple="false" placeholder="[SELECCIONE]" :options="options" /></td>
+                                    <td><treeselect v-model="sub_detail.account" :multiple="false" placeholder="[SELECCIONE]" :options="options" /></td>
                                     <td><input type="number" class="form-control" v-model="sub_detail.amount"></td>
                                     <td> <a v-on:click="deleteSubItem(indexSubDetail, index)"><i class="btn btn-danger">Eliminar</a></td>
                                 </tr>

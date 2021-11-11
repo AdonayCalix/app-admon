@@ -16,15 +16,12 @@ use yii\web\AssetBundle;
  * @since 2.0
  */
 
-class VueSelectAsset extends AssetBundle
+class DatePickerAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 
-    public $css = [
-        '//cdn.jsdelivr.net/npm/@riophae/vue-treeselect@^0.4.0/dist/vue-treeselect.min.css',
-    ];
     public $js = [
-        '//cdn.jsdelivr.net/npm/@riophae/vue-treeselect@^0.4.0/dist/vue-treeselect.umd.min.js'
+        '//unpkg.com/vuejs-datepicker'
     ];
 }

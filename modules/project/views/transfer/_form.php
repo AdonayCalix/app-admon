@@ -1,5 +1,6 @@
 <?php
 
+use app\assets\DatePickerAsset;
 use app\assets\VueSelectAsset;
 use kartik\number\NumberControl;
 use kartik\form\ActiveForm;
@@ -9,6 +10,8 @@ use kartik\form\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 
 VueSelectAsset::register($this);
+DatePickerAsset::register($this);
+
 ?>
 
 <div class="transfer-form">
@@ -34,6 +37,8 @@ VueSelectAsset::register($this);
     </div>
 
     <?= Yii::$app->controller->renderPartial('_details'); ?>
+
+    <button type="submit">Veamos</button>
 
     <?php ActiveForm::end(); ?>
 
