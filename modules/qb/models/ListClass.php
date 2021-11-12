@@ -17,6 +17,7 @@ class ListClass extends BaseListClass
         return array_replace_recursive(parent::rules(),
 	    [
             [['name'], 'required'],
+            [['name'], 'unique'],
             [['created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['name', 'identifier'], 'string', 'max' => 255],
@@ -46,8 +47,8 @@ class ListClass extends BaseListClass
 
     public function beforeSave($insert): bool
     {
-        $this->identifier = "{$this->sub_class}:{$this->name}";
-        $this->is_parent = isset($this->is_parent) ? 'N' : 'Y';
+        $this->identifier = $this->sub_class === null ? $this->name : $this->sub_class . ':' . $this->name;
+        $this->is_parent = isset($_POST['ListClass']['is_parent']) ? 'N' : 'Y';
 
         return parent::beforeSave($insert);
     }

@@ -2,9 +2,7 @@
 
 use app\assets\VueSelectAsset;
 use kartik\base\BootstrapInterface;
-use kartik\select2\Select2;
 use mootensai\components\JsBlock;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use kartik\form\ActiveForm;
 use yii\web\View;
@@ -27,7 +25,8 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
 
     <?= $form->errorSummary($model); ?>
 
-    <input type="hidden" id="identifier" value="<?= $model->isNewRecord ? -1 : $model->identifier ?>">
+    <input type="hidden" id="identifier" value="<?= $model->isNewRecord ? -1 : $model->sub_class ?>">
+    <input type="hidden" id="kind_class" value="<?= $model->is_parent ?>">
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'placeholder' => 'Nombre']) ?>
 

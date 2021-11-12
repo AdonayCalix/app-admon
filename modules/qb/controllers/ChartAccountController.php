@@ -2,6 +2,7 @@
 
 namespace app\modules\qb\controllers;
 
+use app\modules\qb\components\HierachyChartAccountList;
 use app\modules\qb\components\LoadAccounts;
 use app\modules\qb\models\ImportForm;
 use Yii;
@@ -60,7 +61,7 @@ class ChartAccountController extends BaseController
         $model = new ChartAccount();
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['create']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -120,6 +121,16 @@ class ChartAccountController extends BaseController
         }
 
         return $this->render('_import', ['model' => $model]);
+    }
+
+    public function actionGetAll()
+    {
+        return json_encode((new HierachyChartAccountList())->setmainAccount()->setOptions()->get());
+    }
+
+    public function actionGetArray(): string
+    {
+        return '<pre>' . print_r((new HierachyChartAccountList())->setmainAccount()->setOptions()->get(), true) . '</pre>';
     }
     
     /**

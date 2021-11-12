@@ -106,7 +106,6 @@ class ListClassController extends BaseController
         return json_encode((new HierarchyClassList())->setMainClasses()->setOptions()->get());
     }
 
-
     /**
      * Finds the ListClass model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

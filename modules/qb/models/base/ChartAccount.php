@@ -4,7 +4,6 @@ namespace app\modules\qb\models\base;
 
 use app\modules\qb\models\ChartAccountQuery;
 use mootensai\relation\RelationTrait;
-use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\db\ActiveRecord;
@@ -17,6 +16,9 @@ use yii\db\Expression;
  * @property string $account_number
  * @property string $name
  * @property string $description
+ * @property string $sub_account
+ * @property string $is_parent
+ * @property string $identifier
  * @property string $type
  * @property string $currency
  * @property integer $created_by
@@ -52,10 +54,11 @@ class ChartAccount extends ActiveRecord
     {
         return [
             [['account_number', 'name', 'description', 'type', 'currency'], 'required'],
+            [['account_number'], 'unique'],
             [['created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'update_at', 'deleted_at'], 'safe'],
             [['account_number'], 'string', 'max' => 20],
-            [['name', 'description'], 'string', 'max' => 500],
+            [['name', 'description', 'sub_account'], 'string', 'max' => 500],
             [['type'], 'string', 'max' => 100],
             [['currency'], 'string', 'max' => 10]
         ];

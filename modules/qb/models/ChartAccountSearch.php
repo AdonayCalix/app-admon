@@ -10,7 +10,7 @@ use app\modules\qb\models\ChartAccount;
 /**
  * app\modules\qb\models\ChartAccountSearch represents the model behind the search form about `app\modules\qb\models\ChartAccount`.
  */
- class ChartAccountSearch extends ChartAccount
+class ChartAccountSearch extends ChartAccount
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ use app\modules\qb\models\ChartAccount;
     {
         return [
             [['id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['account_number', 'name', 'description', 'type', 'currency', 'created_at', 'update_at', 'deleted_at'], 'safe'],
+            [['account_number', 'name', 'description', 'sub_account', 'type', 'currency', 'created_at', 'update_at', 'deleted_at'], 'safe'],
         ];
     }
 
@@ -46,7 +46,7 @@ use app\modules\qb\models\ChartAccount;
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 10
+                'pageSize' => 20
             ]
         ]);
 
@@ -63,6 +63,9 @@ use app\modules\qb\models\ChartAccount;
         $query->andFilterWhere(['like', 'account_number', $this->account_number])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like', 'sub_account', $this->sub_account])
+            ->andFilterWhere(['like', 'is_parent', $this->is_parent])
+            ->andFilterWhere(['like', 'identifier', $this->identifier])
             ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'currency', $this->currency]);
 

@@ -21,13 +21,18 @@
                     console.log(error);
                 }
             },
-            async getSubClass() {
-               let identifier = document.getElementById('identifier').value;
-                this.subClass = identifier == -1 ? null : identifier;
+            async initSettings() {
+                let identifier = document.getElementById('identifier').value;
+                let kind_class = document.getElementById('kind_class').value;
+
+                this.disabled = kind_class === 'Y';
+                this.checked = kind_class === 'Y' ? 'no' : 'yes'
+                this.subClass = kind_class === 'Y' ? null : identifier === -1 ? null : identifier;
+                console.log(this.subAccount);
             }
         },
         created() {
-            this.getSubClass();
+            this.initSettings();
             this.getData();
         }
     });
