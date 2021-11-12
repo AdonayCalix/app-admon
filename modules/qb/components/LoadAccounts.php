@@ -40,9 +40,11 @@ class LoadAccounts
                 $values = [
                     'name' => $this->excelSheet->getCell('A' . $row)->getValue(),
                     'account_number' => $this->excelSheet->getCell('B' . $row)->getValue(),
-                    'description' => $this->excelSheet->getCell('C' . $row)->getValue(),
-                    'type' => $this->excelSheet->getCell('D' . $row)->getValue(),
-                    'currency' => $this->excelSheet->getCell('E' . $row)->getValue(),
+                    'is_parent' => $this->excelSheet->getCell('C' . $row)->getValue(),
+                    'sub_account' => $this->excelSheet->getCell('D' . $row)->getValue() ?? null,
+                    'description' => $this->excelSheet->getCell('E' . $row)->getValue(),
+                    'type' => $this->excelSheet->getCell('F' . $row)->getValue(),
+                    'currency' => $this->excelSheet->getCell('G' . $row)->getValue(),
                 ];
 
                 $chartAccount = new ChartAccount;

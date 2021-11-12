@@ -64,7 +64,7 @@ class ListClass extends ActiveRecord
     public function validateSubClass($attribute, $params, $validator, $current)
     {
 
-        if (isset($this->is_parent) && $this->sub_class === null)
+        if (isset($_POST['ListClass']['is_parent']) && $this->sub_class === null)
             $this->addError('sub_class', 'Debes de indicar la sub clase a la que pertenece');
     }
 

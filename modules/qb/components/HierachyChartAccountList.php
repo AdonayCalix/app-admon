@@ -19,16 +19,16 @@ class HierachyChartAccountList
     {
         foreach ($this->mainAccount as $class) {
 
-           $classAccount = [
+            $classAccount = [
                 'id' => $class->account_number,
                 'label' => $class->name,
             ];
 
             if (ChartAccount::hasSubAccount($class->account_number))
-               $classAccount['children'] = $this->createChildrenArray($class->account_number);
+                $classAccount['children'] = $this->createChildrenArray($class->account_number);
 
 
-            $this->options[] =$classAccount;
+            $this->options[] = $classAccount;
         }
 
         return $this;
