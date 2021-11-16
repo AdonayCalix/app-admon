@@ -55,6 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => true,
+                    'condensed' => true,
                     'bsVersion' => '4.x',
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-list-class']],
                 ]); ?>

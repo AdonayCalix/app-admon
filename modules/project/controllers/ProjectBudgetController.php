@@ -2,6 +2,7 @@
 
 namespace app\modules\project\controllers;
 
+use app\modules\project\models\ProjectPeriod;
 use Yii;
 use app\modules\project\models\ProjectBudget;
 use app\modules\project\models\ProjectBudgetSearch;
@@ -104,7 +105,6 @@ class ProjectBudgetController extends BaseController
         return $this->redirect(['index']);
     }
 
-    
     /**
      * Finds the ProjectBudget model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -121,6 +121,22 @@ class ProjectBudgetController extends BaseController
         }
     }
 
+    public function actionAssignBudget($id): string
+    {
+        //echo '<pre>' . print_r($_POST, true) . '</pre>';die;
+        return $this->render('_assign', ['budget_id' => $id]);
+    }
+
+    public function actionGetAll($id)
+    {
+        return json_encode(ProjectBudget::getCategories($id));
+    }
+
+    public function actionGetPeriodsByProject($id)
+    {
+        return json_encode(ProjectPeriod::getPeriods($id));
+    }
+
     /**
      * Action to load a tabular form grid
      * for BudgetCategory
@@ -135,7 +151,7 @@ class ProjectBudgetController extends BaseController
             if (!empty($row)) {
                 $row = array_values($row);
             }
-            if((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
+            if ((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
                 $row[] = [];
             return $this->renderAjax('_formBudgetCategory', ['row' => $row]);
         } else {

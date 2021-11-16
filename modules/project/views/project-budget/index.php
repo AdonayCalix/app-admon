@@ -9,6 +9,7 @@ use app\modules\project\models\Project;
 use webvimark\modules\UserManagement\components\GhostHtml;
 use yii\helpers\ArrayHelper;
 use kartik\grid\GridView;
+use yii\helpers\Html;
 
 $this->title = 'Presupuestos/POAS';
 $this->params['breadcrumbs'][] = $this->title;
@@ -46,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'headerOptions' => ['class' => 'kartik-sheet-style'],
                         'expandOneOnly' => true,
-                        'width' => '5%'
                     ],
                     [
                         'attribute' => 'name',
@@ -71,6 +71,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'width' => '20%'
                     ],
                     [
+                        'value' => function ($model) {
+                            return Html::a('Asignamiento', ['assign-budget', 'id' => $model->id], ['class' => 'btn btn-sm btn-primary']);
+                        },
+                        'format' => 'raw',
+                        'width' => '20%'
+                    ],
+                    [
                         'class' => 'yii\grid\ActionColumn',
                     ],
                 ];
@@ -87,3 +94,12 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+<?php
+$script = <<< JS
+$("colgroup").remove()
+JS;
+$this->registerJs($script);
+?>
+
+

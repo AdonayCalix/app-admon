@@ -38,8 +38,6 @@ DatePickerAsset::register($this);
 
     <?= Yii::$app->controller->renderPartial('_details'); ?>
 
-    <button type="submit">Veamos</button>
-
     <?php ActiveForm::end(); ?>
 
 </div>

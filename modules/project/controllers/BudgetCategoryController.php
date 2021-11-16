@@ -6,6 +6,8 @@ use Yii;
 use app\modules\project\models\BudgetCategory;
 use app\modules\project\models\BudgetCategorySearch;
 use app\controllers\base\BaseController;
+use yii\data\ArrayDataProvider;
+use yii\db\Exception;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
@@ -18,9 +20,9 @@ class BudgetCategoryController extends BaseController
 
     /**
      * Lists all BudgetCategory models.
-     * @return mixed
+     * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $searchModel = new BudgetCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -34,12 +36,13 @@ class BudgetCategoryController extends BaseController
     /**
      * Displays a single BudgetCategory model.
      * @param integer $id
-     * @return mixed
+     * @return string
+     * @throws NotFoundHttpException
      */
-    public function actionView($id)
+    public function actionView($id): string
     {
         $model = $this->findModel($id);
-        $providerSubCategory = new \yii\data\ArrayDataProvider([
+        $providerSubCategory = new ArrayDataProvider([
             'allModels' => $model->subCategories,
         ]);
         return $this->render('view', [
@@ -51,7 +54,8 @@ class BudgetCategoryController extends BaseController
     /**
      * Creates a new BudgetCategory model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @return Response|string
+     * @throws Exception
      */
     public function actionCreate()
     {
@@ -71,6 +75,8 @@ class BudgetCategoryController extends BaseController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return string|Response
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -90,6 +96,8 @@ class BudgetCategoryController extends BaseController
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {
@@ -106,7 +114,7 @@ class BudgetCategoryController extends BaseController
      * @return BudgetCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($id): BudgetCategory
     {
         if (($model = BudgetCategory::findOne($id)) !== null) {
             return $model;
@@ -114,16 +122,17 @@ class BudgetCategoryController extends BaseController
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+
     /**
-    * Action to load a tabular form grid
-    * for SubCategory
-    * @author Yohanes Candrajaya <moo.tensai@gmail.com>
-    * @author Jiwantoro Ndaru <jiwanndaru@gmail.com>
-    *
-    * @return mixed
-    */
-    public function actionAddSubCategory()
+     * Action to load a tabular form grid
+     * for SubCategory
+     * @return string
+     * @throws NotFoundHttpException
+     * @author Yohanes Candrajaya <moo.tensai@gmail.com>
+     * @author Jiwantoro Ndaru <jiwanndaru@gmail.com>
+     *
+     */
+    public function actionAddSubCategory(): string
     {
         if (Yii::$app->request->isAjax) {
             $row = Yii::$app->request->post('SubCategory');
