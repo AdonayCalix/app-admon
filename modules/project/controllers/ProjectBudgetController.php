@@ -123,7 +123,6 @@ class ProjectBudgetController extends BaseController
 
     public function actionAssignBudget($id): string
     {
-        //echo '<pre>' . print_r($_POST, true) . '</pre>';die;
         return $this->render('_assign', ['budget_id' => $id]);
     }
 
