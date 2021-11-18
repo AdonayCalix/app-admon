@@ -123,8 +123,8 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/project/transfer/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Transferencias</span>
+                <a class="sidebar-link" href="<?= Url::to(['/movement/movement/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Movimientos Contables</span>
                 </a>
             </li>
 

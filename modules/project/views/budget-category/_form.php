@@ -47,13 +47,14 @@ JsBlock::widget(['viewFile' => '_script', 'pos'=> View::POS_END,
 
     <?php
     $forms = [
-        [
-            'label' => '<i class="fa fa-book"></i> ' . Html::encode('Sub Categorias'),
-            'content' => $this->render('_formSubCategory', [
-                'row' => ArrayHelper::toArray($model->subCategories),
-            ]),
-        ],
+            [
+                'label' => '<i class="fa fa-book"></i> ' . Html::encode('Sub Categorias La Vaca Lola'),
+                'content' => $this->render('_formSubCategory', [
+                    'row' => ArrayHelper::toArray($model->subCategories),
+                ]),
+            ],
     ];
+
     echo kartik\tabs\TabsX::widget([
         'items' => $forms,
         'position' => kartik\tabs\TabsX::POS_ABOVE,
@@ -64,6 +65,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos'=> View::POS_END,
             'enableCache' => false,
         ],
     ]);
+
     ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

@@ -86,6 +86,12 @@ $config = [
         'qb' => [
             'class' => 'app\modules\qb\Qb',
         ],
+        'movement' => [
+            'class' => 'app\modules\movement\Movement',
+        ],
+        'budget' => [
+            'class' => 'app\modules\budget\Budget',
+        ],
     ],
     'params' => $params,
 ];

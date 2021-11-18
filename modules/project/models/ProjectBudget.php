@@ -2,6 +2,7 @@
 
 namespace app\modules\project\models;
 
+use app\modules\budget\models\BudgetPeriod;
 use \app\modules\project\models\base\ProjectBudget as BaseProjectBudget;
 
 /**
@@ -25,7 +26,7 @@ class ProjectBudget extends BaseProjectBudget
             ]);
     }
 
-    public static function getCategories(int $id): array
+    public static function getCategories(int $id, int $period_id): array
     {
 
         $project_budget = self::findOne($id);
@@ -38,11 +39,12 @@ class ProjectBudget extends BaseProjectBudget
             ];
 
             if ($category->subCategories) {
-                $value['activities'] = array_map(function ($subCategory) {
+                $value['activities'] = array_map(function ($subCategory) use ($period_id) {
                     return [
-                        'id' => $subCategory->id,
+                        'id' => BudgetPeriod::getId($subCategory->id, $period_id),
+                        'activity_id' => $subCategory->id,
                         'name' => $subCategory->name,
-                        'amount' => 0.00,
+                        'amount' => BudgetPeriod::getAmount($subCategory->id, $period_id),
                         'used' => 0,
                         'aviable' => 0,
                         'percentage' => 0

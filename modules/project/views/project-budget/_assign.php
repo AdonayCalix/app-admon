@@ -22,13 +22,13 @@ JsBlock::widget(['viewFile' => '_scriptBudget', 'pos' => View::POS_END]);
             <div class="row">
                 <div class="col-md-4">
                     <label for=""><strong>Periodo de Ejecución</strong></label>
-                    <treeselect v-model="period" :multiple="false" name="period_id" placeholder="[SELECCIONE]"
+                    <treeselect v-model="period" @input="getData" :multiple="false" placeholder="[SELECCIONE]"
                                 :options="period_options"/>
                 </div>
 
                 <div class="col-md-4">
                     <label for=""><strong>Presupuesto/POA</strong></label>
-                    <treeselect v-model="budget_options[0].id" readonly="true" name="budget_id" :multiple="false"
+                    <treeselect v-model="budget_options[0].id" readonly="true" :multiple="false"
                                 placeholder="[SELECCIONE]" :options="budget_options"/>
                 </div>
             </div>
@@ -62,10 +62,22 @@ JsBlock::widget(['viewFile' => '_scriptBudget', 'pos' => View::POS_END]);
                                 <td width="45%">{{ activity.name }}</td>
                                 <td style="display:none;"><input type="hidden" class="form-control"
                                                                  v-bind:value="activity.id"
-                                                                 v-bind:name="category.name + '[' + indexActivity +'][id]'">
+                                                                 v-bind:name="'BudgetPeriod' + '[' + activity.activity_id + '][id]'">
+                                </td>
+                                <td style="display:none;"><input type="hidden" class="form-control"
+                                                                 v-bind:value="period"
+                                                                 v-bind:name="'BudgetPeriod' + '[' + activity.activity_id + '][period_id]'">
+                                </td>
+                                <td style="display:none;"><input type="hidden" class="form-control"
+                                                                 v-bind:value="category.id"
+                                                                 v-bind:name="'BudgetPeriod' + '[' + activity.activity_id + '][category_id]'">
+                                </td>
+                                <td style="display:none;"><input type="hidden" class="form-control"
+                                                                 v-bind:value="activity.activity_id"
+                                                                 v-bind:name="'BudgetPeriod' + '[' + activity.activity_id +'][sub_category_id]'">
                                 </td>
                                 <td><input v-model="activity.amount" type="number" class="form-control"
-                                           v-bind:name="category.name + '[' + indexActivity +'][amount]'"></td>
+                                           v-bind:name="'BudgetPeriod' + '[' + activity.activity_id + '][amount]'"></td>
                                 <td><input type="text" class="form-control" disabled></td>
                                 <td><input type="text" class="form-control" disabled></td>
                                 <td><input type="text" class="form-control" disabled></td>

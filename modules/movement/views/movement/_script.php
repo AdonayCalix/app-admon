@@ -15,7 +15,7 @@
                         activity: null,
                         class: null,
                         account: null,
-                        amount: null
+                        amount: 0
                     }
                 ]
             }],
@@ -51,7 +51,7 @@
                             activity: null,
                             class: null,
                             account: null,
-                            amount: null
+                            amount: 0
                         }
                     ]
                 });
@@ -62,7 +62,7 @@
                     budget: '',
                     category: '',
                     sub_category: '',
-                    amount: ''
+                    amount: 0
                 })
             },
             deleteSubItem: function (indexSubDetail, index) {

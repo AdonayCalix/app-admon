@@ -16,15 +16,15 @@
                     label: document.getElementById('budget_name').value
                 });
             },
-            async getPeriods() {
+            async getData() {
                 try {
-                    let response = await fetch("get-all?id=" + this.budget_options[0].id);
+                    let response = await fetch("get-all?id=" + this.budget_options[0].id + "&period_id=" + this.period);
                     this.categories = await response.json();
                 } catch (error) {
                     console.log(error);
                 }
             },
-            async getData() {
+            async getPeriods() {
                 try {
                     let response = await fetch("get-periods-by-project?id=" + this.budget_options[0].id);
                     this.period_options = await response.json();
@@ -51,7 +51,6 @@
         created() {
             this.initSettings();
             this.getPeriods();
-            this.getData();
         }
     });
 </script>
