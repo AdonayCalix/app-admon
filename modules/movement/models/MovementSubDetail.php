@@ -24,5 +24,25 @@ class MovementSubDetail extends BaseMovementSubDetail
             [['chart_account_id', 'class_id'], 'string', 'max' => 100]
         ]);
     }
-	
+
+    public function store(array $sub_detail, int $detail_id)
+    {
+        $movementSubDetail = self::findOne($sub_detail['id']) ?? new self;
+        $movementSubDetail->load($sub_detail, '');
+        $movementSubDetail->detail_id = $detail_id;
+
+        if ($movementSubDetail->validate())
+            $movementSubDetail->save(false);
+    }
+
+    public function beforeSave($insert): bool
+    {
+
+        $this->sub_category_id = explode('.', $this->sub_category_id)[0] ?? null;
+        $this->category_id = self::findOne($this->sub_category_id)->category_id ?? null;
+
+        return parent::beforeSave($insert);
+    }
+
+
 }

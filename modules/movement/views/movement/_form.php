@@ -1,6 +1,7 @@
 <?php
 
 use app\assets\DatePickerAsset;
+use app\assets\SweetAlertAsset;
 use app\assets\VueSelectAsset;
 use kartik\number\NumberControl;
 use kartik\form\ActiveForm;
@@ -11,6 +12,7 @@ use kartik\form\ActiveForm;
 
 VueSelectAsset::register($this);
 DatePickerAsset::register($this);
+SweetAlertAsset::register($this);
 
 ?>
 
@@ -40,6 +42,10 @@ DatePickerAsset::register($this);
     </div>
 
     <?= Yii::$app->controller->renderPartial('_movement'); ?>
+
+    <button type="submit" class="btn btn-success">
+        Enviar
+    </button>
 
     <?php ActiveForm::end(); ?>
 

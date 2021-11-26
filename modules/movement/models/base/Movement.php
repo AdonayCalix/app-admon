@@ -90,11 +90,11 @@ class Movement extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'number' => 'Number',
-            'amount' => 'Amount',
-            'bank_id' => 'Bank ID',
-            'bank_account' => 'Bank Account',
-            'project_id' => 'Project ID',
+            'number' => 'Número TB/Cheque',
+            'amount' => 'Monto',
+            'bank_id' => 'Banco ID',
+            'bank_account' => 'Cuenta de Banco',
+            'project_id' => 'Proyecto ID',
         ];
     }
     

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-4">
         <label for=""><strong>Fecha</strong></label>
-        <input class="form-control" type="date" v-model="detail.date" name="date[]" placeholder="Fecha">
+        <input class="form-control" type="text" v-model="detail.date" @input="checkIfDateIsValid" name="date[]" placeholder="Fecha">
     </div>
     <div class="col-md-4">
         <label for=""><strong>Beneficiario</strong></label>

@@ -33,5 +33,14 @@ class ProjectPeriod extends BaseProjectPeriod
             ['start_date', 'validateDates']
         ]);
     }
-	
+
+    public static function getPeriodByDate(string $date, int $projectId): int
+    {
+        $row = self::find()
+            ->where(['project_id' => $projectId])
+            ->andWhere(['<=', 'start_date', $date])
+            ->andWhere(['>=', 'end_date', $date]);
+
+        return $row->one()->id ?? 0;
+    }
 }

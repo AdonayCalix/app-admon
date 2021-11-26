@@ -2,14 +2,18 @@
 
 namespace app\modules\movement\controllers;
 
+use app\modules\movement\components\CheckIfDateIsOutPeriod;
 use app\modules\project\components\HierachyActivityList;
+use app\modules\project\models\ProjectPeriod;
 use app\modules\qb\components\HierachyChartAccountList;
 use app\modules\qb\components\HierarchyClassList;
 use Yii;
 use app\modules\movement\models\Movement;
 use app\modules\movement\models\MovementSearch;
 use app\controllers\base\BaseController;
+use yii\db\Exception;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 /**
  * MovementController implements the CRUD actions for Movement model.
@@ -53,13 +57,14 @@ class MovementController extends BaseController
     /**
      * Creates a new Movement model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @return Response|string
+     * @throws Exception
      */
     public function actionCreate()
     {
         $model = new Movement();
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+        if ($model->load(Yii::$app->request->post()) && $model->store($_POST['Movement'])) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -72,7 +77,9 @@ class MovementController extends BaseController
      * Updates an existing Movement model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
-     * @return mixed
+     * @return Response|string
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -91,7 +98,9 @@ class MovementController extends BaseController
      * Deletes an existing Movement model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     * @return mixed
+     * @return Response
+     * @throws NotFoundHttpException
+     * @throws Exception
      */
     public function actionDelete($id)
     {
@@ -130,5 +139,17 @@ class MovementController extends BaseController
     public function actionGetAllActivities($project_id)
     {
         return json_encode((new HierachyActivityList($project_id))->setBudgets()->setOptions()->get());
+    }
+
+    public function actionValidateDate($date, $projectId)
+    {
+        $result = [
+            'isValid' => (new CheckIfDateIsOutPeriod($date, $projectId))
+                ->setPeriodSuchCurrentDate()
+                ->setPeriodSuchDate()
+                ->result()
+        ];
+
+        return json_encode($result);
     }
 }
