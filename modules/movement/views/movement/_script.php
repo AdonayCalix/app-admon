@@ -4,6 +4,7 @@
     var movement = new Vue({
         el: '#details',
         data: {
+            errors: null,
             details: [{
                 id: null,
                 date: null,
@@ -40,6 +41,19 @@
             options: []
         },
         methods: {
+            store() {
+                this.errors = null;
+
+                $.ajax({
+                    url: 'store',
+                    method: 'POST',
+                    data: $("#w0").serializeArray()
+                }).done(data => {
+
+                }).fail(data => {
+                    this.errors = $.parseJSON(data.responseText)
+                })
+            },
             addDetail: function (event) {
                 event.preventDefault();
                 this.details.push({

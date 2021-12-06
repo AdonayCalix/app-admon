@@ -3,6 +3,7 @@
 namespace app\modules\movement\models\base;
 
 use app\modules\movement\models\MovementQuery;
+use app\modules\project\components\CompareDates;
 use app\modules\project\models\Project;
 use mootensai\relation\RelationTrait;
 use yii\behaviors\TimestampBehavior;
@@ -37,7 +38,8 @@ class Movement extends ActiveRecord
     private $_rt_softdelete;
     private $_rt_softrestore;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->_rt_softdelete = [
             'deleted_by' => \Yii::$app->user->id,
@@ -50,9 +52,9 @@ class Movement extends ActiveRecord
     }
 
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
+     */
     public function relationNames(): array
     {
         return [
@@ -67,11 +69,13 @@ class Movement extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['number', 'amount', 'bank_id', 'bank_account', 'project_id'], 'required'],
+            [['number', 'amount', 'project_id'], 'required'],
             [['amount'], 'number'],
             [['bank_id', 'project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['number', 'bank_account'], 'string', 'max' => 100]
+            [['number', 'bank_account'], 'string', 'max' => 100],
+            ['number', 'validateIfExitsMovements'],
+            ['number', 'validateKindMovement']
         ];
     }
 
@@ -97,7 +101,7 @@ class Movement extends ActiveRecord
             'project_id' => 'Proyecto ID',
         ];
     }
-    
+
     /**
      * @return ActiveQuery
      */
@@ -105,7 +109,7 @@ class Movement extends ActiveRecord
     {
         return $this->hasOne(Project::class, ['id' => 'project_id']);
     }
-        
+
     /**
      * @return ActiveQuery
      */
@@ -113,7 +117,7 @@ class Movement extends ActiveRecord
     {
         return $this->hasMany(\app\modules\movement\models\MovementDetail::class, ['transfer_id' => 'id']);
     }
-    
+
     /**
      * @inheritdoc
      * @return array mixed
@@ -135,7 +139,6 @@ class Movement extends ActiveRecord
         ];
     }
 
-
     /**
      * @inheritdoc
      * @return MovementQuery the active query used by this AR class.
@@ -144,4 +147,30 @@ class Movement extends ActiveRecord
     {
         return new MovementQuery(get_called_class());
     }
+
+    public function validateIfExitsMovements($attribute, $params, $validator, $current)
+    {
+        $movementDetails = $_POST['Movement']['MovementDetails'] ?? [];
+
+        if (empty($movementDetails)) {
+            $this->addError('', 'Debes de agregar moviemientos');
+        }
+    }
+
+    public function validateKindMovement($attribute, $params, $validator, $current)
+    {
+        $movementDetails = $_POST['Movement']['MovementDetails'] ?? [];
+        $details_kind = array_column($movementDetails, 'kind');
+        $counts = array_count_values($details_kind);
+        $quantity_egresos = $counts['Egreso'] ?? 0;
+
+        if ($quantity_egresos === 0) {
+            $this->addError('', 'Debes de incluir un movimiento de tipo egreso');
+        }
+
+        if ($quantity_egresos > 1) {
+            $this->addError('', 'Solo se puede agregar un movimiento de tipo de egreso');
+        }
+    }
+
 }

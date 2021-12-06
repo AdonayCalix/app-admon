@@ -20,7 +20,7 @@ class SubCategory extends BaseSubCategory
             [['identifier'], 'unique'],
             [['category_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['name'], 'string', 'max' => 225],
+            [['name', 'module', 'intervention'], 'string', 'max' => 225],
             [['identifier'], 'string', 'max' => 100],
             [['account_number'], 'string', 'max' => 10]
         ]);

@@ -31,8 +31,6 @@ AppAsset::register($this);
 
         <?= $this->render('navbar') ?>
 
-        <div id="moose"></div>
-
         <main class="content">
             <div class="container-fluid p-0">
                 <?= $content ?>

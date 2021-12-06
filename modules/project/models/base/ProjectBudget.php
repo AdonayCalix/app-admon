@@ -150,7 +150,7 @@ class ProjectBudget extends ActiveRecord
             ->where(['<>', 'id', $this->id])
             ->sum('amount');
 
-        if (ArraySum::make([$this->amount, $othersBudgetsOfProject]) != $this->project->budget)
-            $this->addError('amount', "La suma de los presupuestos debe ser igual al presupuesto del proyecto: {$this->project->budget}");
+        /*if (ArraySum::make([$this->amount, $othersBudgetsOfProject]) != $this->project->budget)
+            $this->addError('amount', "La suma de los presupuestos debe ser igual al presupuesto del proyecto: {$this->project->budget}");*/
     }
 }

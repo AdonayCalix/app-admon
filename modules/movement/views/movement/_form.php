@@ -5,6 +5,8 @@ use app\assets\SweetAlertAsset;
 use app\assets\VueSelectAsset;
 use kartik\number\NumberControl;
 use kartik\form\ActiveForm;
+use mootensai\components\JsBlock;
+use yii\web\View;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\project\models\Transfer */
@@ -14,16 +16,31 @@ VueSelectAsset::register($this);
 DatePickerAsset::register($this);
 SweetAlertAsset::register($this);
 
+$model->project_id = 3;
+$model->number = 'TB2043';
+$model->amount = 10000;
+
+JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
+
 ?>
 
-<div class="transfer-form">
+<div class="transfer-form" id="details">
 
     <?php $form = ActiveForm::begin([
         'errorSummaryCssClass' => 'text-danger'
     ]); ?>
 
+    <input type="hidden" name="Movement[id]" value="<?= $model->isNewRecord ? 0 : $model->id ?>">
+
     <div class="card">
         <div class="card-body" style="margin-bottom: -15px">
+
+            <div v:if="errors" class="text-danger">
+                <ul>
+                    <li v-for="(error, index) in errors">{{ error }}</li>
+                </ul>
+            </div>
+
             <div class="row">
                 <div class="col-sm-3">
                     <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'placeholder' => '']) ?>
@@ -37,13 +54,16 @@ SweetAlertAsset::register($this);
                         ]
                     ]); ?>
                 </div>
+                <div class="col-sm-3">
+                    <?= $form->field($model, 'project_id')->textInput(['maxlength' => true, 'placeholder' => '']) ?>
+                </div>
             </div>
         </div>
     </div>
 
     <?= Yii::$app->controller->renderPartial('_movement'); ?>
 
-    <button type="submit" class="btn btn-success">
+    <button type="submit" class="btn btn-success" v-on:click.prevent="store">
         Enviar
     </button>
 

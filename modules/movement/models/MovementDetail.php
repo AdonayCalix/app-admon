@@ -17,12 +17,13 @@ class MovementDetail extends BaseMovementDetail
     {
         return array_replace_recursive(parent::rules(),
 	    [
-            [['date', 'concept', 'beneficiary_id', 'kind', 'transfer_id'], 'required'],
-            [['date', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['date', 'concept', 'kind'], 'required'],
+            [['date', 'created_at', 'updated_at', 'deleted_at', 'id'], 'safe'],
             [['beneficiary_id', 'transfer_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['amount'], 'number'],
             [['concept'], 'string', 'max' => 500],
-            [['kind'], 'string', 'max' => 20]
+            [['kind'], 'string', 'max' => 20],
+            ['amount', 'validateSumOfAmount']
         ]);
     }
 }

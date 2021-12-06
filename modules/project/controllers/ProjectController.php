@@ -60,6 +60,7 @@ class ProjectController extends BaseController
      * Creates a new Project model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
+     * @throws Exception
      */
     public function actionCreate()
     {
@@ -85,7 +86,10 @@ class ProjectController extends BaseController
     {
         $model = $this->findModel($id);
 
+        echo '<pre>' . print_r($_POST, true) . '</pre>';die;
+
         if ($model->loadAll(Yii::$app->request->post()) && $model->validate() && $model->saveAll()) {
+            echo '<pre>' . print_r($model->getAttributesWithRelatedAsPost(), true). '</pre>';die;
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -108,7 +112,7 @@ class ProjectController extends BaseController
         return $this->redirect(['index']);
     }
 
-    
+
     /**
      * Finds the Project model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -141,34 +145,76 @@ class ProjectController extends BaseController
             if (!empty($row)) {
                 $row = array_values($row);
             }
-            if((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
+            if ((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
                 $row[] = [];
             return $this->renderAjax('_formProjectBudget', ['row' => $row]);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
+
     /**
-    * Action to load a tabular form grid
-    * for ProjectPeriod
-    * @author Yohanes Candrajaya <moo.tensai@gmail.com>
-    * @author Jiwantoro Ndaru <jiwanndaru@gmail.com>
-    *
-    * @return mixed
-    */
-    public function actionAddProjectPeriod()
+     * Action to load a tabular form grid
+     * for ProjectPeriod
+     * @return string
+     * @throws NotFoundHttpException
+     *
+     */
+    public function actionAddProjectPeriod(): string
     {
         if (Yii::$app->request->isAjax) {
             $row = Yii::$app->request->post('ProjectPeriod');
             if (!empty($row)) {
                 $row = array_values($row);
             }
-            if((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
+            if ((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
                 $row[] = [];
             return $this->renderAjax('_formProjectPeriod', ['row' => $row]);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionAddUserProject(): string
+    {
+        if (Yii::$app->request->isAjax) {
+            $row = Yii::$app->request->post('UserProject');
+            if (!empty($row)) {
+                $row = array_values($row);
+            }
+            if ((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
+                $row[] = [];
+            return $this->renderAjax('_formUserProject', ['row' => $row]);
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionAlgo()
+    {
+        $array = [
+            'Project' => [
+                'id' => 10,
+                'name' => 'Moose',
+            ],
+            'ProjectPeriod' => [
+                [
+                    'id' => 10,
+                    'name' => 'Q2'
+                ],
+                [
+                    'id' => 12,
+                    'name' => 'Q4'
+                ]
+            ]
+        ];
+
+        echo '<pre>' . print_r($array, true) . '</pre>';
+
+        $model = new Project;
+        $model->loadAll($array);
+
+        echo '<pre>' . print_r($model->projectPeriods[0]->name, true) . '</pre>';
+    }
+
 }

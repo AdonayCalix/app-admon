@@ -1,6 +1,7 @@
 <div class="form-group" id="add-sub-category">
     <?php
 
+    use kartik\builder\BaseForm;
     use kartik\grid\GridView;
     use kartik\builder\TabularForm;
     use yii\data\ArrayDataProvider;
@@ -21,9 +22,11 @@
             'type' => TabularForm::INPUT_TEXT,
         ],
         'attributes' => [
-            "id" => ['type' => TabularForm::INPUT_HIDDEN, 'columnOptions' => ['hidden' => true]],
-            'account_number' => ['type' => TabularForm::INPUT_TEXT, 'label' => 'Numero de Partida', 'columnOptions' => ['width' => '20%']],
-            'name' => ['type' => TabularForm::INPUT_TEXT, 'label' => 'Nombre'],
+            "id" => ['type' => BaseForm::INPUT_HIDDEN, 'columnOptions' => ['hidden' => true]],
+            'account_number' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Partida', 'columnOptions' => ['width' => '10%']],
+            'name' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Nombre'],
+            'module' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Modulo'],
+            'intervention' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Intervencion'],
             'del' => [
                 'type' => 'raw',
                 'label' => '',

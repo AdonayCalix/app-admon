@@ -3,6 +3,9 @@
 namespace app\modules\movement\controllers;
 
 use app\modules\movement\components\CheckIfDateIsOutPeriod;
+use app\modules\movement\components\LoadValues;
+use app\modules\movement\components\StoreMovements;
+use app\modules\movement\models\MovementDetail;
 use app\modules\project\components\HierachyActivityList;
 use app\modules\project\models\ProjectPeriod;
 use app\modules\qb\components\HierachyChartAccountList;
@@ -40,9 +43,10 @@ class MovementController extends BaseController
     /**
      * Displays a single Movement model.
      * @param integer $id
-     * @return mixed
+     * @return string
+     * @throws NotFoundHttpException
      */
-    public function actionView($id)
+    public function actionView($id): string
     {
         $model = $this->findModel($id);
         $providerMovementDetail = new \yii\data\ArrayDataProvider([
@@ -57,19 +61,32 @@ class MovementController extends BaseController
     /**
      * Creates a new Movement model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return Response|string
-     * @throws Exception
+     * @return string
      */
-    public function actionCreate()
+    public function actionCreate(): string
     {
         $model = new Movement();
 
-        if ($model->load(Yii::$app->request->post()) && $model->store($_POST['Movement'])) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function actionStore()
+    {
+        if (!Yii::$app->request->isAjax)
+            throw new \yii\web\NotFoundHttpException;
+
+        $loadValues = new LoadValues(Yii::$app->request->post());
+        $loadValues->initializeMovement()
+            ->initializeDetails();
+
+        if ($loadValues->hasErrors()) {
+            Yii::$app->response->statusCode = 422;
+            return json_encode($loadValues->getErrors());
         }
     }
 
@@ -109,7 +126,7 @@ class MovementController extends BaseController
         return $this->redirect(['index']);
     }
 
-    
+
     /**
      * Finds the Movement model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -151,5 +168,46 @@ class MovementController extends BaseController
         ];
 
         return json_encode($result);
+    }
+
+    public function actionAlgo()
+    {
+        $post = [
+            'MovementDetail' => [
+                'id' => 13,
+                'kind' => 'Egreso',
+                'amount' => 1,
+                'date' => '2021-12-22',
+                'concept' => 'No lo se Rick Buaajajajaja',
+            ],
+            'MovementSubDetails' => [
+                [
+                    'id' => null,
+                    'category_id' => 1,
+                    'sub_category_id' => 1,
+                    'class_id' => 'Moose Class 1',
+                    'chart_account_id' => 'Veamos',
+                    'amount' => 1
+                ],
+                [
+                    'id' => null,
+                    'category_id' => 1,
+                    'sub_category_id' => 1,
+                    'class_id' => 'Moose Class 2',
+                    'chart_account_id' => 'Veamos',
+                    'amount' => 1
+                ]
+            ]
+        ];
+
+        echo '<pre>' . print_r($post, true) . '</pre>';
+
+        $movementDetail = new \app\modules\movement\models\base\MovementDetail();
+        $movementDetail->loadAll($post);
+
+        foreach ($movementDetail->movementSubDetails as $value) {
+            echo 'm' . '<br>';
+        }
+
     }
 }

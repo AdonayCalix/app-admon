@@ -2,24 +2,21 @@
 
 namespace app\modules\project\models\base;
 
-use app\modules\project\models\SubCategoryQuery;
-use mootensai\relation\RelationTrait;
+use app\modules\project\models\UserProjectQuery;
+use webvimark\modules\UserManagement\models\User;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use mootensai\behaviors\UUIDBehavior;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
-use yii\db\Expression;
 
 /**
- * This is the base model class for table "sub_category".
+ * This is the base model class for table "user_project".
  *
  * @property integer $id
- * @property string $name
- * @property string $identifier
- * @property string $account_number
- * @property string $module
- * @property string $intervention
- * @property integer $category_id
+ * @property string $position
+ * @property integer $project_id
+ * @property integer $user_id
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $deleted_by
@@ -27,16 +24,18 @@ use yii\db\Expression;
  * @property string $updated_at
  * @property string $deleted_at
  *
- * @property \app\modules\project\models\BudgetCategory $category
+ * @property \app\modules\project\models\Project $project
+ * @property User $user
  */
-class SubCategory extends ActiveRecord
+class UserProject extends \yii\db\ActiveRecord
 {
-    use RelationTrait;
+    use \mootensai\relation\RelationTrait;
 
     private $_rt_softdelete;
     private $_rt_softrestore;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->_rt_softdelete = [
             'deleted_by' => \Yii::$app->user->id,
@@ -49,13 +48,14 @@ class SubCategory extends ActiveRecord
     }
 
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
+     */
     public function relationNames(): array
     {
         return [
-            'category'
+            'project',
+            'user'
         ];
     }
 
@@ -65,13 +65,10 @@ class SubCategory extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['name', 'account_number', 'category_id'], 'required'],
-            [['identifier'], 'unique'],
-            [['category_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
+            [['position', 'project_id', 'user_id'], 'required'],
+            [['project_id', 'user_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['name', 'module', 'intervention'], 'string', 'max' => 225],
-            [['identifier'], 'string', 'max' => 100],
-            [['account_number'], 'string', 'max' => 10]
+            [['position'], 'string', 'max' => 225]
         ];
     }
 
@@ -80,7 +77,7 @@ class SubCategory extends ActiveRecord
      */
     public static function tableName(): string
     {
-        return 'sub_category';
+        return 'user_project';
     }
 
     /**
@@ -90,21 +87,28 @@ class SubCategory extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Nombre',
-            'identifier' => 'Identificador',
-            'account_number' => 'Numero de partida',
-            'category_id' => 'Categoria ID',
+            'position' => 'Position',
+            'project_id' => 'Project ID',
+            'user_id' => 'User ID',
         ];
     }
-    
+
     /**
      * @return ActiveQuery
      */
-    public function getCategory(): ActiveQuery
+    public function getProject(): ActiveQuery
     {
-        return $this->hasOne(\app\modules\project\models\BudgetCategory::class, ['id' => 'category_id']);
+        return $this->hasOne(\app\modules\project\models\Project::class, ['id' => 'project_id']);
     }
-    
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUser(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
     /**
      * @inheritdoc
      * @return array mixed
@@ -116,7 +120,7 @@ class SubCategory extends ActiveRecord
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => 'updated_at',
-                'value' => new Expression('GETDATE()'),
+                'value' => new \yii\db\Expression('GETDATE()'),
             ],
             'blameable' => [
                 'class' => BlameableBehavior::class,
@@ -128,10 +132,10 @@ class SubCategory extends ActiveRecord
 
     /**
      * @inheritdoc
-     * @return SubCategoryQuery the active query used by this AR class.
+     * @return UserProjectQuery the active query used by this AR class.
      */
-    public static function find(): SubCategoryQuery
+    public static function find(): UserProjectQuery
     {
-        return new SubCategoryQuery(get_called_class());
+        return new UserProjectQuery(get_called_class());
     }
 }

@@ -85,6 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo Gridview::widget([
                         'dataProvider' => $providerProjectPeriod,
                         'pjax' => true,
+                        'bsVersion' => '4.x',
                         'summary' => false,
                         'columns' => $gridColumnProjectPeriod
                     ]); ?>

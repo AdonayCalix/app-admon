@@ -48,7 +48,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos'=> View::POS_END,
     <?php
     $forms = [
             [
-                'label' => '<i class="fa fa-book"></i> ' . Html::encode('Sub Categorias La Vaca Lola'),
+                'label' => '<i class="fa fa-book"></i> ' . Html::encode('Actividades'),
                 'content' => $this->render('_formSubCategory', [
                     'row' => ArrayHelper::toArray($model->subCategories),
                 ]),

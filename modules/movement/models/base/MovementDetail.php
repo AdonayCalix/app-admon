@@ -3,6 +3,7 @@
 namespace app\modules\movement\models\base;
 
 use app\modules\movement\models\MovementDetailQuery;
+use app\modules\project\components\ArraySum;
 use mootensai\relation\RelationTrait;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -37,7 +38,8 @@ class MovementDetail extends ActiveRecord
     private $_rt_softdelete;
     private $_rt_softrestore;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->_rt_softdelete = [
             'deleted_by' => \Yii::$app->user->id,
@@ -50,9 +52,9 @@ class MovementDetail extends ActiveRecord
     }
 
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
+     */
     public function relationNames(): array
     {
         return [
@@ -67,12 +69,13 @@ class MovementDetail extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['date', 'concept', 'beneficiary_id', 'kind', 'transfer_id'], 'required'],
-            [['date', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['date', 'concept', 'kind'], 'required'],
+            [['date', 'created_at', 'updated_at', 'deleted_at', 'id'], 'safe'],
             [['beneficiary_id', 'transfer_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['amount'], 'number'],
             [['concept'], 'string', 'max' => 500],
-            [['kind'], 'string', 'max' => 20]
+            [['kind'], 'string', 'max' => 20],
+            ['amount', 'validateSumOfAmount']
         ];
     }
 
@@ -99,7 +102,7 @@ class MovementDetail extends ActiveRecord
             'transfer_id' => 'Transfer ID',
         ];
     }
-    
+
     /**
      * @return ActiveQuery
      */
@@ -107,7 +110,7 @@ class MovementDetail extends ActiveRecord
     {
         return $this->hasOne(\app\modules\movement\models\Movement::class, ['id' => 'transfer_id']);
     }
-        
+
     /**
      * @return ActiveQuery
      */
@@ -115,7 +118,7 @@ class MovementDetail extends ActiveRecord
     {
         return $this->hasMany(\app\modules\movement\models\MovementSubDetail::class, ['detail_id' => 'id']);
     }
-    
+
     /**
      * @inheritdoc
      * @return array mixed
@@ -144,5 +147,14 @@ class MovementDetail extends ActiveRecord
     public static function find(): MovementDetailQuery
     {
         return new MovementDetailQuery(get_called_class());
+    }
+
+    public function validateSumOfAmount($attribute, $params, $validator, $current)
+    {
+        $amountOfSubDetails = ArraySum::make(array_column($this->movementSubDetails, 'amount'));
+
+        if ($amountOfSubDetails != $this->amount) {
+            $this->addError('amount', 'La suma del movimiento debe ser igual a la sumatoria de los detalles de esta');
+        }
     }
 }

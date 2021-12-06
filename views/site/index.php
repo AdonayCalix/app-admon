@@ -6,12 +6,9 @@ $this->title = 'App Admon';
 ?>
 <div class="site-index">
 
-    <div class="mb-3">
-        <h1 class="h3 d-inline align-middle">Feather</h1>
-    </div>
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Feather Icons</h3>
+            <h2 class="card-title">Feather Icons</h2>
             <h6 class="card-subtitle text-muted">Simply beautiful open source icons</h6>
         </div>
         <div class="card-body">

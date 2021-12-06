@@ -35,6 +35,8 @@ use yii\db\ActiveRecord;
  *
  * @property \app\modules\project\models\ProjectBudget[] $projectBudgets
  * @property \app\modules\project\models\ProjectPeriod[] $projectPeriods
+ * @property-read ActiveQuery $userProject
+ * @property \app\modules\project\models\UserProject[] $userProjects
  */
 class Project extends ActiveRecord
 {
@@ -64,7 +66,8 @@ class Project extends ActiveRecord
     {
         return [
             'projectBudgets',
-            'projectPeriods'
+            'projectPeriods',
+            'userProject'
         ];
     }
 
@@ -128,6 +131,14 @@ class Project extends ActiveRecord
     public function getProjectPeriods(): ActiveQuery
     {
         return $this->hasMany(\app\modules\project\models\ProjectPeriod::class, ['project_id' => 'id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUserProject(): ActiveQuery
+    {
+        return $this->hasMany(\app\modules\project\models\UserProject::class, ['project_id' => 'id']);
     }
 
     /**
@@ -230,7 +241,10 @@ class Project extends ActiveRecord
     {
         $budgets = array_column($this->projectBudgets, 'amount');
 
-        if (ArraySum::make($budgets) != $this->budget)
+           /* echo '<pre>' . print_r($budgets, true) . '</pre>';
+            echo $this->budget . '---' . ArraySum::make($budgets);die;*/
+
+        if ((float)ArraySum::make($budgets) != (float)$this->budget)
             $this->addError('budget', 'La suma de los presupuestos debe ser igual al presupuesto del proyecto');
     }
 }
