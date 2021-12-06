@@ -48,6 +48,11 @@ class LoadValues
             $movementDetail->validate();
             $this->setErrors($movementDetail->errors, 'Movimiento', $key);
 
+            foreach ($movementDetail->movementSubDetails as $subKey => $movementSubDetail) {
+                $movementSubDetail->validate();
+                $this->setErrors($movementSubDetail->errors, "Movimiento #" . ($key + 1) . ", Detalle ", $subKey);
+            }
+
             $this->movementDetails[] = [
                 'MovementDetail' => $movementDetail
             ];

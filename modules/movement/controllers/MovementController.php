@@ -5,6 +5,7 @@ namespace app\modules\movement\controllers;
 use app\modules\movement\components\CheckIfDateIsOutPeriod;
 use app\modules\movement\components\LoadValues;
 use app\modules\movement\components\StoreMovements;
+use app\modules\movement\components\StoreValues;
 use app\modules\movement\models\MovementDetail;
 use app\modules\project\components\HierachyActivityList;
 use app\modules\project\models\ProjectPeriod;
@@ -74,6 +75,7 @@ class MovementController extends BaseController
 
     /**
      * @throws NotFoundHttpException
+     * @throws Exception
      */
     public function actionStore()
     {
@@ -88,6 +90,13 @@ class MovementController extends BaseController
             Yii::$app->response->statusCode = 422;
             return json_encode($loadValues->getErrors());
         }
+
+        (new StoreValues($loadValues->getModels()))
+            ->saveMovement()
+            ->saveDetails()
+            ->getStatus();
+
+        return json_encode(['success' => true]);
     }
 
     /**

@@ -72,11 +72,11 @@ class MovementSubDetail extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['amount', 'chart_account_id'], 'required'],
+            [['amount', 'sub_category_id', 'chart_account_id', 'class_id'], 'required'],
             [['category_id', 'detail_id', 'created_by', 'deleted_by', 'updated_by'], 'integer'],
             [['amount'], 'number'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['chart_account_id', 'class_id'], 'string', 'max' => 100]
+            [['chart_account_id', 'class_id'], 'string', 'max' => 500]
         ];
     }
 
