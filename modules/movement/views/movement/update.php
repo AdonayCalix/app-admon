@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\project\models\Transfer */
 
-$this->title = 'Update Transfer: ' . ' ' . $model->id;
+$this->title = 'Actualizando Transferencia: ' . ' ' . $model->number;
 $this->params['breadcrumbs'][] = ['label' => 'Transfer', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

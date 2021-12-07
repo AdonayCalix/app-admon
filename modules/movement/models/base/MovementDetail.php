@@ -94,12 +94,12 @@ class MovementDetail extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'date' => 'Date',
-            'concept' => 'Concept',
-            'beneficiary_id' => 'Beneficiary ID',
-            'kind' => 'Kind',
-            'amount' => 'Amount',
-            'transfer_id' => 'Transfer ID',
+            'date' => 'Fecha',
+            'concept' => 'Concepto',
+            'beneficiary_id' => 'Beneficiario ID',
+            'kind' => 'Tipo',
+            'amount' => 'Monto',
+            'transfer_id' => 'Transferencia ID',
         ];
     }
 

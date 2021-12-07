@@ -76,7 +76,8 @@ class MovementSubDetail extends ActiveRecord
             [['category_id', 'detail_id', 'created_by', 'deleted_by', 'updated_by'], 'integer'],
             [['amount'], 'number'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['chart_account_id', 'class_id'], 'string', 'max' => 500]
+            [['chart_account_id', 'class_id'], 'string', 'max' => 500],
+            ['sub_category_id', 'validateSubCategory']
         ];
     }
 
@@ -96,10 +97,10 @@ class MovementSubDetail extends ActiveRecord
         return [
             'id' => 'ID',
             'category_id' => 'Category ID',
-            'sub_category_id' => 'Sub Category ID',
-            'amount' => 'Amount',
-            'chart_account_id' => 'Chart Account ID',
-            'class_id' => 'Class ID',
+            'sub_category_id' => 'Categoria',
+            'amount' => 'Monto',
+            'chart_account_id' => 'Cuenta',
+            'class_id' => 'Clase',
             'detail_id' => 'Detail ID',
         ];
     }
@@ -147,6 +148,15 @@ class MovementSubDetail extends ActiveRecord
                 'updatedByAttribute' => 'updated_by',
             ],
         ];
+    }
+
+    public function validateSubCategory($attribute, $params, $validator, $current)
+    {
+        $query = 'A-';
+
+        if (substr($this->sub_category_id, 0, strlen($query)) !== $query) {
+            $this->addError('', 'Debes de seleccionar una actividad, no un presupuesto o categoria');
+        }
     }
 
 

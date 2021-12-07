@@ -4,10 +4,12 @@ namespace app\modules\movement\controllers;
 
 use app\modules\movement\components\CheckIfDateIsOutPeriod;
 use app\modules\movement\components\LoadValues;
+use app\modules\movement\components\MovementWithDetails;
 use app\modules\movement\components\StoreMovements;
 use app\modules\movement\components\StoreValues;
 use app\modules\movement\models\MovementDetail;
 use app\modules\project\components\HierachyActivityList;
+use app\modules\project\models\Beneficiary;
 use app\modules\project\models\ProjectPeriod;
 use app\modules\qb\components\HierachyChartAccountList;
 use app\modules\qb\components\HierarchyClassList;
@@ -167,6 +169,16 @@ class MovementController extends BaseController
         return json_encode((new HierachyActivityList($project_id))->setBudgets()->setOptions()->get());
     }
 
+
+    public function actionGetAllBeneficiaries()
+    {
+        $beneficiaries = Beneficiary::find()
+            ->select(["id", "name as label"])
+            ->asArray()
+            ->all();
+        return json_encode($beneficiaries);
+    }
+
     public function actionValidateDate($date, $projectId)
     {
         $result = [
@@ -179,44 +191,8 @@ class MovementController extends BaseController
         return json_encode($result);
     }
 
-    public function actionAlgo()
+    public function actionGetMovementsWithDetails($transfer_id)
     {
-        $post = [
-            'MovementDetail' => [
-                'id' => 13,
-                'kind' => 'Egreso',
-                'amount' => 1,
-                'date' => '2021-12-22',
-                'concept' => 'No lo se Rick Buaajajajaja',
-            ],
-            'MovementSubDetails' => [
-                [
-                    'id' => null,
-                    'category_id' => 1,
-                    'sub_category_id' => 1,
-                    'class_id' => 'Moose Class 1',
-                    'chart_account_id' => 'Veamos',
-                    'amount' => 1
-                ],
-                [
-                    'id' => null,
-                    'category_id' => 1,
-                    'sub_category_id' => 1,
-                    'class_id' => 'Moose Class 2',
-                    'chart_account_id' => 'Veamos',
-                    'amount' => 1
-                ]
-            ]
-        ];
-
-        echo '<pre>' . print_r($post, true) . '</pre>';
-
-        $movementDetail = new \app\modules\movement\models\base\MovementDetail();
-        $movementDetail->loadAll($post);
-
-        foreach ($movementDetail->movementSubDetails as $value) {
-            echo 'm' . '<br>';
-        }
-
+        return json_encode((new MovementWithDetails($transfer_id))->make()->get());
     }
 }

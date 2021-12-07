@@ -35,7 +35,6 @@ class LoadValues
             $movementDetail = MovementDetail::findOne($value['id'] ?? null) ?? new MovementDetail;
             $movementDetail->loadAll([
                 'MovementDetail' => [
-                    'id' => $value['id'] ?? null,
                     'kind' => $value['kind'] ?? null,
                     'date' => $value['date'] ?? null,
                     'amount' => $value['amount'] ?? null,

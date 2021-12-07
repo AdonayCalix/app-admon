@@ -16,12 +16,7 @@ VueSelectAsset::register($this);
 DatePickerAsset::register($this);
 SweetAlertAsset::register($this);
 
-$model->project_id = 3;
-$model->number = 'TB2043';
-$model->amount = 10000;
-
 JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
-
 ?>
 
 <div class="transfer-form" id="details">
@@ -30,14 +25,14 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
         'errorSummaryCssClass' => 'text-danger'
     ]); ?>
 
-    <input type="hidden" name="Movement[id]" value="<?= $model->isNewRecord ? 0 : $model->id ?>">
+    <input type="hidden" id="movement_id" name="Movement[id]" value="<?= $model->isNewRecord ? -1 : $model->id ?>">
 
     <div class="card">
         <div class="card-body" style="margin-bottom: -15px">
 
             <div v:if="errors" class="text-danger">
                 <ul>
-                    <li v-for="(error, index) in errors">{{ error }}</li>
+                    <li v-for="(error, index) in errors"><strong>{{ error }}</strong></li>
                 </ul>
             </div>
 

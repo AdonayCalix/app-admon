@@ -14,8 +14,8 @@
                 sub_details: [
                     {
                         id: null,
-                        activity: null,
-                        class: null,
+                        sub_category_id: null,
+                        class_id: null,
                         account: null,
                         amount: 0
                     }
@@ -38,12 +38,12 @@
             class_options: [],
             account_options: [],
             activity_options: [],
+            beneficiaries_options: [],
             options: []
         },
         methods: {
             store() {
                 this.errors = null;
-
                 $.ajax({
                     url: 'store',
                     method: 'POST',
@@ -63,8 +63,9 @@
                     kind: '',
                     sub_details: [
                         {
-                            activity: null,
-                            class: null,
+                            id: null,
+                            sub_category_id: null,
+                            class_id: null,
                             account: null,
                             amount: 0
                         }
@@ -84,6 +85,19 @@
                 event.preventDefault();
                 this.details[index].sub_details.splice(indexSubDetail, 1);
             },
+            async getValues() {
+                let movement_id = document.getElementById('movement_id').value;
+                console.log(movement_id);
+
+                if (movement_id !== -1) {
+                    try {
+                        let response = await fetch("get-movements-with-details?transfer_id=" + movement_id);
+                        this.details = await response.json();
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }
+            },
             async getClassOptions() {
                 try {
                     let response = await fetch("get-all-classes");
@@ -99,12 +113,19 @@
                 } catch (error) {
                     console.log(error);
                 }
-
             },
             async getActivityOptions() {
                 try {
                     let response = await fetch("get-all-activities?project_id=" + 3);
                     this.activity_options = await response.json();
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            async getBeneficiaries() {
+                try {
+                    let response = await fetch("get-all-beneficiaries");
+                    this.beneficiaries_options = await response.json();
                 } catch (error) {
                     console.log(error);
                 }
@@ -131,9 +152,11 @@
             },
         },
         created() {
+            this.getValues();
             this.getClassOptions();
             this.getAccountOptions();
             this.getActivityOptions();
+            this.getBeneficiaries();
         }
     });
 </script>

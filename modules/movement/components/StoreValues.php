@@ -29,6 +29,7 @@ class StoreValues
         $movementDetails = $this->models['movementDetails'];
 
         foreach ($movementDetails as $movementDetail) {
+            $movementDetail['MovementDetail']->transfer_id = $this->models['movement']->id;
             $movementDetail['MovementDetail']->saveAll();
         }
         return $this;

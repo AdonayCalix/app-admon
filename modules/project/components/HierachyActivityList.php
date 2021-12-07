@@ -46,7 +46,7 @@ class HierachyActivityList
                     if ($activity->subCategories) {
                         $classActivity['children'] = array_map(function ($subActivity) {
                             return [
-                                'id' => $subActivity->id,
+                                'id' => 'A-' . $subActivity->id,
                                 'label' => $subActivity->account_number . '. ' . $subActivity->name
                             ];
                         }, $activity->subCategories);
