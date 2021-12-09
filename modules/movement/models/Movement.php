@@ -27,27 +27,6 @@ class Movement extends BaseMovement
             ]);
     }
 
-    public function store(array $movement): bool
-    {
-        $this->save(false);
-
-        foreach ($movement as $details) {
-
-            $movementDetail = MovementDetail::findOne($details['id']) ?? new MovementDetail;
-            $movementDetail->load($details, '');
-            $movementDetail->transfer_id = $this->id;
-
-            if ($movementDetail->validate() && $movementDetail->save(false)) {
-
-                foreach ($details['sub_details'] as $sub_detail) {
-                    (new MovementSubDetail)->store($sub_detail, $movementDetail->id);
-                }
-            }
-        }
-
-        return true;
-    }
-
     public function beforeSave($insert): bool
     {
         $project = Project::findOne($this->project_id);
@@ -56,5 +35,9 @@ class Movement extends BaseMovement
         return parent::beforeSave($insert);
     }
 
+    public static function get(int $id): Movement
+    {
+        return self::findOne($id);
+    }
 
 }

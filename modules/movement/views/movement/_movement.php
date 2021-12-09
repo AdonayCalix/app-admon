@@ -46,7 +46,7 @@
                         <i><strong>Detalles</strong></i>
                     </p>
 
-                    <div class="container-fluid border">
+                    <div class="conta     iner-fluid border">
                         <table class="table table-borderless table-striped table-sm">
                             <thead>
                             <tr>

@@ -15,7 +15,8 @@
         "mito/yii2-sentry": "~1.0.0",
         "kartik-v/yii2-number": "dev-master",
         "kartik-v/yii2-builder": "1.6.7",
-      "ext-json": "*"
+      "ext-json": "*",
+        "luecano/numero-a-letras": "^2.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

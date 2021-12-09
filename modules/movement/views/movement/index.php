@@ -7,8 +7,9 @@
 
 use webvimark\modules\UserManagement\components\GhostHtml;
 use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
 
-$this->title = 'Transfer';
+$this->title = 'Movimientos';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -32,23 +33,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 $gridColumn = [
                     ['class' => 'yii\grid\SerialColumn'],
                     ['attribute' => 'id', 'visible' => false],
-                    ['attribute' => 'number', 'width' => '15%'],
+                    ['attribute' => 'number', 'width' => '20%'],
                     ['attribute' => 'amount', 'width' => '20%'],
-                    ['attribute' => 'bank_id', 'width' => '25%'],
-                    ['attribute' => 'bank_account', 'width' => '25%'],
-                   /* [
+                    [
                         'attribute' => 'project_id',
-                        'label' => 'Project',
+                        'label' => 'Proyecto',
                         'value' => function ($model) {
-                            return $model->project->name;
+                            return $model->project->alias;
                         },
                         'filterType' => GridView::FILTER_SELECT2,
-                        'filter' => ArrayHelper::map(\app\modules\project\models\Project::find()->asArray()->all(), 'id', 'name'),
+                        'filter' => ArrayHelper::map(\app\modules\project\models\Project::find()->asArray()->all(), 'id', 'alias'),
                         'filterWidgetOptions' => [
                             'pluginOptions' => ['allowClear' => true],
                         ],
-                        'filterInputOptions' => ['placeholder' => 'Project', 'id' => 'grid-transfer-search-project_id']
-                    ],*/
+                        'filterInputOptions' => ['placeholder' => '', 'id' => 'grid-transfer-search-project_id']
+                    ],
+                    [
+                        'value' => function($model) {
+                            return GhostHtml::a('Generar Recibo', '#');
+                        },
+                        'format' => 'raw'
+                    ],
                     [
                         'class' => 'yii\grid\ActionColumn',
                     ],

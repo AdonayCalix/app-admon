@@ -119,12 +119,18 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-header">
-                Transferencias
+                Movimientos
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/movement/movement/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Movimientos Contables</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/movement/transfer-assignment/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Asignacion TB</span>
                 </a>
             </li>
 

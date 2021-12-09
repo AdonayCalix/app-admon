@@ -13,6 +13,7 @@ use app\modules\project\models\Beneficiary;
 use app\modules\project\models\ProjectPeriod;
 use app\modules\qb\components\HierachyChartAccountList;
 use app\modules\qb\components\HierarchyClassList;
+use Luecano\NumeroALetras\NumeroALetras;
 use Yii;
 use app\modules\movement\models\Movement;
 use app\modules\movement\models\MovementSearch;
@@ -169,7 +170,6 @@ class MovementController extends BaseController
         return json_encode((new HierachyActivityList($project_id))->setBudgets()->setOptions()->get());
     }
 
-
     public function actionGetAllBeneficiaries()
     {
         $beneficiaries = Beneficiary::find()
@@ -194,5 +194,11 @@ class MovementController extends BaseController
     public function actionGetMovementsWithDetails($transfer_id)
     {
         return json_encode((new MovementWithDetails($transfer_id))->make()->get());
+    }
+
+    public function actionAlgo()
+    {
+        $formatter = new NumeroALetras();
+        echo $formatter->toMoney(1101.43, 2, 'Lempiras', 'Centavos');
     }
 }
