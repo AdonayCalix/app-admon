@@ -4,7 +4,7 @@ use app\assets\VueSelectAsset;
 use mootensai\components\JsBlock;
 use yii\helpers\Html;
 use yii\web\View;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\movement\models\TransferAssignment */
@@ -23,7 +23,6 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <?= $form->field($model, 'id', ['template' => '{input}'])->textInput(['style' => 'display:none']); ?>
 
                     <?= $form->field($model, 'transfer_id')->widget(\kartik\widgets\Select2::class, [
                         'data' => \yii\helpers\ArrayHelper::map(\app\modules\movement\models\Movement::find()->orderBy('id')->asArray()->all(), 'id', 'number'),
@@ -31,7 +30,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                         'pluginOptions' => [
                             'allowClear' => true
                         ],
-                    ]); ?>
+                    ])->label('No TB/Cheque'); ?>
                 </div>
             </div>
 
@@ -42,9 +41,9 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col" width="20%">Beneficiario</th>
+                        <th scope="col" width="30%">Beneficiario</th>
                         <th scope="col" width="50%">Motivo</th>
-                        <th scope="col" width="30%">Monto</th>
+                        <th scope="col" width="20%">Monto</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -73,7 +72,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'v-on:click.prevent' => "store"]) ?>
+        <?= Html::submitButton('Asignar', ['class' => 'btn btn-success', 'v-on:click.prevent' => "store"]) ?>
         <?= Html::a(Yii::t('app', 'Cancelar'), Yii::$app->request->referrer, ['class' => 'btn btn-danger']) ?>
     </div>
 

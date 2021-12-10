@@ -27,7 +27,7 @@ use yii\db\ActiveQuery;
  * @property integer $updated_by
  *
  * @property \app\modules\movement\models\Movement $transfer
- * @property \app\modules\movement\models\Beneficiary $beneficiary
+ * @property Beneficiary $beneficiary
  */
 class TransferAssignment extends \yii\db\ActiveRecord
 {

@@ -10,7 +10,7 @@ use app\modules\movement\models\TransferAssignment;
 /**
  * app\modules\movement\models\TransferAssignmentSearch represents the model behind the search form about `app\modules\movement\models\TransferAssignment`.
  */
- class TransferAssignmentSearch extends TransferAssignment
+class TransferAssignmentSearch extends TransferAssignment
 {
     /**
      * @inheritdoc
@@ -42,7 +42,9 @@ use app\modules\movement\models\TransferAssignment;
      */
     public function search($params): ActiveDataProvider
     {
-        $query = TransferAssignment::find();
+        $query = TransferAssignment::find()
+            ->select(['transfer_id'])
+            ->groupBy(['transfer_id']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

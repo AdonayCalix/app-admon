@@ -1,13 +1,11 @@
 <?php
 
-namespace app\modules\movement\controllers;
+namespace app\modules\project\controllers;
 
 use app\controllers\base\BaseController;
-use app\modules\project\models\Beneficiary;
 use Yii;
-use app\modules\movement\models\TransferAssignment;
-use app\modules\movement\models\TransferAssignmentSearch;
-use yii\base\DynamicModel;
+use app\modules\project\models\Position;
+use app\modules\project\models\PositionSearch;
 use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -15,17 +13,17 @@ use yii\filters\VerbFilter;
 use yii\web\Response;
 
 /**
- * TransferAssignmentController implements the CRUD actions for TransferAssignment model.
+ * PositionController implements the CRUD actions for Position model.
  */
-class TransferAssignmentController extends BaseController
+class PositionController extends BaseController
 {
     /**
-     * Lists all TransferAssignment models.
+     * Lists all Position models.
      * @return string
      */
     public function actionIndex(): string
     {
-        $searchModel = new TransferAssignmentSearch();
+        $searchModel = new PositionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -35,7 +33,7 @@ class TransferAssignmentController extends BaseController
     }
 
     /**
-     * Displays a single TransferAssignment model.
+     * Displays a single Position model.
      * @param integer $id
      * @return string
      * @throws NotFoundHttpException
@@ -49,17 +47,17 @@ class TransferAssignmentController extends BaseController
     }
 
     /**
-     * Creates a new TransferAssignment model.
+     * Creates a new Position model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string
+     * @return string|Response
+     * @throws Exception
      */
-    public function actionCreate(): string
+    public function actionCreate()
     {
-        $model = new DynamicModel(['transfer_id']);
-        $model->addRule(['transfer_id'], 'required', ['message' => 'Debes de indicar el numero de la TB/Cheque']);
+        $model = new Position();
 
-        if ($model->load(Yii::$app->request->post())) {
-            //return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -68,7 +66,7 @@ class TransferAssignmentController extends BaseController
     }
 
     /**
-     * Updates an existing TransferAssignment model.
+     * Updates an existing Position model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return Response|string
@@ -77,11 +75,9 @@ class TransferAssignmentController extends BaseController
      */
     public function actionUpdate($id)
     {
-        $model = new DynamicModel(['transfer_id']);
-        $model->addRule(['transfer_id'], 'required', ['message' => 'Debes de indicar el numero de la TB/Cheque']);
-        $model->transfer_id = $id;
+        $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -91,11 +87,12 @@ class TransferAssignmentController extends BaseController
     }
 
     /**
-     * Deletes an existing TransferAssignment model.
+     * Deletes an existing Position model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return Response
-     * @throws NotFoundHttpException|Exception
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionDelete($id): Response
     {
@@ -104,29 +101,20 @@ class TransferAssignmentController extends BaseController
         return $this->redirect(['index']);
     }
 
-
+    
     /**
-     * Finds the TransferAssignment model based on its primary key value.
+     * Finds the Position model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return TransferAssignment the loaded model
+     * @return Position the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id): TransferAssignment
+    protected function findModel($id)
     {
-        if (($model = TransferAssignment::findOne($id)) !== null) {
+        if (($model = Position::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionGetAllBeneficiaries()
-    {
-        $beneficiaries = Beneficiary::find()
-            ->select(["id", "name as label"])
-            ->asArray()
-            ->all();
-        return json_encode($beneficiaries);
     }
 }

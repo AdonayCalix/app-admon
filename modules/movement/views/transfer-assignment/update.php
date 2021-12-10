@@ -5,9 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\movement\models\TransferAssignment */
 
-$this->title = 'Actualizando Asignacion de Transferencia' . ' ' . $model->id;
+$this->title = 'Actualizando Asignacion de Transferencia' . ' ' . $model->transfer_id;
 $this->params['breadcrumbs'][] = ['label' => 'Transfer Assignment', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->transfer_id, 'url' => ['view', 'id' => $model->transfer_id]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>
 <div class="transfer-assignment-update">

@@ -96,6 +96,12 @@ use yii\helpers\Url;
                 </a>
             </li>
 
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/project/position/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Posiciones</span>
+                </a>
+            </li>
+
             <li class="sidebar-header">
                 QuickBook
             </li>
