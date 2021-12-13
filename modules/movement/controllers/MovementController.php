@@ -3,6 +3,7 @@
 namespace app\modules\movement\controllers;
 
 use app\modules\movement\components\CheckIfDateIsOutPeriod;
+use app\modules\movement\components\vouchers\gf\VoucherDetailGlobalFund;
 use app\modules\movement\components\LoadValues;
 use app\modules\movement\components\MovementWithDetails;
 use app\modules\movement\components\StoreMovements;
@@ -200,5 +201,11 @@ class MovementController extends BaseController
     {
         $formatter = new NumeroALetras();
         echo $formatter->toMoney(1101.43, 2, 'Lempiras', 'Centavos');
+    }
+
+    public function actionHeader()
+    {
+        $algo = VoucherDetailGlobalFund::get(2009);
+        echo '<pre>' . print_r($algo, true) . '</pre>';
     }
 }
