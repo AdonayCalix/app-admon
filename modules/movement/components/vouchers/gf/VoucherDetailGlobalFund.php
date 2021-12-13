@@ -6,12 +6,8 @@ use app\modules\movement\models\MovementDetail;
 
 class VoucherDetailGlobalFund
 {
-    public static function get(int $movement_id): array
+    public static function get(MovementDetail $movement): array
     {
-        $movement = MovementDetail::findOne($movement_id);
-
-        if (!$movement) return [];
-
         $out = [];
 
         foreach ($movement->movementSubDetails as $subDetail) {

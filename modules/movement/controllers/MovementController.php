@@ -3,11 +3,13 @@
 namespace app\modules\movement\controllers;
 
 use app\modules\movement\components\CheckIfDateIsOutPeriod;
+use app\modules\movement\components\MoneyToWords;
 use app\modules\movement\components\vouchers\gf\VoucherDetailGlobalFund;
 use app\modules\movement\components\LoadValues;
 use app\modules\movement\components\MovementWithDetails;
 use app\modules\movement\components\StoreMovements;
 use app\modules\movement\components\StoreValues;
+use app\modules\movement\components\vouchers\others\VoucherDetailOtherProject;
 use app\modules\movement\models\MovementDetail;
 use app\modules\project\components\HierachyActivityList;
 use app\modules\project\models\Beneficiary;
@@ -199,13 +201,13 @@ class MovementController extends BaseController
 
     public function actionAlgo()
     {
-        $formatter = new NumeroALetras();
-        echo $formatter->toMoney(1101.43, 2, 'Lempiras', 'Centavos');
+        echo MoneyToWords::get(1101.37);
     }
 
     public function actionHeader()
     {
-        $algo = VoucherDetailGlobalFund::get(2009);
+        $movement = MovementDetail::findOne(2009);
+        $algo = VoucherDetailOtherProject::get($movement);
         echo '<pre>' . print_r($algo, true) . '</pre>';
     }
 }
