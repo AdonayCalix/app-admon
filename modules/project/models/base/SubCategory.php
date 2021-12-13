@@ -19,6 +19,7 @@ use yii\db\Expression;
  * @property string $account_number
  * @property string $module
  * @property string $intervention
+ * @property string $expense_category
  * @property integer $category_id
  * @property integer $created_by
  * @property integer $updated_by
@@ -36,7 +37,8 @@ class SubCategory extends ActiveRecord
     private $_rt_softdelete;
     private $_rt_softrestore;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->_rt_softdelete = [
             'deleted_by' => \Yii::$app->user->id,
@@ -49,9 +51,9 @@ class SubCategory extends ActiveRecord
     }
 
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
+     */
     public function relationNames(): array
     {
         return [
@@ -71,6 +73,7 @@ class SubCategory extends ActiveRecord
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['name', 'module', 'intervention'], 'string', 'max' => 225],
             [['identifier'], 'string', 'max' => 100],
+            [['expense_category'], 'string', 'max' => 250],
             [['account_number'], 'string', 'max' => 10]
         ];
     }
@@ -93,10 +96,13 @@ class SubCategory extends ActiveRecord
             'name' => 'Nombre',
             'identifier' => 'Identificador',
             'account_number' => 'Numero de partida',
+            'expense_category' => 'Categoria del Gasto',
+            'module' => 'Modulo',
+            'intervention' => 'Intervencion',
             'category_id' => 'Categoria ID',
         ];
     }
-    
+
     /**
      * @return ActiveQuery
      */
@@ -104,7 +110,7 @@ class SubCategory extends ActiveRecord
     {
         return $this->hasOne(\app\modules\project\models\BudgetCategory::class, ['id' => 'category_id']);
     }
-    
+
     /**
      * @inheritdoc
      * @return array mixed

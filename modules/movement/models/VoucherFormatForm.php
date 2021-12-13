@@ -9,6 +9,8 @@ class VoucherFormatForm extends Model
     const NOT_UPLOADED_FILE = 'No Ok';
     public $excelFile;
     public $fileName;
+    public $originalName;
+    public $path;
 
     public function rules(): array
     {
@@ -23,8 +25,10 @@ class VoucherFormatForm extends Model
         $status = false;
 
         if ($this->validate()) {
-            $this->fileName = $this->excelFile->baseName . '.' . $this->excelFile->extension;
-            $this->excelFile->saveAs('excel/voucher_format/' . $this->fileName);
+            $this->originalName = $this->excelFile->baseName;
+            $this->fileName = time().uniqid(rand()) . '.' . $this->excelFile->extension;
+            $this->path = 'excel/voucher_format/' . $this->fileName;
+            $this->excelFile->saveAs($this->path);
             $status = true;
         }
 

@@ -20,7 +20,7 @@ class VoucherFormat extends BaseVoucherFormat
                 [['is_active', 'project_id'], 'required'],
                 [['project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
                 [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-                [['path'], 'string', 'max' => 250],
+                [['path', 'original_name'], 'string', 'max' => 250],
                 [['is_active'], 'string', 'max' => 1]
             ]);
     }

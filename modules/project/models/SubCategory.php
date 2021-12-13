@@ -22,6 +22,7 @@ class SubCategory extends BaseSubCategory
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['name', 'module', 'intervention'], 'string', 'max' => 225],
             [['identifier'], 'string', 'max' => 100],
+            [['expense_category'], 'string', 'max' => 250],
             [['account_number'], 'string', 'max' => 10]
         ]);
     }

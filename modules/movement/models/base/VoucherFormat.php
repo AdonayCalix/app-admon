@@ -15,6 +15,7 @@ use yii\db\ActiveQuery;
  *
  * @property integer $id
  * @property string $path
+ * @property string $original_name
  * @property string $is_active
  * @property integer $project_id
  * @property integer $created_by
@@ -66,7 +67,7 @@ class VoucherFormat extends \yii\db\ActiveRecord
             [['is_active', 'project_id'], 'required'],
             [['project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['path'], 'string', 'max' => 250],
+            [['path', 'original_name'], 'string', 'max' => 250],
             [['is_active'], 'string', 'max' => 1]
         ];
     }
@@ -87,8 +88,9 @@ class VoucherFormat extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'path' => 'Path',
-            'is_active' => 'Is Active',
-            'project_id' => 'Project ID',
+            'original_name' => 'Nombre Original',
+            'is_active' => '¿Es Activo?',
+            'project_id' => 'Proyecto ID',
         ];
     }
 

@@ -27,37 +27,37 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?/*= Url::to(['/user-management/user/index']) */?>">
+                <a class="sidebar-link" href="<? Url::to(['/user-management/user/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Usuarios</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?/*= Yii::$app->homeUrl */?>">
+                <a class="sidebar-link" href="<? Yii::$app->homeUrl ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Perfil</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?/*= Url::to(['/user-management/user-visit-log/index']) */?>">
+                <a class="sidebar-link" href="<?= Url::to(['/user-management/user-visit-log/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Registro de Visitas</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?/*= Url::to(['/user-management/auth-item-group/index']) */?>">
+                <a class="sidebar-link" href="<?= Url::to(['/user-management/auth-item-group/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Grupo de Permisos</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?/*= Url::to(['/user-management/permission/index']) */?>">
+                <a class="sidebar-link" href="<?= Url::to(['/user-management/permission/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Permisos</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?/*= Url::to(['/user-management/role/index']) */?>">
+                <a class="sidebar-link" href="<?= Url::to(['/user-management/role/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Roles</span>
                 </a>
             </li>
@@ -145,7 +145,7 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/movement/voucher/upload-voucher-format']) ?>">
+                <a class="sidebar-link" href="<?= Url::to(['/movement/voucher-format/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Formato Voucher</span>
                 </a>
             </li>

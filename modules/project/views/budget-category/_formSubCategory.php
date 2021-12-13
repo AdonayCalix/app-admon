@@ -27,6 +27,7 @@
             'name' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Nombre'],
             'module' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Modulo'],
             'intervention' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Intervencion'],
+            'expense_category' => ['type' => BaseForm::INPUT_TEXT, 'label' => 'Categoria del Gasto'],
             'del' => [
                 'type' => 'raw',
                 'label' => '',
