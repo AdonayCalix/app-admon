@@ -13,17 +13,17 @@ class TransferAssignment extends BaseTransferAssignment
     /**
      * @inheritdoc
      */
-    public function rules():array
+    public function rules(): array
     {
         return array_replace_recursive(parent::rules(),
-	    [
-            [['transfer_id', 'beneficiary_id', 'amount', 'position'], 'required'],
-            [['transfer_id', 'beneficiary_id', 'created_by', 'deleted_by', 'updated_by'], 'integer'],
-            [['amount'], 'number'],
-            [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['position'], 'string', 'max' => 250],
-            [['reason'], 'string', 'max' => 500]
-        ]);
+            [
+                [['transfer_id', 'beneficiary_id', 'amount', 'position', 'reason'], 'required'],
+                [['transfer_id', 'beneficiary_id', 'created_by', 'deleted_by', 'updated_by'], 'integer'],
+                [['amount'], 'number'],
+                [['created_at', 'updated_at', 'deleted_at'], 'safe'],
+                [['position'], 'string', 'max' => 250],
+                [['reason'], 'string', 'max' => 500]
+            ]);
     }
-	
+
 }

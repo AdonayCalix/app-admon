@@ -3,7 +3,11 @@
 namespace app\modules\movement\controllers;
 
 use app\controllers\base\BaseController;
+use app\modules\movement\components\LoadTransferAssignment;
+use app\modules\movement\components\StoreTransferAssignment;
+use app\modules\movement\models\Movement;
 use app\modules\project\models\Beneficiary;
+use app\modules\project\models\Position;
 use Yii;
 use app\modules\movement\models\TransferAssignment;
 use app\modules\movement\models\TransferAssignmentSearch;
@@ -58,13 +62,9 @@ class TransferAssignmentController extends BaseController
         $model = new DynamicModel(['transfer_id']);
         $model->addRule(['transfer_id'], 'required', ['message' => 'Debes de indicar el numero de la TB/Cheque']);
 
-        if ($model->load(Yii::$app->request->post())) {
-            //return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
@@ -72,8 +72,6 @@ class TransferAssignmentController extends BaseController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return Response|string
-     * @throws Exception
-     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
@@ -104,6 +102,30 @@ class TransferAssignmentController extends BaseController
         return $this->redirect(['index']);
     }
 
+    /**
+     * @throws NotFoundHttpException
+     */
+    public function actionStore()
+    {
+        if (!Yii::$app->request->isAjax)
+            throw new \yii\web\NotFoundHttpException;
+
+        $loadValues = new LoadTransferAssignment(Yii::$app->request->post());
+        $loadValues
+            ->initialize()
+            ->initializeAssign();
+
+        if ($loadValues->hasErrors()) {
+            Yii::$app->response->statusCode = 422;
+            return json_encode($loadValues->getErrors());
+        }
+
+        (new StoreTransferAssignment($loadValues->getModels()))
+            ->saveAssignments()
+            ->getStatus();
+
+        return json_encode(['success' => true]);
+    }
 
     /**
      * Finds the TransferAssignment model based on its primary key value.
@@ -128,5 +150,15 @@ class TransferAssignmentController extends BaseController
             ->asArray()
             ->all();
         return json_encode($beneficiaries);
+    }
+
+    public function actionGetAllPositions()
+    {
+        return json_encode(Position::get());
+    }
+
+    public function actionGetAllTransfers()
+    {
+        return json_encode(Movement::getAll());
     }
 }

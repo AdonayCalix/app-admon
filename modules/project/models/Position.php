@@ -22,5 +22,13 @@ class Position extends BasePosition
             [['name'], 'string', 'max' => 250]
         ]);
     }
+
+    public static function get(): array
+    {
+        return  self::find()
+            ->select(["id", "name as label"])
+            ->asArray()
+            ->all();
+    }
 	
 }

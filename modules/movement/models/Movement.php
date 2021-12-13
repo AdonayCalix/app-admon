@@ -4,6 +4,7 @@ namespace app\modules\movement\models;
 
 use \app\modules\movement\models\base\Movement as BaseMovement;
 use app\modules\project\models\Project;
+use setasign\Fpdi\PdfParser\CrossReference\AbstractReader;
 
 /**
  * This is the model class for table "movement".
@@ -38,6 +39,14 @@ class Movement extends BaseMovement
     public static function get(int $id): Movement
     {
         return self::findOne($id);
+    }
+
+    public static function getAll(): array
+    {
+        return self::find()
+            ->select(["id", "number as label"])
+            ->asArray()
+            ->all();
     }
 
 }

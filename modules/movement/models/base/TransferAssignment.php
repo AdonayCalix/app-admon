@@ -66,7 +66,7 @@ class TransferAssignment extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['transfer_id', 'beneficiary_id', 'amount', 'position'], 'required'],
+            [['transfer_id', 'beneficiary_id', 'amount', 'position', 'reason'], 'required'],
             [['transfer_id', 'beneficiary_id', 'created_by', 'deleted_by', 'updated_by'], 'integer'],
             [['amount'], 'number'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],

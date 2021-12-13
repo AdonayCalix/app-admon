@@ -1,10 +1,10 @@
 <?php
 
-namespace app\modules\qb\models;
+namespace app\modules\movement\models;
 
 use yii\base\Model;
 
-class ImportForm extends Model
+class VoucherFormatForm extends Model
 {
     const NOT_UPLOADED_FILE = 'No Ok';
     public $excelFile;
@@ -24,10 +24,11 @@ class ImportForm extends Model
 
         if ($this->validate()) {
             $this->fileName = $this->excelFile->baseName . '.' . $this->excelFile->extension;
-            $this->excelFile->saveAs('uploads/' . $this->fileName);
+            $this->excelFile->saveAs('excel/voucher_format/' . $this->fileName);
             $status = true;
         }
 
         return $status;
     }
+
 }

@@ -22,7 +22,7 @@ use yii\helpers\Url;
                 </a>
             </li>
 
-           <!-- <li class="sidebar-header">
+            <li class="sidebar-header">
                 Administrador
             </li>
 
@@ -60,7 +60,7 @@ use yii\helpers\Url;
                 <a class="sidebar-link" href="<?/*= Url::to(['/user-management/role/index']) */?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Roles</span>
                 </a>
-            </li>-->
+            </li>
 
             <li class="sidebar-header">
                 Proyecto
@@ -137,6 +137,28 @@ use yii\helpers\Url;
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/movement/transfer-assignment/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Asignacion TB</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                Comprobantes
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/movement/upload_voucher_format']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Formato Voucher</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/movement/transfer-assignment/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Voucher</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/movement/transfer-assignment/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Recibos</span>
                 </a>
             </li>
 
