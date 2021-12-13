@@ -145,7 +145,7 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/movement/upload_voucher_format']) ?>">
+                <a class="sidebar-link" href="<?= Url::to(['/movement/voucher/upload-voucher-format']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Formato Voucher</span>
                 </a>
             </li>
