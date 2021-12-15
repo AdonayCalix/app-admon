@@ -85,6 +85,12 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/project/disbursed/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Desembolsos</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/project/budget-category/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Categorias</span>
                 </a>
@@ -147,6 +153,12 @@ use yii\helpers\Url;
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/movement/voucher-format/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Formato Voucher</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/movement/voucher-elements/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Asignacion Formato</span>
                 </a>
             </li>
 

@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 
+\yii\bootstrap4\BootstrapPluginAsset::register($this);
+
 /* @var $this \yii\web\View view component instance */
 /* @var $message \yii\mail\MessageInterface the message being composed */
 /* @var $content string main view render result */
@@ -11,6 +13,9 @@ use yii\helpers\Html;
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=<?= Yii::$app->charset ?>" />
     <title><?= Html::encode($this->title) ?></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
     <?php $this->head() ?>
 </head>
 <body>

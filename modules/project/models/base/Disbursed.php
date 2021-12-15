@@ -1,29 +1,23 @@
 <?php
 
-namespace app\modules\movement\models\base;
+namespace app\modules\project\models\base;
 
-use app\modules\movement\models\VoucherElementsQuery;
-use app\modules\project\models\Project;
+use app\modules\project\components\FormatDate;
+use app\modules\project\models\DisbursedQuery;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
-use mootensai\behaviors\UUIDBehavior;
 use yii\db\ActiveQuery;
 
 /**
- * This is the base model class for table "voucher_elements".
+ * This is the base model class for table "disbursed".
  *
  * @property integer $id
- * @property string $number
- * @property string $emission_date
- * @property string $beneficiary
- * @property string $concept
- * @property string $amount
- * @property string $amount_total
- * @property string $detail_body
- * @property string $header_body
- * @property string $kind_detail
+ * @property integer $period_id
  * @property integer $project_id
+ * @property string $amount
+ * @property string $date
+ * @property string $description
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $deleted_by
@@ -31,9 +25,10 @@ use yii\db\ActiveQuery;
  * @property string $updated_at
  * @property string $deleted_at
  *
- * @property Project $project
+ * @property \app\modules\project\models\Project $project
+ * @property \app\modules\project\models\ProjectPeriod $period
  */
-class VoucherElements extends \yii\db\ActiveRecord
+class Disbursed extends \yii\db\ActiveRecord
 {
     use \mootensai\relation\RelationTrait;
 
@@ -60,7 +55,8 @@ class VoucherElements extends \yii\db\ActiveRecord
     public function relationNames(): array
     {
         return [
-            'project'
+            'project',
+            'period'
         ];
     }
 
@@ -70,11 +66,11 @@ class VoucherElements extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['number', 'emission_date', 'beneficiary', 'concept', 'amount', 'amount', 'detail_body', 'header_body', 'project_id', 'kind_detail'], 'required'],
-            [['project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['createt_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['number', 'emission_date', 'beneficiary', 'concept', 'amount'], 'string', 'max' => 3],
-            [['detail_body', 'header_body'], 'string', 'max' => 250]
+            [['period_id', 'project_id', 'amount', 'date', 'description'], 'required'],
+            [['period_id', 'project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
+            [['amount'], 'number'],
+            [['description'], 'string', 'max' => '250'],
+            [['date', 'created_at', 'updated_at', 'deleted_at'], 'safe']
         ];
     }
 
@@ -83,7 +79,7 @@ class VoucherElements extends \yii\db\ActiveRecord
      */
     public static function tableName(): string
     {
-        return 'voucher_elements';
+        return 'disbursed';
     }
 
     /**
@@ -93,16 +89,10 @@ class VoucherElements extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'number' => 'Numero TB/Cheque',
-            'emission_date' => 'Fecha de Emision',
-            'beneficiary' => 'Nombre Beneficiario',
-            'concept' => 'Concepto',
-            'amount' => 'Monto En Palabras',
-            'amount_total' => 'Monto Total',
-            'detail_body' => 'Detalles',
-            'header_body' => 'Cabecera',
+            'period_id' => 'Periodo',
             'project_id' => 'Proyecto',
-            'kind_detail' => 'Estilo de Detalle'
+            'amount' => 'Monto',
+            'date' => 'Fecha',
         ];
     }
 
@@ -111,14 +101,22 @@ class VoucherElements extends \yii\db\ActiveRecord
      */
     public function getProject(): ActiveQuery
     {
-        return $this->hasOne(Project::class, ['id' => 'project_id']);
+        return $this->hasOne(\app\modules\project\models\Project::class, ['id' => 'project_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getPeriod(): ActiveQuery
+    {
+        return $this->hasOne(\app\modules\project\models\ProjectPeriod::class, ['id' => 'period_id']);
     }
 
     /**
      * @inheritdoc
      * @return array mixed
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             'timestamp' => [
@@ -131,16 +129,28 @@ class VoucherElements extends \yii\db\ActiveRecord
                 'class' => BlameableBehavior::class,
                 'createdByAttribute' => 'created_by',
                 'updatedByAttribute' => 'updated_by',
-            ]
+            ],
         ];
     }
 
     /**
      * @inheritdoc
-     * @return VoucherElementsQuery the active query used by this AR class.
+     * @return DisbursedQuery the active query used by this AR class.
      */
-    public static function find(): VoucherElementsQuery
+    public static function find(): DisbursedQuery
     {
-        return new VoucherElementsQuery(get_called_class());
+        return new DisbursedQuery(get_called_class());
+    }
+
+    public function beforeSave($insert): bool
+    {
+        $this->date = (new FormatDate($this->date, 'd/m/Y', 'Y-m-d'))->change()->asString();
+        return parent::beforeSave($insert);
+    }
+
+    public function afterFind()
+    {
+        $this->date = (new FormatDate($this->date, 'Y-m-d', 'd/m/Y'))->change()->asString();
+        parent::afterFind();
     }
 }

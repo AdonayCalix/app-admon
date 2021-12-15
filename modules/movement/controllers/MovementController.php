@@ -9,7 +9,9 @@ use app\modules\movement\components\LoadValues;
 use app\modules\movement\components\MovementWithDetails;
 use app\modules\movement\components\StoreMovements;
 use app\modules\movement\components\StoreValues;
+use app\modules\movement\components\vouchers\gf\VoucherHeaderGlobalFund;
 use app\modules\movement\components\vouchers\others\VoucherDetailOtherProject;
+use app\modules\movement\components\vouchers\VoucherFile;
 use app\modules\movement\models\MovementDetail;
 use app\modules\project\components\HierachyActivityList;
 use app\modules\project\models\Beneficiary;
@@ -199,9 +201,39 @@ class MovementController extends BaseController
         return json_encode((new MovementWithDetails($transfer_id))->make()->get());
     }
 
+    public function actionAlgoNuevo()
+    {
+        $movement = MovementDetail::findOne(2009);
+        $headers = VoucherHeaderGlobalFund::get($movement);
+
+        foreach ($headers as $header) {
+
+            foreach ($header as $key => $value) {
+                echo '<pre>' . print_r($key, true) . '</pre>';
+            }
+            echo '<br>';
+        }
+        die;
+    }
+
+    /**
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     public function actionAlgo()
     {
-        echo MoneyToWords::get(1101.37);
+        (new VoucherFile(2009, 3))
+            ->setVoucherFormatFilePath()
+            ->initializeExcel()
+            ->setMovement()
+            ->setVoucherElements()
+            ->setHeader()
+            ->setNumberTbCheque()
+            ->setEmissionDate()
+            ->setBeneficiary()
+            ->setAmountInWords()
+            ->setConcept()
+            ->setDetail()
+            ->downloadFile();
     }
 
     public function actionHeader()

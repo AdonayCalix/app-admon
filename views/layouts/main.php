@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use app\assets\AppAsset;
+use app\widgets\Alert;
 use yii\bootstrap5\Html;
 use yii\web\View;
 
@@ -33,6 +34,10 @@ AppAsset::register($this);
 
         <main class="content">
             <div class="container-fluid p-0">
+                <?= \yii\bootstrap5\Breadcrumbs::widget([
+                    'links' => $this->params['breadcrumbs'] ?? []
+                ]) ?>
+                <?= Alert::widget() ?>
                 <?= $content ?>
             </div>
         </main>

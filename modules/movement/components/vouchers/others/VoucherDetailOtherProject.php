@@ -17,15 +17,15 @@ class VoucherDetailOtherProject
             $list_class = ListClass::findOne(['identifier' => $subDetail->class_id]);
             $list_class = explode('-', $list_class->name, 2);
             $class_statement = [
-                'id' => $list_class[0] ?? '',
-                'name' => $list_class[1] ?? ''
+                $list_class[0] ?? '',
+                $list_class[1] ?? ''
             ];
 
             $char_account = ChartAccount::findOne(['account_number' => $subDetail->chart_account_id]);
             $detail = [
-                'empty' => '',
-                'name' => preg_replace('/\s+/', ' ',str_replace('·', '', $char_account->name ?? '')),
-                'amount' => $subDetail->amount ?? 0.00
+                '',
+                preg_replace('/\s+/', ' ', str_replace('·', '', $char_account->name ?? '')),
+                $subDetail->amount ?? 0.00
             ];
 
             $out[] = $class_statement;

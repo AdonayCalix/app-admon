@@ -14,11 +14,11 @@ class VoucherHeaderGlobalFund
             $expense_category = $subDetail->subCategory->expense_category ?? '';
 
             $out[] = [
-              'module' => $subDetail->subCategory->module ?? '',
-              'intervention' => $subDetail->subCategory->intervention ?? '',
-              'expense_category' => explode(' ', $expense_category)[0] ?? '',
-              'account_number' => $subDetail->subCategory->account_number ?? '',
-              'budget' => $subDetail->subCategory->category->budget->name ?? '',
+              $subDetail->subCategory->module ?? '',
+              $subDetail->subCategory->intervention ?? '',
+              explode(' ', $expense_category)[0] ?? '',
+              $subDetail->subCategory->account_number ?? '',
+              $subDetail->subCategory->category->budget->name ?? '',
             ];
         }
 
