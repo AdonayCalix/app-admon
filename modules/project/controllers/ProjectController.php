@@ -75,21 +75,16 @@ class ProjectController extends BaseController
         }
     }
 
+
     /**
-     * Updates an existing Project model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return Response|string
-     * @throws NotFoundHttpException|Exception
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        echo '<pre>' . print_r($_POST, true) . '</pre>';die;
-
         if ($model->loadAll(Yii::$app->request->post()) && $model->validate() && $model->saveAll()) {
-            echo '<pre>' . print_r($model->getAttributesWithRelatedAsPost(), true). '</pre>';die;
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

@@ -26,6 +26,7 @@ use yii\db\ActiveRecord;
  * @property string $budget
  * @property string $bank
  * @property string $account_number
+ * @property string $initial_balance
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $deleted_by
@@ -77,7 +78,7 @@ class Project extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['name', 'alias', 'start_date', 'end_date', 'budget', 'bank', 'account_number'], 'required'],
+            [['name', 'alias', 'start_date', 'end_date', 'budget', 'bank', 'account_number', 'initial_balance'], 'required'],
             [['start_date', 'end_date', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['budget'], 'number'],
             [['created_by', 'updated_by', 'deleted_by'], 'integer'],

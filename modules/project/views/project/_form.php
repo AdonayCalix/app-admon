@@ -96,6 +96,14 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
             ]
         ]); ?>
 
+        <?= $form->field($model, 'initial_balance')->widget(NumberControl::class, [
+            'maskedInputOptions' => [
+                'prefix' => 'Lps ',
+                'allowMinus' => false,
+                'rightAlign' => false
+            ]
+        ]); ?>
+
         <?= $form->field($model, 'bank')->textInput(['maxlength' => true, 'placeholder' => 'Banco']) ?>
 
         <?= $form->field($model, 'account_number')->textInput(['maxlength' => true, 'placeholder' => 'Número de Cuenta']) ?>
