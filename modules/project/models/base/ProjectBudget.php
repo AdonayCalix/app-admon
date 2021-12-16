@@ -146,8 +146,8 @@ class ProjectBudget extends ActiveRecord
     public function validateBudget($attribute, $params, $validator, $current)
     {
         $othersBudgetsOfProject = self::find()
-            ->where(['project_id' => $this->project_id])
-            ->where(['<>', 'id', $this->id])
+            ->where(['project_budget.project_id' => $this->project_id])
+            ->where(['<>', 'project_budget.id', $this->id])
             ->sum('amount');
 
         /*if (ArraySum::make([$this->amount, $othersBudgetsOfProject]) != $this->project->budget)

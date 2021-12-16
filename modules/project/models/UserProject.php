@@ -23,4 +23,18 @@ class UserProject extends BaseUserProject
                 [['position'], 'string', 'max' => 225]
             ]);
     }
+
+    public function store(array $post, int $project_id): bool
+    {
+
+        foreach ($post as $value) {
+            $position = self::findOne($value['id']) ?? new self;
+            unset($value['id']);
+            $position->load($value, '');
+            $position->project_id = $project_id;
+            $position->save(false);
+        }
+
+        return true;
+    }
 }

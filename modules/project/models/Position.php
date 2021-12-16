@@ -15,20 +15,20 @@ class Position extends BasePosition
     public function rules(): array
     {
         return array_replace_recursive(parent::rules(),
-	    [
-            [['name'], 'required'],
-            [['created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['created_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['name'], 'string', 'max' => 250]
-        ]);
+            [
+                [['name'], 'required'],
+                [['created_by', 'updated_by', 'deleted_by'], 'integer'],
+                [['created_at', 'updated_at', 'deleted_at'], 'safe'],
+                [['name'], 'string', 'max' => 250]
+            ]);
     }
 
     public static function get(): array
     {
-        return  self::find()
+        return self::find()
             ->select(["id", "name as label"])
             ->asArray()
             ->all();
     }
-	
+
 }

@@ -114,7 +114,8 @@ class Project extends ActiveRecord
             'end_date' => 'Fecha Final',
             'budget' => 'Presupuesto',
             'bank' => 'Banco',
-            'account_number' => 'Numero de Cuenta'
+            'account_number' => 'Numero de Cuenta',
+            'initial_balance' => 'Balance Inicial'
         ];
     }
 
@@ -242,8 +243,8 @@ class Project extends ActiveRecord
     {
         $budgets = array_column($this->projectBudgets, 'amount');
 
-           /* echo '<pre>' . print_r($budgets, true) . '</pre>';
-            echo $this->budget . '---' . ArraySum::make($budgets);die;*/
+        /* echo '<pre>' . print_r($budgets, true) . '</pre>';
+         echo $this->budget . '---' . ArraySum::make($budgets);die;*/
 
         if ((float)ArraySum::make($budgets) != (float)$this->budget)
             $this->addError('budget', 'La suma de los presupuestos debe ser igual al presupuesto del proyecto');

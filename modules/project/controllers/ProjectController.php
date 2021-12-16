@@ -3,6 +3,8 @@
 namespace app\modules\project\controllers;
 
 use app\modules\project\components\FormatDate;
+use app\modules\project\models\Position;
+use app\modules\project\models\UserProject;
 use Yii;
 use app\modules\project\models\Project;
 use app\modules\project\models\ProjectSearch;
@@ -67,6 +69,8 @@ class ProjectController extends BaseController
         $model = new Project();
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+            (new UserProject)->store($_POST['UserProject'] ?? [], $model->id);
+            Yii::$app->session->setFlash('success', 'Se actualizo correctamente el proyecto');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->renderIsAjax('create', [
@@ -74,7 +78,6 @@ class ProjectController extends BaseController
             ]);
         }
     }
-
 
     /**
      * @throws Exception
@@ -85,6 +88,8 @@ class ProjectController extends BaseController
         $model = $this->findModel($id);
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->validate() && $model->saveAll()) {
+            (new UserProject)->store($_POST['UserProject'] ?? [], $model->id);
+            Yii::$app->session->setFlash('success', 'Se actualizo correctamente el proyecto');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

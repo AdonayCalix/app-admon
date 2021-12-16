@@ -34,4 +34,11 @@ class ProjectQuery extends ActiveQuery
     {
         return parent::one($db);
     }
+
+    public function init()
+    {
+        $this->joinWith('userProject up')
+            ->where(['up.user_id' => \Yii::$app->user->id]);
+        parent::init();
+    }
 }

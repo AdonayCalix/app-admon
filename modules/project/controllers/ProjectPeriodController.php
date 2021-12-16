@@ -55,6 +55,7 @@ class ProjectPeriodController extends BaseController
         $model = new ProjectPeriod();
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+            Yii::$app->session->setFlash('success', 'Se creo correctamente el periodo de ejecucion');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->renderIsAjax('create', [
@@ -75,7 +76,8 @@ class ProjectPeriodController extends BaseController
     {
         $model = $this->findModel($id);
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Se actualizo correctamente el periodo de ejecucion');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->renderIsAjax('update', [
