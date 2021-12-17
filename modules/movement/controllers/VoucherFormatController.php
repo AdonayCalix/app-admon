@@ -125,10 +125,8 @@ class VoucherFormatController extends BaseController
     public function actionDelete($id): Response
     {
         $this->findModel($id)->deleteWithRelated();
-
         return $this->redirect(['index']);
     }
-
 
     /**
      * Finds the VoucherFormat model based on its primary key value.
