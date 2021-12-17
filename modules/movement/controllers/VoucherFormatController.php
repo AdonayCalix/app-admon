@@ -53,14 +53,13 @@ class VoucherFormatController extends BaseController
      * Creates a new VoucherFormat model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
-     * @throws Exception
      */
     public function actionCreate()
     {
         $model = new VoucherFormat();
         $voucherFormatForm = new VoucherFormatForm;
 
-        if ($model->loadAll(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
 
             $voucherFormatForm->excelFile = UploadedFile::getInstance($voucherFormatForm, 'excelFile');
 
@@ -70,6 +69,8 @@ class VoucherFormatController extends BaseController
             }
 
             $model->save(false);
+
+            Yii::$app->session->setFlash('success', 'Se creo correctamente el formato del voucher');
 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -91,12 +92,24 @@ class VoucherFormatController extends BaseController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $voucherFormatForm = new VoucherFormatForm;
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $voucherFormatForm->excelFile = UploadedFile::getInstance($voucherFormatForm, 'excelFile');
+
+            if ($voucherFormatForm->upload()) {
+                $model->original_name = $voucherFormatForm->originalName;
+                $model->path = $voucherFormatForm->path;
+            }
+
+            $model->save(false);
+            Yii::$app->session->setFlash('success', 'Se actualizo correctamente el formato de voucher');
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'voucherFormatForm' => $voucherFormatForm
             ]);
         }
     }

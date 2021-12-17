@@ -7,7 +7,7 @@ use yii\helpers\Html;
 /* @var $model app\modules\project\models\Position */
 
 $this->title = 'Crear Posición';
-$this->params['breadcrumbs'][] = ['label' => 'Position', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Posicion', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="position-create">

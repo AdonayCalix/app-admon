@@ -63,6 +63,7 @@ class ProjectBudgetController extends BaseController
         $model = new ProjectBudget();
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+            Yii::$app->session->setFlash('success', 'Se creo correctamente el Presupuesto/POA');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->renderIsAjax('create', [
@@ -82,7 +83,8 @@ class ProjectBudgetController extends BaseController
     {
         $model = $this->findModel($id);
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->validate() && $model->save()) {
+        if ($model->loadAll(Yii::$app->request->post()) && $model->validate() && $model->saveAll()) {
+            Yii::$app->session->setFlash('success', 'Se actualizo correctamente el Presupuesto/POA');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->renderIsAjax('update', [

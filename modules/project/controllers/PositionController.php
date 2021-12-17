@@ -50,13 +50,13 @@ class PositionController extends BaseController
      * Creates a new Position model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
-     * @throws Exception
      */
     public function actionCreate()
     {
         $model = new Position();
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Se creo correctamente la posicion');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -70,14 +70,14 @@ class PositionController extends BaseController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return Response|string
-     * @throws Exception
      * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Se actualizo correctamente la posicion');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -101,7 +101,7 @@ class PositionController extends BaseController
         return $this->redirect(['index']);
     }
 
-    
+
     /**
      * Finds the Position model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -109,7 +109,7 @@ class PositionController extends BaseController
      * @return Position the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($id): Position
     {
         if (($model = Position::findOne($id)) !== null) {
             return $model;

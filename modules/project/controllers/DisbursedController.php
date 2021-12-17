@@ -51,13 +51,13 @@ class DisbursedController extends BaseController
      * Creates a new Disbursed model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
-     * @throws Exception
      */
     public function actionCreate()
     {
         $model = new Disbursed();
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Se creo correctamente el desembolso para el proyecto');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -71,14 +71,14 @@ class DisbursedController extends BaseController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return Response|string
-     * @throws Exception
      * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Se actualizo correctamente el desembolso');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -102,7 +102,7 @@ class DisbursedController extends BaseController
         return $this->redirect(['index']);
     }
 
-    
+
     /**
      * Finds the Disbursed model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

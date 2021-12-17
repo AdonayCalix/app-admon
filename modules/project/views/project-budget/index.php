@@ -22,14 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <div class="card">
-
-        <div class="card-header">
-            <h6 class="card-subtitle text-muted">
-                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Presupuesto/POA', ['create'], ['class' => 'btn btn-success']) ?>
-            </h6>
-        </div>
-
         <div class="card-body">
+            <p>
+                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Presupuesto/POA', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
             <div class="row">
                 <?php
                 $gridColumn = [
@@ -86,7 +82,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
-                    'bsVersion' => '4.x',
                     'pjax' => true,
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-project-budget']]
                 ]); ?>

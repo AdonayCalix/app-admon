@@ -243,9 +243,6 @@ class Project extends ActiveRecord
     {
         $budgets = array_column($this->projectBudgets, 'amount');
 
-        /* echo '<pre>' . print_r($budgets, true) . '</pre>';
-         echo $this->budget . '---' . ArraySum::make($budgets);die;*/
-
         if ((float)ArraySum::make($budgets) != (float)$this->budget)
             $this->addError('budget', 'La suma de los presupuestos debe ser igual al presupuesto del proyecto');
     }

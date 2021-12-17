@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\movement\models\VoucherFormat */
 
-$this->title = 'Update Voucher Format: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Voucher Format', 'url' => ['index']];
+$this->title = 'Actualizando Formato de Voucher: ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Formato de Voucher', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Editando';
 ?>
 <div class="voucher-format-update">
 

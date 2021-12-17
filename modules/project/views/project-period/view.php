@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\modules\project\models\ProjectPeriod */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Project Period', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Periodo de Ejecucion', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-period-view">
@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'end_date',
                         [
                             'attribute' => 'project.name',
-                            'label' => 'Project',
+                            'label' => 'Proyecto',
                         ],
                     ];
                     echo DetailView::widget([
