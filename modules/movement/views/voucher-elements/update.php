@@ -8,7 +8,8 @@ use yii\helpers\Html;
 $this->title = 'Actualizando Elementos Voucher: ' . ' ' . $model->project->alias ?? '';
 $this->params['breadcrumbs'][] = ['label' => 'Elementos Voucher', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Editando';
+
 ?>
 <div class="voucher-elements-update">
 

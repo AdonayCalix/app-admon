@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
 /* @var $model app\modules\movement\models\VoucherFormat */
 
@@ -10,6 +9,7 @@ $this->title = 'Crear Formato de Voucher';
 $this->params['breadcrumbs'][] = ['label' => 'Voucher Format', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="voucher-format-create">
 
     <div class="mb-3">
@@ -25,5 +25,4 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-
 </div>
