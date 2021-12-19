@@ -21,7 +21,7 @@ class HierachyActivityList
 
     public function setBudgets(): HierachyActivityList
     {
-        $this->budgets = ProjectBudget::findAll(['project_id' => $this->project_id]);
+        $this->budgets = ProjectBudget::findAll(['project_budget.project_id' => $this->project_id]);
         return $this;
     }
 

@@ -28,25 +28,10 @@ class Beneficiary extends ActiveRecord
 {
     use RelationTrait;
 
-    private $_rt_softdelete;
-    private $_rt_softrestore;
-
-    public function __construct(){
-        parent::__construct();
-        $this->_rt_softdelete = [
-            'deleted_by' => \Yii::$app->user->id,
-            'deleted_at' => date('Y-m-d H:i:s'),
-        ];
-        $this->_rt_softrestore = [
-            'deleted_by' => 0,
-            'deleted_at' => date('Y-m-d H:i:s'),
-        ];
-    }
-
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
+     */
     public function relationNames(): array
     {
         return [
@@ -85,7 +70,7 @@ class Beneficiary extends ActiveRecord
             'name' => 'Name',
         ];
     }
-    
+
     /**
      * @return ActiveQuery
      */
@@ -93,7 +78,7 @@ class Beneficiary extends ActiveRecord
     {
         return $this->hasMany(\app\modules\project\models\Transfer::class, ['beneficiary_id' => 'id']);
     }
-    
+
     /**
      * @inheritdoc
      * @return array mixed

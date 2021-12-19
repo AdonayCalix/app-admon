@@ -77,13 +77,13 @@ class ProjectBudgetController extends BaseController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return Response|string
-     * @throws NotFoundHttpException
+     * @throws NotFoundHttpException|Exception
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->validate() && $model->saveAll()) {
+        if ($model->loadAll(Yii::$app->request->post()) && $model->validate() && $model->saveAll(['project'])) {
             Yii::$app->session->setFlash('success', 'Se actualizo correctamente el Presupuesto/POA');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

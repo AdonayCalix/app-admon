@@ -21,7 +21,10 @@ class DatePickerAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
 
+    public $css = [
+        '//cdn.jsdelivr.net/npm/vue2-datepicker@3.10.4/index.css'
+    ];
     public $js = [
-        '//unpkg.com/vuejs-datepicker'
+        '//cdn.jsdelivr.net/npm/vue2-datepicker@3.10.4/index.min.js'
     ];
 }

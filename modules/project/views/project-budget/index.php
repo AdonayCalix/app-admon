@@ -17,10 +17,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-budget-index">
 
-    <div class="mb-3">
-        <h1 class="h3 d-inline align-middle"><?= $this->title ?></h1>
-    </div>
-
     <div class="card">
         <div class="card-body">
             <p>

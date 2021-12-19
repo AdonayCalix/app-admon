@@ -1,13 +1,24 @@
 <script>
+
     Vue.component('treeselect', VueTreeselect.Treeselect);
+    Vue.use(DatePicker);
+    Vue.component('money', money)
 
     var movement = new Vue({
         el: '#details',
         data: {
             errors: null,
+            money: {
+                decimal: ',',
+                thousands: '.',
+                prefix: 'R$ ',
+                suffix: ' #',
+                precision: 2,
+                masked: false
+            },
             details: [{
                 id: null,
-                date: null,
+                date: new Date(1994, 12, 10),
                 benefiaciary: null,
                 concept: null,
                 kind: null,
@@ -93,6 +104,10 @@
                     try {
                         let response = await fetch("get-movements-with-details?transfer_id=" + movement_id);
                         this.details = await response.json();
+                        await this.details.map((detail) => {
+                            let arrayDate = detail.date.split("-");
+                            detail.date = new Date(arrayDate[0], arrayDate[1], arrayDate[2]);
+                        });
                     } catch (error) {
                         console.log(error);
                     }
@@ -136,7 +151,7 @@
                 }, 0)
             },
             checkIfDateIsValid: function (value, index) {
-
+                value = value.toISOString().slice(0, 10);
                 fetch("validate-date?date=" + value + "&projectId=" + 3)
                     .then(response => response.json())
                     .then((response) => {

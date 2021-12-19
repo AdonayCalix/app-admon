@@ -15,19 +15,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="transfer-index">
 
-    <div class="mb-3">
-        <h1 class="h3 d-inline align-middle"><?= $this->title ?></h1>
-    </div>
-
     <div class="card">
-
-        <div class="card-header">
-            <h6 class="card-subtitle text-muted">
-                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Transferencia', ['create'], ['class' => 'btn btn-success']) ?>
-            </h6>
-        </div>
-
         <div class="card-body">
+
+            <p>
+                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Transferencia', ['create'], ['class' => 'btn btn-success']) ?>
+            </p>
             <div class="row">
                 <?php
                 $gridColumn = [
@@ -64,8 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => true,
-                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-transfer']],
-                    'bsVersion' => '4.x'
+                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-transfer']]
                 ]); ?>
             </div>
         </div>

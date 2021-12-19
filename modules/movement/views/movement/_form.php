@@ -1,11 +1,16 @@
 <?php
 
 use app\assets\DatePickerAsset;
+use app\assets\MoneyAsset;
 use app\assets\SweetAlertAsset;
+use app\assets\VueAsset;
 use app\assets\VueSelectAsset;
+use app\modules\project\models\base\Project;
 use kartik\number\NumberControl;
 use kartik\form\ActiveForm;
+use kartik\select2\Select2;
 use mootensai\components\JsBlock;
+use yii\helpers\ArrayHelper;
 use yii\web\View;
 
 /* @var $this yii\web\View */
@@ -15,6 +20,7 @@ use yii\web\View;
 VueSelectAsset::register($this);
 DatePickerAsset::register($this);
 SweetAlertAsset::register($this);
+MoneyAsset::register($this);
 
 JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
 ?>
@@ -50,7 +56,13 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                     ]); ?>
                 </div>
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'project_id')->textInput(['maxlength' => true, 'placeholder' => '']) ?>
+                    <?= $form->field($model, 'project_id')->widget(Select2::class, [
+                        'data' => ArrayHelper::map(Project::find()->orderBy('id')->asArray()->all(), 'id', 'alias'),
+                        'options' => ['placeholder' => '[SELECCIONE]'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label('Proyecto'); ?>
                 </div>
             </div>
         </div>

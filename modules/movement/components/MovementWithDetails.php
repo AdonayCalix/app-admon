@@ -30,6 +30,13 @@ class MovementWithDetails
                 ->asArray()
                 ->all();
 
+            $movement[] = [
+                'id' => $movement['id'],
+                'kind' => $movement['kind'],
+                'date' => date('D M d Y', strtotime($movement['date'])),
+                'beneficiary_id' => $movement['beneficiary_id'],
+                'concept' => $movement['concept'],
+            ];
             $movement['sub_details'] = $movementSubDetail;
             $this->result[] = $movement;
         }

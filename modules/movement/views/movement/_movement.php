@@ -12,21 +12,21 @@
                     <div class="container-fluid border">
                         <div class="row">
                             <input type="hidden" v-model="detail.id" :name="'Movement[MovementDetails]' + '[' + index + '][id]'">
-                            <div class="col-md-6">
+                            <div class="col">
                                 <label for=""><strong>Tipo Movimiento</strong></label>
                                 <treeselect v-model="detail.kind" :multiple="false" placeholder="[SELECCIONE]" :name="'Movement[MovementDetails]' + '[' + index + '][kind]'" :options="kindOptions" />
                             </div>
-                            <div class="col-md-6">
+                            <div class="col">
                                 <label for=""><strong>Monto</strong></label>
-                                <input v-model="detail.amount" class="form-control" type="number" :name="'Movement[MovementDetails]' + '[' + index + '][amount]'">
+                                <!--<input v-model="detail.amount" class="form-control" type="number" :name="'Movement[MovementDetails]' + '[' + index + '][amount]'">-->
+                            </div>
+                            <div class="col">
+                                <label for=""><strong>Fecha</strong></label><br>
+                                <date-picker v-model="detail.date" @change="checkIfDateIsValid(detail.date, index)" :input-attr="{name: 'Movement[MovementDetails]' + '[' + index + '][date]'}" format="YYYY-MM-DD" valuetype="format" lang="es"></date-picker>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <label for=""><strong>Fecha</strong></label>
-                                <input v-model="detail.date" class="form-control" lang="en-us" type="text" @change="checkIfDateIsValid(detail.date, index)" :name="'Movement[MovementDetails]' + '[' + index + '][date]'" />
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col">
                                 <label for=""><strong>Beneficiario</strong></label>
                                 <treeselect v-model="detail.beneficiary_id" :multiple="false" placeholder="[SELECCIONE]" :name="'Movement[MovementDetails]' + '[' + index + '][beneficiary_id]'" :options="beneficiaries_options" />
                             </div>
@@ -34,7 +34,7 @@
                         <br>
                         <div class="row">
                             <label for=""><strong>Concepto</strong></label>
-                            <div class="col-md-12">
+                            <div class="col">
                                 <textarea class="form-control" v-model="detail.concept" :name="'Movement[MovementDetails]' + '[' + index + '][concept]'" placeholder="Ingresa el concepto" id="floatingTextarea"></textarea>
                             </div>
                         </div>

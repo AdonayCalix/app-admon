@@ -34,7 +34,7 @@ AppAsset::register($this);
 
         <main class="content">
             <div class="container-fluid p-0">
-                <?= \yii\bootstrap5\Breadcrumbs::widget([
+                <?= \yii\bootstrap4\Breadcrumbs::widget([
                     'links' => $this->params['breadcrumbs'] ?? []
                 ]) ?>
                 <?= Alert::widget() ?>
@@ -47,8 +47,7 @@ AppAsset::register($this);
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-<script src='https://unpkg.com/v-calendar'></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js" crossorigin="anonymous"></script>
 
 <script>

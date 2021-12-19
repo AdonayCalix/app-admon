@@ -12,11 +12,10 @@ class ProjectPeriod extends BaseProjectPeriod
     public static function getPeriods(int $budget_id): array
     {
         $project_id = ProjectBudget::findOne($budget_id)->project_id;
-        return self::find()
-            ->select(['id', 'name AS label'])
-            ->where(['project_id' => $project_id])
-            ->asArray()
-            ->all();
+
+        return \Yii::$app->db->createCommand("
+            select project_period.id, project_period.name as label from project_period where project_period.project_id = {$project_id}
+        ")->queryAll();
     }
 
     /**
@@ -37,9 +36,9 @@ class ProjectPeriod extends BaseProjectPeriod
     public static function getPeriodByDate(string $date, int $projectId): int
     {
         $row = self::find()
-            ->where(['project_id' => $projectId])
-            ->andWhere(['<=', 'start_date', $date])
-            ->andWhere(['>=', 'end_date', $date]);
+            ->where(['project_period.project_id' => $projectId])
+            ->andWhere(['<=', 'project_period.start_date', $date])
+            ->andWhere(['>=', 'project_period.end_date', $date]);
 
         return $row->one()->id ?? 0;
     }

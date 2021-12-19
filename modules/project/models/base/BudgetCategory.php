@@ -31,25 +31,10 @@ class BudgetCategory extends ActiveRecord
 {
     use RelationTrait;
 
-    private $_rt_softdelete;
-    private $_rt_softrestore;
-
-    public function __construct(){
-        parent::__construct();
-        $this->_rt_softdelete = [
-            'deleted_by' => \Yii::$app->user->id,
-            'deleted_at' => date('Y-m-d H:i:s'),
-        ];
-        $this->_rt_softrestore = [
-            'deleted_by' => 0,
-            'deleted_at' => date('Y-m-d H:i:s'),
-        ];
-    }
-
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
+     */
     public function relationNames(): array
     {
         return [
@@ -92,7 +77,7 @@ class BudgetCategory extends ActiveRecord
             'budget_id' => 'Presupuesto ID',
         ];
     }
-    
+
     /**
      * @return ActiveQuery
      */
@@ -100,7 +85,7 @@ class BudgetCategory extends ActiveRecord
     {
         return $this->hasOne(\app\modules\project\models\ProjectBudget::class, ['id' => 'budget_id']);
     }
-        
+
     /**
      * @return ActiveQuery
      */
@@ -108,7 +93,7 @@ class BudgetCategory extends ActiveRecord
     {
         return $this->hasMany(\app\modules\project\models\SubCategory::class, ['category_id' => 'id']);
     }
-    
+
     /**
      * @inheritdoc
      * @return array mixed
@@ -136,6 +121,6 @@ class BudgetCategory extends ActiveRecord
      */
     public static function find(): BudgetCategoryQuery
     {
-       return new BudgetCategoryQuery(get_called_class());
+        return new BudgetCategoryQuery(get_called_class());
     }
 }

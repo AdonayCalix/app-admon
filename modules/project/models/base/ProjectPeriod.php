@@ -35,21 +35,6 @@ class ProjectPeriod extends ActiveRecord
 
     public static $counter = 1;
 
-    private $_rt_softdelete;
-    private $_rt_softrestore;
-
-    public function __construct(){
-        parent::__construct();
-        $this->_rt_softdelete = [
-            'deleted_by' => \Yii::$app->user->id,
-            'deleted_at' => date('Y-m-d H:i:s'),
-        ];
-        $this->_rt_softrestore = [
-            'deleted_by' => 0,
-            'deleted_at' => date('Y-m-d H:i:s'),
-        ];
-    }
-
     /**
     * This function helps \mootensai\relation\RelationTrait runs faster
     * @return array relation names of this model
