@@ -1,5 +1,8 @@
 <?php
 
+use app\modules\movement\models\MovementDetail;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use kartik\grid\GridView;
@@ -7,82 +10,107 @@ use kartik\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\project\models\Transfer */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Transfer', 'url' => ['index']];
+$this->title = $model->number;
+$this->params['breadcrumbs'][] = ['label' => 'Movimiento', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="transfer-view">
 
-    <div class="row">
-        <div class="col-sm-9">
-            <h2><?= 'Transfer'.' '. Html::encode($this->title) ?></h2>
-        </div>
-        <div class="col-sm-3" style="margin-top: 15px">
-            
-            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
-                    'method' => 'post',
-                ],
-            ])
-            ?>
-        </div>
+    <div class="mb-3">
+        <h1 class="h3 d-inline align-middle"><?= $this->title ?></h1>
     </div>
 
-    <div class="row">
-<?php 
-    $gridColumn = [
-        ['attribute' => 'id', 'visible' => false],
-        'number',
-        'amount',
-        'bank_id',
-        'bank_account',
-        [
-            'attribute' => 'beneficiary.name',
-            'label' => 'Beneficiary',
-        ],
-        [
-            'attribute' => 'project.name',
-            'label' => 'Project',
-        ],
-    ];
-    echo DetailView::widget([
-        'model' => $model,
-        'attributes' => $gridColumn
-    ]);
-?>
+    <div class="card">
+        <div class="card-body">
+            <p>
+                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Eliminar', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => 'Seguro que quieres borrar este registro',
+                        'method' => 'post',
+                    ],
+                ])
+                ?>
+            </p>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <?php
+                    $gridColumn = [
+                        ['attribute' => 'id', 'visible' => false],
+                        [
+                            'attribute' => 'project.alias',
+                            'label' => 'Proyecto',
+                        ],
+                        'number',
+                        'amount',
+                        'bank_account'
+                    ];
+                    echo DetailView::widget([
+                        'model' => $model,
+                        'attributes' => $gridColumn,
+                        'template' => '<tr><th>{label}</th><td style="width:80%;">{value}</td></tr>'
+                    ]);
+                    ?>
+                </div>
+            </div>
+
+            <p class="form-control bg-light" style="margin-bottom: 0px">
+                <i><strong>Detalles del Movimiento</strong></i>
+            </p>
+
+            <?php $gridMovementDetailColums = [
+                ['class' => 'yii\grid\SerialColumn'],
+                ['attribute' => 'id', 'visible' => false],
+                [
+                    'class' => \kartik\grid\ExpandRowColumn::class,
+                    'label' => 'Fila Expandible',
+                    'format' => 'raw',
+                    'value' => function ($model, $key, $index, $column) {
+                        return GridView::ROW_COLLAPSED;
+                    },
+                    'detail' => function ($model, $key, $index) {
+                        return Yii::$app->controller->renderPartial('_subDetail', ['model' => $model]);
+                    },
+                    'expandOneOnly' => false,
+                    'width' => '5%'
+                ],
+                [
+                    'attribute' => 'date',
+                    'width' => '10%'
+                ],
+                [
+                    'attribute' => 'kind',
+                    'width' => '10%'
+                ],
+                [
+                    'attribute' => 'amount',
+                    'width' => '15%'
+                ],
+                [
+                    'attribute' => 'beneficiary_id',
+                    'label' => 'Beneficiario',
+                    'value' => function ($model) {
+                        return \app\modules\project\models\Beneficiary::findOne($model->beneficiary_id)->name ?? null;
+                    }
+                ],
+                [
+                    'attribute' => 'concept',
+                ],
+            ]; ?>
+
+            <?= GridView::widget([
+                'dataProvider' => new ActiveDataProvider([
+                    'query' => MovementDetail::find()->where(['transfer_id' => $model->id]),
+                ]),
+                'sorter' => false,
+                'columns' => $gridMovementDetailColums,
+                'pjax' => true,
+                'summary' => false
+            ]); ?>
+
+
+        </div>
     </div>
-    <div class="row">
-        <h4>Project<?= ' '. Html::encode($this->title) ?></h4>
-    </div>
-    <?php 
-    $gridColumnProject = [
-        ['attribute' => 'id', 'visible' => false],
-        'name',
-        'alias',
-        'frecuency',
-        'start_date',
-        'end_date',
-        'budget',
-        'bank',
-        'account_number',
-    ];
-    echo DetailView::widget([
-        'model' => $model->project,
-        'attributes' => $gridColumnProject    ]);
-    ?>
-    <div class="row">
-        <h4>Beneficiary<?= ' '. Html::encode($this->title) ?></h4>
-    </div>
-    <?php 
-    $gridColumnBeneficiary = [
-        ['attribute' => 'id', 'visible' => false],
-        'name',
-    ];
-    echo DetailView::widget([
-        'model' => $model->beneficiary,
-        'attributes' => $gridColumnBeneficiary    ]);
-    ?>
 </div>

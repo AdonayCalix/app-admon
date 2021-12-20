@@ -71,9 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="row">
                 <?php if ($providerProjectPeriod->totalCount): ?>
-
                     <h4>Periodos de Ejecucion</h4>
-
                     <?php
                     $gridColumnProjectPeriod = [
                         ['class' => 'yii\grid\SerialColumn'],

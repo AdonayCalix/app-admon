@@ -163,14 +163,14 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/movement/transfer-assignment/index']) ?>">
+                <a class="sidebar-link" href="<?= Url::to(['/movement/voucher/list']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Voucher</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/movement/transfer-assignment/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Recibos</span>
+                <a class="sidebar-link" href="<?= Url::to(['/movement/check/list']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Solicitud Cheques</span>
                 </a>
             </li>
 

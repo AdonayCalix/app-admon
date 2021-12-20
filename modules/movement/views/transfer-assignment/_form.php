@@ -1,5 +1,6 @@
 <?php
 
+use app\assets\MoneyAsset;
 use app\assets\VueSelectAsset;
 use mootensai\components\JsBlock;
 use yii\helpers\Html;
@@ -11,6 +12,7 @@ use kartik\form\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 
 VueSelectAsset::register($this);
+MoneyAsset::register($this);
 JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
 
 ?>
@@ -19,15 +21,18 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <div id="flash"></div>
+    <input type="hidden" id="transfer_id" value="<?= $model->transfer_id ?>" name="transferId">
+    <input type="hidden" id="isNewRecord" value="<?= $isNewRecord ?>" name="isNewRecord">
+
+    <div v:if="errors" class="text-danger">
+        <ul>
+            <li v-for="(error, index) in errors"><strong>{{ error }}</strong></li>
+        </ul>
+    </div>
+
     <div class="card">
         <div class="card-body">
-
-            <div v:if="errors" class="text-danger">
-                <ul>
-                    <li v-for="(error, index) in errors"><strong>{{ error }}</strong></li>
-                </ul>
-            </div>
-
             <div class="row">
                 <div class="col-4">
                     <label for="">No TB/Cheque</label>
@@ -69,8 +74,9 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                         <td><input type="text" class="form-control"
                                    :name="'TransferAssignment' + '[' + index + '][reason]'" v-model="detail.reason">
                         </td>
-                        <td><input type="number" class="form-control"
-                                   :name="'TransferAssignment' + '[' + index + '][amount]'" v-model="detail.amount">
+                        <td>
+                            <money v-model="detail.amount" class="form-control" :name="'TransferAssignment' + '[' + index + '][amount]'"></money>
+
                         </td>
                         <td><a v-on:click="deleteAssignDetail(index)"><i class="btn btn-sm btn-danger">Eliminar</a></td>
                     </tr>

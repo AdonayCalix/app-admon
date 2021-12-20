@@ -48,7 +48,7 @@ $config = [
                 ],
             ]
         ],
-        'sentry' => [
+       /* 'sentry' => [
             'class' => 'mito\sentry\Component',
             'dsn' => 'https://91dcc67ed63e4d51bb1d3e7ddc429568@o405404.ingest.sentry.io/6002386',
             'environment' => 'staging',
@@ -59,8 +59,8 @@ $config = [
                     'https://my-product.com',
                 ],
             ],
-        ],
-        'log' => [
+        ],*/
+       /* 'log' => [
             'targets' => [
                 [
                     'class' => 'mito\sentry\Target',
@@ -70,8 +70,14 @@ $config = [
                     ],
                 ],
             ],
-        ],
+        ],*/
         'db' => $db,
+        'db2' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=ceprosaf-mysql.mysql.database.azure.com;dbname=ceprosaf_ed360_2021',
+            'username' => 'admin_cepro@ceprosaf-mysql',
+            'password' => 'Solid@rio#2013',
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,

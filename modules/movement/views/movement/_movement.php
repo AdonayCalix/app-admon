@@ -18,6 +18,7 @@
                             </div>
                             <div class="col">
                                 <label for=""><strong>Monto</strong></label>
+                                <money v-model="detail.amount" v-bind="money" class="form-control" :name="'Movement[MovementDetails]' + '[' + index + '][amount]'"></money>
                                 <!--<input v-model="detail.amount" class="form-control" type="number" :name="'Movement[MovementDetails]' + '[' + index + '][amount]'">-->
                             </div>
                             <div class="col">

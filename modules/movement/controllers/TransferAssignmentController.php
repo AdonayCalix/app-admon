@@ -161,4 +161,9 @@ class TransferAssignmentController extends BaseController
     {
         return json_encode(Movement::getAll());
     }
+
+    public function actionGetTransferAssignments($transfer_id)
+    {
+        return json_encode(TransferAssignment::getAll($transfer_id));
+    }
 }

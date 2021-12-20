@@ -6,9 +6,11 @@ use yii\web\AssetBundle;
 
 class MoneyAsset extends AssetBundle
 {
-    public $sourcePath = "@npm/v-money/dist";
+
+    public $basePath = '@webroot';
+    public $baseUrl = '@web';
 
     public $js = [
-        'v-money.js'
+        'js/v-money.js'
     ];
 }

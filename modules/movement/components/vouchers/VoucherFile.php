@@ -7,6 +7,7 @@ use app\modules\movement\components\MoneyToWords;
 use app\modules\movement\components\vouchers\gf\VoucherDetailGlobalFund;
 use app\modules\movement\components\vouchers\gf\VoucherHeaderGlobalFund;
 use app\modules\movement\components\vouchers\others\VoucherDetailOtherProject;
+use app\modules\movement\models\base\Movement;
 use app\modules\movement\models\MovementDetail;
 use app\modules\movement\models\VoucherElements;
 use app\modules\movement\models\VoucherFormat;
@@ -148,9 +149,9 @@ class VoucherFile extends ExcelExport
         return $this;
     }
 
-    public function downloadFile(): VoucherFile
+    public function downloadFile(string $name): VoucherFile
     {
-        $this->downloadExcel($this->excelObject, "Voucher.xlsx");
+        $this->downloadExcel($this->excelObject, $name);
         return $this;
     }
 }

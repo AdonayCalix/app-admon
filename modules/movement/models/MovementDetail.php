@@ -16,14 +16,22 @@ class MovementDetail extends BaseMovementDetail
     public function rules(): array
     {
         return array_replace_recursive(parent::rules(),
-	    [
-            [['date', 'concept', 'kind'], 'required'],
-            [['date', 'created_at', 'updated_at', 'deleted_at', 'id'], 'safe'],
-            [['beneficiary_id', 'transfer_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['amount'], 'number'],
-            [['concept'], 'string', 'max' => 500],
-            [['kind'], 'string', 'max' => 20],
-            ['amount', 'validateSumOfAmount']
-        ]);
+            [
+                [['date', 'concept', 'kind'], 'required'],
+                [['date', 'created_at', 'updated_at', 'deleted_at', 'id'], 'safe'],
+                [['beneficiary_id', 'transfer_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
+                [['amount'], 'number'],
+                [['concept'], 'string', 'max' => 500],
+                [['kind'], 'string', 'max' => 20],
+                ['amount', 'validateSumOfAmount']
+            ]);
     }
+
+    public function beforeValidate(): bool
+    {
+        $this->amount = str_replace(',', '', $this->amount);
+        return parent::beforeValidate();
+    }
+
+
 }

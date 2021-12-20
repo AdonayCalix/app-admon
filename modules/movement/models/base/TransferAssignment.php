@@ -143,4 +143,12 @@ class TransferAssignment extends \yii\db\ActiveRecord
     {
         return new TransferAssignmentQuery(get_called_class());
     }
+
+    public function beforeValidate(): bool
+    {
+        $this->amount = str_replace(',', '', $this->amount);
+        return parent::beforeValidate();
+    }
+
+
 }

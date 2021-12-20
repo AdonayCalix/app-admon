@@ -59,7 +59,8 @@ class Movement extends ActiveRecord
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['number', 'bank_account'], 'string', 'max' => 100],
             ['number', 'validateIfExitsMovements'],
-            ['number', 'validateKindMovement']
+            ['number', 'validateKindMovement'],
+            ['amount', 'validateAmount']
         ];
     }
 
@@ -157,4 +158,23 @@ class Movement extends ActiveRecord
         }
     }
 
+    public function validateAmount($attribute, $params, $validator, $current)
+    {
+        $movementDetailAmount = 0;
+
+        $movementDetails = $_POST['Movement']['MovementDetails'] ?? [];
+
+        foreach ($movementDetails as $movementDetail) {
+            if ($movementDetail['kind'] === 'Egreso') {
+                $movementDetailAmount = $movementDetail['amount'];
+                break;
+            }
+        }
+
+        $previusFormat = str_replace(',', '', $movementDetailAmount);
+
+        if ($this->amount !== $previusFormat) {
+            $this->addError('amount', 'El monto de la TB/Cheque no coincide con el movimiento de tipo de egreso');
+        }
+    }
 }

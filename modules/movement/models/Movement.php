@@ -24,7 +24,8 @@ class Movement extends BaseMovement
                 [['created_at', 'updated_at', 'deleted_at'], 'safe'],
                 [['number', 'bank_account'], 'string', 'max' => 100],
                 ['number', 'validateIfExitsMovements'],
-                ['number', 'validateKindMovement']
+                ['number', 'validateKindMovement'],
+                ['amount', 'validateAmount']
             ]);
     }
 
@@ -44,9 +45,8 @@ class Movement extends BaseMovement
     public static function getAll(): array
     {
         return self::find()
-            ->select(["id", "number as label"])
+            ->select(["movement.id", "movement.number as label"])
             ->asArray()
             ->all();
     }
-
 }

@@ -1,8 +1,16 @@
 <script>
     Vue.component('treeselect', VueTreeselect.Treeselect);
+    Vue.use('v-money', {precision: 4});
 
     var assign = new Vue({
         el: '#assign',
+        money: {
+            decimal: '.',
+            thousands: ',',
+            prefix: 'Lps ',
+            precision: 2,
+            masked: false
+        },
         data: {
             categories: [],
             period: null,

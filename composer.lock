@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "eb1969f92f45c5e0709f8c61eaa17f27",
+    "content-hash": "6bf910943366c6833a71c59f50de9a25",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
             "version": "v5.1.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
+                "url": "git@github.com:twbs/bootstrap.git",
                 "reference": "1a6fdfae6be09b09eaced8f0e442ca6f7680a61e"
             },
             "dist": {
@@ -1340,33 +1340,6 @@
             "time": "2021-12-03T14:59:52+00:00"
         },
         {
-            "name": "npm-asset/babel--parser",
-            "version": "7.14.8",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/@babel/parser/-/parser-7.14.8.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/babel--types",
-            "version": "v7.14.7",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:babel/babel.git",
-                "reference": "268e4ca0de969a70fba6c5a5c2dc2885c8e4254d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/babel/babel/zipball/268e4ca0de969a70fba6c5a5c2dc2885c8e4254d",
-                "reference": "268e4ca0de969a70fba6c5a5c2dc2885c8e4254d"
-            },
-            "type": "npm-asset"
-        },
-        {
             "name": "npm-asset/bootstrap",
             "version": "4.6.1",
             "dist": {
@@ -1379,159 +1352,11 @@
             ]
         },
         {
-            "name": "npm-asset/csstype",
-            "version": "2.6.17",
+            "name": "npm-asset/vue-the-mask",
+            "version": "0.11.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/csstype/-/csstype-2.6.17.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/estree-walker",
-            "version": "2.0.1",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/estree-walker/-/estree-walker-2.0.1.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/source-map",
-            "version": "0.6.1",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/source-map/-/source-map-0.6.1.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "BSD-3-Clause"
-            ]
-        },
-        {
-            "name": "npm-asset/v-money",
-            "version": "0.8.1",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/v-money/-/v-money-0.8.1.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/vue",
-            "version": "3.0.5",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/vue/-/vue-3.0.5.tgz"
-            },
-            "require": {
-                "npm-asset/vue--compiler-dom": "3.0.5",
-                "npm-asset/vue--runtime-dom": "3.0.5",
-                "npm-asset/vue--shared": "3.0.5"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/vue--compiler-core",
-            "version": "3.0.5",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/@vue/compiler-core/-/compiler-core-3.0.5.tgz"
-            },
-            "require": {
-                "npm-asset/babel--parser": ">=7.12.0,<8.0.0",
-                "npm-asset/babel--types": ">=7.12.0,<8.0.0",
-                "npm-asset/estree-walker": ">=2.0.1,<3.0.0",
-                "npm-asset/source-map": ">=0.6.1,<0.7.0",
-                "npm-asset/vue--shared": "3.0.5"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/vue--compiler-dom",
-            "version": "3.0.5",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/@vue/compiler-dom/-/compiler-dom-3.0.5.tgz"
-            },
-            "require": {
-                "npm-asset/vue--compiler-core": "3.0.5",
-                "npm-asset/vue--shared": "3.0.5"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/vue--reactivity",
-            "version": "3.0.5",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/@vue/reactivity/-/reactivity-3.0.5.tgz"
-            },
-            "require": {
-                "npm-asset/vue--shared": "3.0.5"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/vue--runtime-core",
-            "version": "3.0.5",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/@vue/runtime-core/-/runtime-core-3.0.5.tgz"
-            },
-            "require": {
-                "npm-asset/vue--reactivity": "3.0.5",
-                "npm-asset/vue--shared": "3.0.5"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/vue--runtime-dom",
-            "version": "3.0.5",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/@vue/runtime-dom/-/runtime-dom-3.0.5.tgz"
-            },
-            "require": {
-                "npm-asset/csstype": ">=2.6.8,<3.0.0",
-                "npm-asset/vue--runtime-core": "3.0.5",
-                "npm-asset/vue--shared": "3.0.5"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/vue--shared",
-            "version": "3.0.5",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/@vue/shared/-/shared-3.0.5.tgz"
+                "url": "https://registry.npmjs.org/vue-the-mask/-/vue-the-mask-0.11.1.tgz"
             },
             "type": "npm-asset",
             "license": [

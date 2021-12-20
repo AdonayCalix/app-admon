@@ -1,9 +1,3 @@
-<?php
-$user = 'orlando.calix@ceprosaf.org';
-$passsword = 'SomethingText';
-
-?>
-
 <style>
     font-family:
 
@@ -14,10 +8,10 @@ $passsword = 'SomethingText';
     ;
 </style>
 
-<p>Buenos día estimada(o) <?= $name ?>.</p>
+<p>Buenos noches estimada(o) <?= $name ?>.</p>
 
-<p>A continuacion se le muetra las credenciales e indicaciones a usar para la evaluacion del personal correspondiente al
-    año 2021.</p>
+<p><strong>El periodo para realizar las evaluaciones esta cerca de acabar pronto, completar asignaciones
+        pendientes.</strong></p>
 
 <strong>Credenciales de acceso</strong>.<br>
 <i>Direccion: <?= \yii\helpers\Html::a('ED360', 'https://ceprosaf.org/Evaluacion360') ?> </i><br>
@@ -35,12 +29,9 @@ $passsword = 'SomethingText';
     <li>Repetir los pasos del <strong>4 al 6</strong> con las evaluaciones restantes.</li>
 </ol>
 
-<p><strong>El plazo maximo para realizar las evaluaciones es el  domingo 19 a las 11:59 pm</strong></p>
+<p><strong>Fecha limite domingo 19 a las 11:59 pm</strong></p>
 
-<p>Este es un correo generado de forma autimatica, favor no responderlo. En caso de tener alguna duda remitirse con
+<p>Este es un correo generado de forma automatica, favor no responderlo. En caso de tener alguna duda remitirse con
     la Unidad de M&E.</p>
-
-
-
 
 

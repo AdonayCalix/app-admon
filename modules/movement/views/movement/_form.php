@@ -12,6 +12,7 @@ use kartik\select2\Select2;
 use mootensai\components\JsBlock;
 use yii\helpers\ArrayHelper;
 use yii\web\View;
+use yii\widgets\MaskedInputAsset;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\project\models\Transfer */
@@ -33,6 +34,8 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
 
     <input type="hidden" id="movement_id" name="Movement[id]" value="<?= $model->isNewRecord ? -1 : $model->id ?>">
 
+    <div id="flash"></div>
+
     <div class="card">
         <div class="card-body" style="margin-bottom: -15px">
 
@@ -49,7 +52,6 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                 <div class="col-sm-3">
                     <?= $form->field($model, 'amount')->widget(NumberControl::class, [
                         'maskedInputOptions' => [
-                            'prefix' => 'Lps ',
                             'allowMinus' => false,
                             'rightAlign' => false
                         ]

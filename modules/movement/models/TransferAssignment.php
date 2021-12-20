@@ -26,4 +26,12 @@ class TransferAssignment extends BaseTransferAssignment
             ]);
     }
 
+    public static function getAll(int $transfer_id): array
+    {
+        return self::find()
+            ->select(['id', 'reason', 'beneficiary_id', 'position', 'amount'])
+            ->asArray()
+            ->all();
+    }
+
 }

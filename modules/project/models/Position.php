@@ -26,7 +26,7 @@ class Position extends BasePosition
     public static function get(): array
     {
         return self::find()
-            ->select(["id", "name as label"])
+            ->select(["name as id", "name as label"])
             ->asArray()
             ->all();
     }

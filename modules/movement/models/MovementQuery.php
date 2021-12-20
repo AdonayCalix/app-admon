@@ -41,9 +41,10 @@ class MovementQuery extends ActiveQuery
             [
                 "project p" => function ($q) {
                     $q->joinWith("userProject up");
+                    $q->where(["up.user_id" => \Yii::$app->user->id]);
                 }
-            ]
-        )->where(["up.user_id" => \Yii::$app->user->id]);
+            ], false
+        );
 
         parent::init();
     }

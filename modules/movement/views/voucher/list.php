@@ -1,53 +1,56 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\movement\models\VoucherElementsSearch */
+/* @var $searchModel app\modules\project\models\TransferSearch */
 
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 use webvimark\modules\UserManagement\components\GhostHtml;
-use yii\helpers\Html;
-use kartik\export\ExportMenu;
 use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
 
-$this->title = 'Formato de Elementos Voucher';
+$this->title = 'Vouchers';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
-<div class="voucher-elements-index">
+<div class="transfer-index">
+
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <p>
-                    <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Elemenentos Voucher', ['create'], ['class' => 'btn btn-success']) ?>
-                </p>
                 <?php
                 $gridColumn = [
                     ['class' => 'yii\grid\SerialColumn'],
                     ['attribute' => 'id', 'visible' => false],
+                    ['attribute' => 'number', 'width' => '20%'],
+                    ['attribute' => 'amount', 'width' => '20%'],
                     [
                         'attribute' => 'project_id',
-                        'label' => 'Project',
+                        'label' => 'Proyecto',
                         'value' => function ($model) {
-                            return $model->project->name;
+                            return $model->project->alias;
                         },
                         'filterType' => GridView::FILTER_SELECT2,
-                        'filter' => \yii\helpers\ArrayHelper::map(\app\modules\project\models\Project::find()->asArray()->all(), 'id', 'alias'),
+                        'filter' => ArrayHelper::map(\app\modules\project\models\Project::find()->asArray()->all(), 'id', 'alias'),
                         'filterWidgetOptions' => [
                             'pluginOptions' => ['allowClear' => true],
                         ],
-                        'filterInputOptions' => ['placeholder' => '', 'id' => 'grid-voucher-elements-search-project_id']
+                        'filterInputOptions' => ['placeholder' => '', 'id' => 'grid-transfer-search-project_id']
                     ],
                     [
-                        'class' => 'yii\grid\ActionColumn',
-                    ],
+                        'value' => function($model) {
+                                return GhostHtml::a('Generar Voucher', ['get-file', 'movement_id' => $model->id, 'project_id' => $model->project_id], ['target' => '_blank']);
+                        },
+                        'format' => 'raw'
+                    ]
                 ];
                 ?>
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
-                    'pjax' => true,
-                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-voucher-elements']]
+                    'pjax' => false,
+                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-transfer']]
                 ]); ?>
             </div>
         </div>

@@ -1,5 +1,6 @@
 <?php
 
+use app\assets\MoneyAsset;
 use app\assets\VueSelectAsset;
 use app\modules\project\models\ProjectBudget;
 use kartik\widgets\ActiveForm;
@@ -7,6 +8,7 @@ use mootensai\components\JsBlock;
 use yii\web\View;
 
 VueSelectAsset::register($this);
+MoneyAsset::register($this);
 JsBlock::widget(['viewFile' => '_scriptBudget', 'pos' => View::POS_END]);
 
 ?>
@@ -76,7 +78,8 @@ JsBlock::widget(['viewFile' => '_scriptBudget', 'pos' => View::POS_END]);
                                                                  v-bind:value="activity.activity_id"
                                                                  v-bind:name="'BudgetPeriod' + '[' + activity.activity_id +'][sub_category_id]'">
                                 </td>
-                                <td><input v-model="activity.amount" type="number" class="form-control"
+                                <td>
+                                    <input v-model="activity.amount" type="number" class="form-control"
                                            v-bind:name="'BudgetPeriod' + '[' + activity.activity_id + '][amount]'"></td>
                                 <td><input type="text" class="form-control" disabled></td>
                                 <td><input type="text" class="form-control" disabled></td>
@@ -93,7 +96,6 @@ JsBlock::widget(['viewFile' => '_scriptBudget', 'pos' => View::POS_END]);
 
                         </table>
                     </div>
-
                 </div>
             </div>
         </div>

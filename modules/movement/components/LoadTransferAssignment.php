@@ -27,10 +27,22 @@ class LoadTransferAssignment
         } else {
             $transferAssignment = TransferAssignment::find()
                 ->where(['transfer_id' => $transferValue]);
-            if ($transferAssignment->count() > 0) {
+
+            if ($this->post['isNewRecord'] === 'ok') {
+
                 $this->setErrors([
                     ['Solo se puede asignar un numero de TB/Cheque una vez']
                 ], '');
+            }
+
+            if ($this->post['isNewRecord'] === 'No ok') {
+                if ($transferAssignment->count() > 0) {
+                    if ((int)$transferAssignment->one()->transfer_id !== (int)$this->post['transferId']) {
+                        $this->setErrors([
+                            ['Solo se puede asignar un numero de TB/Cheque una vez UPD']
+                        ], '');
+                    }
+                }
             }
         }
         return $this;
