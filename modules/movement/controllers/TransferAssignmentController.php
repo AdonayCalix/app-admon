@@ -4,6 +4,7 @@ namespace app\modules\movement\controllers;
 
 use app\controllers\base\BaseController;
 use app\modules\movement\components\LoadTransferAssignment;
+use app\modules\movement\components\receipt\ReceiptFile;
 use app\modules\movement\components\StoreTransferAssignment;
 use app\modules\movement\models\Movement;
 use app\modules\project\models\Beneficiary;
@@ -165,5 +166,13 @@ class TransferAssignmentController extends BaseController
     public function actionGetTransferAssignments($transfer_id)
     {
         return json_encode(TransferAssignment::getAll($transfer_id));
+    }
+
+    public function actionGetReceipt($id)
+    {
+        (new ReceiptFile($id))
+            ->initializeExcel()
+            ->writeContent()
+            ->downloadFile('RECIBO.xlsx');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use webvimark\modules\UserManagement\components\GhostHtml;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use app\modules\movement\models\base\TransferAssignment;
@@ -31,7 +32,12 @@ $gridColumn = [
         'attribute' => 'amount',
         'label' => 'Monto',
     ],
-
+    [
+        'value' => function($model) {
+            return GhostHtml::a('Generar Recibo', ['get-receipt', 'id' => $model->id], ['target' => '_blank']);
+        },
+        'format' => 'raw'
+    ]
 ];
 
 echo \yii\grid\GridView::widget([
