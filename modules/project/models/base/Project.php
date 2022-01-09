@@ -27,6 +27,7 @@ use yii\db\ActiveRecord;
  * @property string $bank
  * @property string $account_number
  * @property string $initial_balance
+ * @property string $date_initial_balance
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $deleted_by
@@ -62,7 +63,7 @@ class Project extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['name', 'alias', 'start_date', 'end_date', 'budget', 'bank', 'account_number', 'initial_balance'], 'required'],
+            [['name', 'alias', 'start_date', 'end_date', 'budget', 'bank', 'account_number', 'initial_balance', 'date_initial_balance'], 'required'],
             [['start_date', 'end_date', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['budget'], 'number'],
             [['created_by', 'updated_by', 'deleted_by'], 'integer'],
@@ -99,7 +100,8 @@ class Project extends ActiveRecord
             'budget' => 'Presupuesto',
             'bank' => 'Banco',
             'account_number' => 'Numero de Cuenta',
-            'initial_balance' => 'Balance Inicial'
+            'initial_balance' => 'Balance Inicial',
+            'date_initial_balance' => 'Fecha Inicial Balance'
         ];
     }
 
@@ -178,6 +180,10 @@ class Project extends ActiveRecord
             ->change()
             ->asString();
 
+        $this->date_initial_balance = (new FormatDate($this->date_initial_balance, 'd/m/Y', 'Y-m-d'))
+            ->change()
+            ->asString();
+
         return parent::beforeSave($insert);
     }
 
@@ -185,6 +191,7 @@ class Project extends ActiveRecord
     {
         $this->start_date = (new FormatDate($this->start_date, 'Y-m-d', 'd/m/Y'))->change()->asString();
         $this->end_date = (new FormatDate($this->end_date, 'Y-m-d', 'd/m/Y'))->change()->asString();
+        $this->date_initial_balance = (new FormatDate($this->date_initial_balance, 'Y-m-d', 'd/m/Y'))->change()->asString();
         parent::afterFind();
     }
 

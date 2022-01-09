@@ -56,7 +56,7 @@ class DisbursedController extends BaseController
     {
         $model = new Disbursed();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->saveMovement()) {
             Yii::$app->session->setFlash('success', 'Se creo correctamente el desembolso para el proyecto');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -77,7 +77,7 @@ class DisbursedController extends BaseController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->saveMovement()) {
             Yii::$app->session->setFlash('success', 'Se actualizo correctamente el desembolso');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
@@ -126,7 +126,7 @@ class DisbursedController extends BaseController
         if (isset($_POST['depdrop_parents'])) {
             $id = end($_POST['depdrop_parents']);
             $list = ProjectPeriod::find()
-                ->where(['project_id' => $id])
+                ->where(['project_period.project_id' => $id])
                 ->asArray()
                 ->all();
 

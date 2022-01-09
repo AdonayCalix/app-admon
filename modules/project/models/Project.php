@@ -16,7 +16,7 @@ class Project extends BaseProject
     {
         return array_replace_recursive(parent::rules(),
             [
-                [['name', 'alias', 'start_date', 'end_date', 'budget', 'bank', 'account_number', 'initial_balance'], 'required'],
+                [['name', 'alias', 'start_date', 'end_date', 'budget', 'bank', 'account_number', 'initial_balance', 'date_initial_balance'], 'required'],
                 [['start_date', 'end_date', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
                 [['budget'], 'number'],
                 [['created_by', 'updated_by', 'deleted_by'], 'integer'],

@@ -96,14 +96,6 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
             ]
         ]); ?>
 
-        <?= $form->field($model, 'initial_balance')->widget(NumberControl::class, [
-            'maskedInputOptions' => [
-                'prefix' => 'Lps ',
-                'allowMinus' => false,
-                'rightAlign' => false
-            ]
-        ]); ?>
-
         <?= $form->field($model, 'bank')->textInput(['maxlength' => true, 'placeholder' => 'Banco']) ?>
 
         <?= $form->field($model, 'account_number')->textInput(['maxlength' => true, 'placeholder' => 'Número de Cuenta']) ?>
@@ -123,11 +115,18 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
                 ]),
             ],
             [
+                'label' => '<i class="fa fa-coins"></i> ' . Html::encode('Balance Inicial'),
+                'content' => $this->render('_formInitialBalance', [
+                    'model' => $model,
+                    'form' => $form,
+                ]),
+            ],
+            [
                 'label' => '<i class="fa fa-user"></i> ' . Html::encode('Usuarios'),
                 'content' => $this->render('_formUserProject', [
                     'row' => ArrayHelper::toArray($model->userProject),
                 ]),
-            ]
+            ],
         ];
         echo kartik\tabs\TabsX::widget([
             'items' => $forms,

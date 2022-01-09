@@ -117,9 +117,9 @@ class VoucherFile extends ExcelExport
         return $this;
     }
 
-    public function setNumberTbCheque(): VoucherFile
+    public function setNumberTbCheque(string $name): VoucherFile
     {
-        $this->setValueInCell($this->excelSheet, $this->voucherElements->number, $this->movement->transfer_id);
+        $this->setValueInCell($this->excelSheet, $this->voucherElements->number, $name);
         return $this;
     }
 

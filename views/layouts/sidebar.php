@@ -46,7 +46,8 @@ use yii\helpers\Url;
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/user-management/auth-item-group/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Grupo de Permisos</span>
+                    <i class="align-middle" data-feather="arrow-right"></i> <span
+                            class="align-middle">Grupo de Permisos</span>
                 </a>
             </li>
 
@@ -80,13 +81,15 @@ use yii\helpers\Url;
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/project/project-budget/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Presupuestos/POAS</span>
+                    <i class="align-middle" data-feather="arrow-right"></i> <span
+                            class="align-middle">Presupuestos/POAS</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/project/disbursed/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Desembolsos</span>
+                    <i class="align-middle" data-feather="arrow-right"></i> <span
+                            class="align-middle">Desembolsos</span>
                 </a>
             </li>
 
@@ -98,7 +101,8 @@ use yii\helpers\Url;
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/project/beneficiary/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Beneficarios</span>
+                    <i class="align-middle" data-feather="arrow-right"></i> <span
+                            class="align-middle">Beneficarios</span>
                 </a>
             </li>
 
@@ -126,7 +130,8 @@ use yii\helpers\Url;
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/qb/chart-account/import']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Importar Cuentas</span>
+                    <i class="align-middle" data-feather="arrow-right"></i> <span
+                            class="align-middle">Importar Cuentas</span>
                 </a>
             </li>
 
@@ -142,7 +147,8 @@ use yii\helpers\Url;
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/movement/transfer-assignment/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Asignacion TB</span>
+                    <i class="align-middle" data-feather="arrow-right"></i> <span
+                            class="align-middle">Asignacion TB</span>
                 </a>
             </li>
 
@@ -152,7 +158,8 @@ use yii\helpers\Url;
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/movement/voucher-format/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Formato Voucher</span>
+                    <i class="align-middle" data-feather="arrow-right"></i> <span
+                            class="align-middle">Formato Voucher</span>
                 </a>
             </li>
 
@@ -170,12 +177,20 @@ use yii\helpers\Url;
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/movement/check/list']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Solicitud Cheques</span>
+                    <i class="align-middle" data-feather="arrow-right"></i> <span
+                            class="align-middle">Solicitud Cheques</span>
                 </a>
             </li>
 
             <li class="sidebar-header">
                 Libros de Banco
+            </li>
+
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/project/book-bank/generate']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Generar</span>
+                </a>
             </li>
         </ul>
     </div>

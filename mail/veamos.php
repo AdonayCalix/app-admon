@@ -10,8 +10,7 @@
 
 <p>Buenos noches estimada(o) <?= $name ?>.</p>
 
-<p><strong>El periodo para realizar las evaluaciones esta cerca de acabar pronto, completar asignaciones
-        pendientes.</strong></p>
+<p><strong>Recordatorio de evaluaciones pendientes de realizar.</strong></p>
 
 <strong>Credenciales de acceso</strong>.<br>
 <i>Direccion: <?= \yii\helpers\Html::a('ED360', 'https://ceprosaf.org/Evaluacion360') ?> </i><br>
@@ -28,8 +27,6 @@
     <li>Cuando conteste todas las preguntas debe de dar clic en el boton de guardar.</li>
     <li>Repetir los pasos del <strong>4 al 6</strong> con las evaluaciones restantes.</li>
 </ol>
-
-<p><strong>Fecha limite domingo 19 a las 11:59 pm</strong></p>
 
 <p>Este es un correo generado de forma automatica, favor no responderlo. En caso de tener alguna duda remitirse con
     la Unidad de M&E.</p>

@@ -38,7 +38,7 @@ class VoucherController extends BaseController
             ->setMovement()
             ->setVoucherElements()
             ->setHeader()
-            ->setNumberTbCheque()
+            ->setNumberTbCheque($name)
             ->setEmissionDate()
             ->setBeneficiary()
             ->setAmountInWords()

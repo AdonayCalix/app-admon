@@ -18,6 +18,7 @@ use yii\db\ActiveQuery;
  * @property string $amount
  * @property string $date
  * @property string $description
+ * @property integer $movement_id
  * @property integer $created_by
  * @property integer $updated_by
  * @property integer $deleted_by
