@@ -8,7 +8,7 @@ use yii\web\View;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Generar Libro de Banco';
+$this->title = 'Generar Formato Financiero V2';
 $this->params['breadcrumbs'][] = $this->title;
 
 VueSelectAsset::register($this);
@@ -23,7 +23,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
     <div class="card">
         <div class="card-body">
 
-            <div id="book-bank">
+            <div id="financial-format">
                 <div class="row">
                     <div class="col-md-3">
                         <label for=""><strong>Proyecto</strong></label>
@@ -41,7 +41,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                     <div class="col align-content-center">
                         <br>
                         <button class="btn btn-success" v-on:click="download">
-                           Generar
+                            Generar
                         </button>
                     </div>
                 </div>

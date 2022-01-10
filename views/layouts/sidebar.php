@@ -186,9 +186,18 @@ use yii\helpers\Url;
                 Libros de Banco
             </li>
 
-
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/project/book-bank/generate']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Generar</span>
+                </a>
+            </li>
+
+            <li class="sidebar-header">
+                Formato Financiero V2
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/project/financial-format-v2/generate']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Generar</span>
                 </a>
             </li>

@@ -3,12 +3,12 @@
 namespace app\modules\project\controllers;
 
 use app\controllers\base\BaseController;
-use app\modules\project\components\BookBankFile;
+use app\modules\project\components\FinancialFormatV2File;
 use app\modules\project\models\base\Project;
 use app\modules\project\repository\Months;
 use app\modules\project\repository\Years;
 
-class BookBankController extends BaseController
+class FinancialFormatV2Controller extends BaseController
 {
     public function actionGenerate(): string
     {
@@ -34,13 +34,13 @@ class BookBankController extends BaseController
             ->orderBy('id')->asArray()->all());
     }
 
-    public function actionDownload($project_id, $date)
+    public function actionVeamos()
     {
-        (new BookBankFile($project_id, $date))
+        (new FinancialFormatV2File(3, 1, 1))
             ->initializeExcel()
-            ->getDates()
-            ->writeHeaders()
-            ->writeContent()
+            ->createCategorySheets()
+            ->removeCloneSheet()
+            ->setContentCategory()
             ->downloadFile();
     }
 }
