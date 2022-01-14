@@ -60,7 +60,7 @@ JsBlock::widget(['viewFile' => '_scriptBudget', 'pos' => View::POS_END]);
                         <table class="table table-sm table-condesed table-hover table-bordered align-middle">
                             <tbody>
                             <tr v-for="(activity, indexActivity) in category.activities">
-                                <th scope="col">{{ indexActivity + 1 }}</th>
+                                <th scope="col">{{ activity.account_number }}</th>
                                 <td width="45%">{{ activity.name }}</td>
                                 <td style="display:none;"><input type="hidden" class="form-control"
                                                                  v-bind:value="activity.id"

@@ -126,7 +126,6 @@ class ProjectBudgetController extends BaseController
 
     public function actionAssignBudget($id): string
     {
-
         if (Yii::$app->request->post()) {
             BudgetPeriod::store($_POST['BudgetPeriod'] ?? []);
         }

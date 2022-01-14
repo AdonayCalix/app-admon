@@ -3,6 +3,7 @@
 namespace app\modules\project\models\base;
 
 use app\modules\project\models\MovementsByCategoryQuery;
+use setasign\Fpdi\PdfParser\Filter\Lzw;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -21,7 +22,7 @@ use yii\behaviors\BlameableBehavior;
 class MovementsByCategory extends \yii\db\ActiveRecord
 {
     use \mootensai\relation\RelationTrait;
-    
+
     /**
      * @inheritdoc
      */
@@ -69,5 +70,12 @@ class MovementsByCategory extends \yii\db\ActiveRecord
     public static function find(): MovementsByCategoryQuery
     {
         return new MovementsByCategoryQuery(get_called_class());
+    }
+
+    public static function get(int $category_id, int $project_id): MovementsByCategoryQuery
+    {
+        return self::find()
+            ->where(['category_id' => $category_id])
+            ->andwhere(['project_id' => $project_id]);
     }
 }

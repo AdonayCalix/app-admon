@@ -1,8 +1,15 @@
 <?php
 
-namespace app\modules\project\components;
+namespace app\modules\project\components\financial\formatv2;
 
 use app\components\ExcelExport;
+use app\modules\movement\models\MovementSubDetail;
+use app\modules\project\components\financial\formatv2\category\CategorySheets;
+use app\modules\project\components\financial\formatv2\category\ContentCategory;
+use app\modules\project\components\financial\formatv2\category\FooterCategory;
+use app\modules\project\components\financial\formatv2\category\HeaderCategory;
+use app\modules\project\components\financial\formatv2\summary\ContentSummarize;
+use app\modules\project\models\base\MovementsByCategory;
 use app\modules\project\models\Project;
 use app\modules\project\models\ProjectBudget;
 use phpDocumentor\Reflection\Types\This;
@@ -18,7 +25,8 @@ class FinancialFormatV2File extends ExcelExport
     private $project;
 
     private $budget;
-    private $project_period_id;
+    private $period_id;
+    private $budget_id;
 
     /**
      * @var Spreadsheet
@@ -34,6 +42,8 @@ class FinancialFormatV2File extends ExcelExport
     public function __construct(int $project_id, int $budget_id, int $project_period_id)
     {
         $this->project = Project::findOne($project_id);
+        $this->budget_id = $budget_id;
+        $this->period_id = $project_period_id;
         $this->budget = ProjectBudget::findOne(['project_budget.project_id' => $project_id]);
         $this->name_file = 'Formato Financiero V2.xlsx';
     }
@@ -42,20 +52,6 @@ class FinancialFormatV2File extends ExcelExport
     {
         $this->excelObject = $this->initExcel('/web/excel/financial_format/' . 'format_v2.xlsx');
         $this->excelSheet = $this->excelObject->getSheetByName('CEPROSAF');
-        return $this;
-    }
-
-    public function createCategorySheets(): FinancialFormatV2File
-    {
-        foreach ($this->budget->budgetCategories as $category) {
-            $clonedWorksheet = clone $this->excelObject->getSheetByName('CLONE');
-            $clonedWorksheet->setTitle("{$category->identifier}");
-            try {
-                $this->excelObject->addSheet($clonedWorksheet);
-            } catch (Exception $e) {
-            }
-        }
-
         return $this;
     }
 
@@ -72,14 +68,37 @@ class FinancialFormatV2File extends ExcelExport
         return $this;
     }
 
-    public function setContentCategory(): FinancialFormatV2File
+    public function setSummarize(): FinancialFormatV2File
     {
+        (new ContentSummarize($this->budget_id, $this->period_id, $this->excelSheet))
+            ->write();
+        return $this;
+    }
+
+
+    public function setCategories(): FinancialFormatV2File
+    {
+        (new CategorySheets(
+            $this->excelObject,
+            $this->budget->budgetCategories)
+        )->create();
+
         foreach ($this->budget->budgetCategories as $category) {
             $this->excelSheet = $this->excelObject->getSheetByName($category->identifier);
 
-            $this->setContentTable($this->excelSheet, 'F5', array_column($category->subCategories, 'account_number'));
-            $this->setContentTable($this->excelSheet, 'F6', array_column($category->subCategories, 'name'));
+            (new HeaderCategory($this->excelSheet, $category->subCategories))
+                ->wirte()
+                ->setStyles();
 
+            $query = MovementsByCategory::get($category->id, $this->project->id);
+
+            (new ContentCategory($this->excelSheet, $query, $category->subCategories))
+                ->write()
+                ->setStyles();
+
+            (new FooterCategory($this->excelSheet, $query->count(), $category->subCategories))
+                ->write()
+                ->setStyles();
         }
 
         return $this;
@@ -90,5 +109,4 @@ class FinancialFormatV2File extends ExcelExport
         $this->downloadExcel($this->excelObject, $this->name_file);
         return $this;
     }
-
 }

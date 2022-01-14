@@ -42,6 +42,7 @@ class ProjectBudget extends BaseProjectBudget
                 $value['activities'] = array_map(function ($subCategory) use ($period_id) {
                     return [
                         'id' => BudgetPeriod::getId($subCategory->id, $period_id),
+                        'account_number' => $subCategory->account_number,
                         'activity_id' => $subCategory->id,
                         'name' => $subCategory->name,
                         'amount' => BudgetPeriod::getAmount($subCategory->id, $period_id),
@@ -55,6 +56,7 @@ class ProjectBudget extends BaseProjectBudget
             $out[] = $value;
         }
 
+        //echo '<pre>' . print_r($out, true). '</pre>';die;
         return $out;
     }
 

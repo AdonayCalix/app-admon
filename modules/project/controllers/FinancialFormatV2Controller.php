@@ -3,10 +3,11 @@
 namespace app\modules\project\controllers;
 
 use app\controllers\base\BaseController;
-use app\modules\project\components\FinancialFormatV2File;
+use app\modules\project\components\financial\formatv2\FinancialFormatV2File;
 use app\modules\project\models\base\Project;
 use app\modules\project\repository\Months;
 use app\modules\project\repository\Years;
+use PhpOffice\PhpSpreadsheet\Exception;
 
 class FinancialFormatV2Controller extends BaseController
 {
@@ -34,13 +35,17 @@ class FinancialFormatV2Controller extends BaseController
             ->orderBy('id')->asArray()->all());
     }
 
+    /**
+     * @throws Exception
+     */
     public function actionVeamos()
     {
+
         (new FinancialFormatV2File(3, 1, 1))
             ->initializeExcel()
-            ->createCategorySheets()
+            ->setSummarize()
+            ->setCategories()
             ->removeCloneSheet()
-            ->setContentCategory()
             ->downloadFile();
     }
 }

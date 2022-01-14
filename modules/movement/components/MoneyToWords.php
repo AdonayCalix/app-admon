@@ -9,6 +9,6 @@ class MoneyToWords
     public static function get(float $number): string
     {
         $formatter = new NumeroALetras();
-        return $formatter->toMoney($number, 2, 'Lempiras', 'Centavos') ?? 'pUTO';
+        return $formatter->toMoney($number, 2, 'Lempiras', 'Centavos') ?? '';
     }
 }
