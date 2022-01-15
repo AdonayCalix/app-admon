@@ -1,11 +1,10 @@
 <?php
 
-namespace app\modules\project\components\financial\formatv2\summary;
+namespace app\modules\project\components\financial\formatv2\consolidate;
 
-use phpDocumentor\Reflection\Types\This;
-
-class SummarizeSource
+class ConsolidateSource
 {
+
     private $project_budget;
 
     public function __construct(array $project_budget)
@@ -31,6 +30,8 @@ class SummarizeSource
                     $activity['account_number'],
                     $activity['name'],
                     $activity['amount'],
+                    $activity['used'],
+                    $activity['aviable'],
                     "color" => "FFFFFF",
                     "alignment_horizontal" => "left"
                 ];
@@ -40,6 +41,8 @@ class SummarizeSource
                 "",
                 "Total",
                 "=SUM(C{$first_row}:C{$last_row})",
+                "=SUM(D{$first_row}:D{$last_row})",
+                "=SUM(E{$first_row}:E{$last_row})",
                 "bold" => true,
                 "color" => "B00000"
             ];
@@ -50,4 +53,5 @@ class SummarizeSource
         //echo '<pre>' . print_r($out, true) . '</pre>';die;
         return $out;
     }
+
 }

@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
 
             <p>
-                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Transferencia', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Registrar Movimiento', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
             <div class="row">
                 <?php
@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'project_id',
                         'label' => 'Proyecto',
                         'value' => function ($model) {
-                            return $model->project->alias;
+                            return $model->project->alias ?? null;
                         },
                         'filterType' => GridView::FILTER_SELECT2,
                         'filter' => ArrayHelper::map(\app\modules\project\models\Project::find()->asArray()->all(), 'id', 'alias'),
@@ -40,12 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             'pluginOptions' => ['allowClear' => true],
                         ],
                         'filterInputOptions' => ['placeholder' => '', 'id' => 'grid-transfer-search-project_id']
-                    ],
-                    [
-                        'value' => function($model) {
-                            return GhostHtml::a('Generar Recibo', '#');
-                        },
-                        'format' => 'raw'
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',

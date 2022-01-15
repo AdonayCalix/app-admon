@@ -10,7 +10,7 @@ use app\modules\movement\models\Movement;
 /**
  * app\modules\qb\models\MovementSearch represents the model behind the search form about `app\modules\movement\models\Movement`.
  */
- class MovementSearch extends Movement
+class MovementSearch extends Movement
 {
     /**
      * @inheritdoc
@@ -42,7 +42,11 @@ use app\modules\movement\models\Movement;
      */
     public function search($params)
     {
-        $query = Movement::find();
+        $query = Movement::find()
+            ->select(['movement.id', 'movement.number', 'movement.amount', 'movement.project_id', 'mv.kind'])
+            ->where(['<>', 'mv.kind', 'Desembolso'])
+            ->joinWith('movementDetails mv')
+            ->groupBy(['number', 'movement.id', 'movement.amount', 'movement.project_id', 'mv.kind']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -33,7 +33,6 @@ use yii\web\Response;
 class MovementController extends BaseController
 {
 
-
     /**
      * Lists all Movement models.
      * @return string
@@ -47,6 +46,12 @@ class MovementController extends BaseController
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionOtherCreate()
+    {
+        Yii::$app->session->setFlash('success', 'Se actualizo correctamente el proyecto');
+        return $this->redirect(['create']);
     }
 
     /**

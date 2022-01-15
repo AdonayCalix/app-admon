@@ -5,6 +5,8 @@ namespace app\modules\project\controllers;
 use app\controllers\base\BaseController;
 use app\modules\project\components\financial\formatv2\FinancialFormatV2File;
 use app\modules\project\models\base\Project;
+use app\modules\project\models\ProjectBudget;
+use app\modules\project\models\ProjectPeriod;
 use app\modules\project\repository\Months;
 use app\modules\project\repository\Years;
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -18,14 +20,17 @@ class FinancialFormatV2Controller extends BaseController
         ]);
     }
 
-    public function actionGetMonths()
+    public function actionGetPeriods($budget_id)
     {
-        return json_encode(Months::get());
+        return json_encode(ProjectPeriod::getPeriods($budget_id));
     }
 
-    public function actionGetYears()
+    public function actionGetBudgets($project_id)
     {
-        return json_encode(Years::get());
+        $out = \Yii::$app->db->createCommand(
+            "select id, name as label from project_budget where project_id = {$project_id}"
+        )->queryAll();
+        return json_encode($out);
     }
 
     public function actionGetProjects()
@@ -38,6 +43,20 @@ class FinancialFormatV2Controller extends BaseController
     /**
      * @throws Exception
      */
+    public function actionDownload($project_id, $budget_id, $period_id)
+    {
+        (new FinancialFormatV2File($project_id, $budget_id, $period_id))
+            ->initializeExcel()
+            ->setSummarize()
+            ->setCategories()
+            ->setConsolidate()
+            ->removeCloneSheet()
+            ->downloadFile();
+    }
+
+    /**
+     * @throws Exception
+     */
     public function actionVeamos()
     {
 
@@ -45,6 +64,7 @@ class FinancialFormatV2Controller extends BaseController
             ->initializeExcel()
             ->setSummarize()
             ->setCategories()
+            ->setConsolidate()
             ->removeCloneSheet()
             ->downloadFile();
     }

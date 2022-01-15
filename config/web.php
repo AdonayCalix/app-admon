@@ -46,7 +46,7 @@ $config = [
                         'verify_peer_name' => false,
                     ],
                 ],
-            ]
+            ],
         ],
        /* 'sentry' => [
             'class' => 'mito\sentry\Component',
@@ -83,6 +83,10 @@ $config = [
             'showScriptName' => false,
             'rules' => [
             ],
+        ],
+        'formatter' => [
+            'thousandSeparator' => ',',
+            'currencyCode' => 'Lps',
         ],
     ],
     'modules' => [

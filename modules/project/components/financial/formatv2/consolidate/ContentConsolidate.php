@@ -1,13 +1,12 @@
 <?php
 
-namespace app\modules\project\components\financial\formatv2\summary;
+namespace app\modules\project\components\financial\formatv2\consolidate;
 
 use app\components\ExcelExport;
 use app\modules\project\models\ProjectBudget;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ContentSummarize extends ExcelExport
+class ContentConsolidate extends ExcelExport
 {
     /**
      * @var array
@@ -26,10 +25,10 @@ class ContentSummarize extends ExcelExport
     {
         $this->excelSheet = $excelSheet;
         $this->project_budget = ProjectBudget::getCategories($budget_id, $period_id);
-        $this->source = (new SummarizeSource($this->project_budget))->get();
+        $this->source = (new ConsolidateSource($this->project_budget))->get();
     }
 
-    public function write(): ContentSummarize
+    public function write(): ContentConsolidate
     {
         $source = $this->source;
 
@@ -48,9 +47,10 @@ class ContentSummarize extends ExcelExport
         return $this;
     }
 
-    public function setStyles(): ContentSummarize
+    public function setStyles(): ContentConsolidate
     {
         $row = 8;
+
         foreach ($this->source as $item) {
 
             $config = [
@@ -60,12 +60,14 @@ class ContentSummarize extends ExcelExport
                 "alignment_horizontal" => $item['alignment_horizontal'] ?? 'center'
             ];
 
-            $this->setStyleByCell($this->excelSheet, "A{$row}", $config);
             $this->setStyleByCell($this->excelSheet, "B{$row}", $config);
             $this->setStyleByCell($this->excelSheet, "C{$row}", $config);
+            $this->setStyleByCell($this->excelSheet, "D{$row}", $config);
+            $this->setStyleByCell($this->excelSheet, "E{$row}", $config);
 
             $row++;
         }
+
         return $this;
     }
 }

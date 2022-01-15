@@ -8,6 +8,7 @@ use app\modules\project\components\financial\formatv2\category\CategorySheets;
 use app\modules\project\components\financial\formatv2\category\ContentCategory;
 use app\modules\project\components\financial\formatv2\category\FooterCategory;
 use app\modules\project\components\financial\formatv2\category\HeaderCategory;
+use app\modules\project\components\financial\formatv2\consolidate\ContentConsolidate;
 use app\modules\project\components\financial\formatv2\summary\ContentSummarize;
 use app\modules\project\models\base\MovementsByCategory;
 use app\modules\project\models\Project;
@@ -71,10 +72,19 @@ class FinancialFormatV2File extends ExcelExport
     public function setSummarize(): FinancialFormatV2File
     {
         (new ContentSummarize($this->budget_id, $this->period_id, $this->excelSheet))
-            ->write();
+            ->write()
+            ->setStyles();
         return $this;
     }
 
+    public function setConsolidate(): FinancialFormatV2File
+    {
+        $this->excelSheet = $this->excelObject->getSheetByName('CONSOLIDADO');
+        (new ContentConsolidate($this->budget_id, $this->period_id, $this->excelSheet))
+            ->write()
+            ->setStyles();
+        return $this;
+    }
 
     public function setCategories(): FinancialFormatV2File
     {
@@ -90,7 +100,7 @@ class FinancialFormatV2File extends ExcelExport
                 ->wirte()
                 ->setStyles();
 
-            $query = MovementsByCategory::get($category->id, $this->project->id);
+            $query = MovementsByCategory::get($category->id, $this->project->id, $this->period_id);
 
             (new ContentCategory($this->excelSheet, $query, $category->subCategories))
                 ->write()

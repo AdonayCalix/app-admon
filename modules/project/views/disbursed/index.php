@@ -48,7 +48,13 @@ $this->title = 'Desembolsos';
                         ],
                         'filterInputOptions' => ['placeholder' => '', 'id' => 'grid-disbursed-search-project_id']
                     ],
-                    'amount',
+                    [
+                        'attribute' => 'amount',
+                        'value' => function ($model) {
+
+                            return number_format($model->amount, 2);
+                        }
+                    ],
                     'date',
                     [
                         'class' => 'yii\grid\ActionColumn',

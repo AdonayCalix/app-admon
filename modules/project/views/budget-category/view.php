@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $model app\modules\project\models\BudgetCategory */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Budget Category', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Categorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="budget-category-view">
@@ -67,7 +67,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         echo Gridview::widget([
                             'dataProvider' => $providerSubCategory,
                             'pjax' => true,
-                            'bsVersion' => '4.x',
                             'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-sub-category']],
                             'columns' => $gridColumnSubCategory
                         ]);

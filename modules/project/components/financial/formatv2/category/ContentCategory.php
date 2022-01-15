@@ -34,6 +34,9 @@ class ContentCategory extends ExcelExport
         $this->total_columns = 6 + count($subCategories);
     }
 
+    /**
+     * @throws \yii\db\Exception
+     */
     public function write(): ContentCategory
     {
         $source = $this->query
@@ -46,17 +49,19 @@ class ContentCategory extends ExcelExport
         $row = self::CONTENT_ROW;
         $last_column = $this->getLetterColum($this->total_columns - 2, "ZZ");
 
-        foreach ($this->query->select(['movement_detail_id'])->asArraY()->all() as $item) {
+        foreach ($this->query->select(['movement_detail_id', 'number'])->asArraY()->all() as $item) {
             foreach ($this->subCategories as $index => $subCategory) {
                 $amount = MovementSubDetail::findOne(
                         [
                             'detail_id' => $item['movement_detail_id'],
                             'sub_category_id' => $subCategory->id
                         ]
-                    )->amount ?? '';
+                    )->amount ?? 0;
 
-                $coordinate = $this->getLetterColum((6 + $index), "ZZ") . $row;
-                $this->setValueInCell($this->excelSheet, $coordinate, $amount);
+                $refund = GetRefunds::make($item['number'], $subCategory->id);
+
+                $coordinate = $this->getLetterColum((5 + $index), "ZZ") . $row;
+                $this->setValueInCell($this->excelSheet, $coordinate, ($amount - $refund));
             }
             $coordinate = $this->getLetterColum($this->total_columns - 1, "ZZ") . $row;
             $formula = "=SUM(F{$row}:{$last_column}{$row})";

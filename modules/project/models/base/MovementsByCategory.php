@@ -2,7 +2,9 @@
 
 namespace app\modules\project\models\base;
 
+use app\modules\project\components\FormatDate;
 use app\modules\project\models\MovementsByCategoryQuery;
+use app\modules\project\models\ProjectPeriod;
 use setasign\Fpdi\PdfParser\Filter\Lzw;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -72,10 +74,17 @@ class MovementsByCategory extends \yii\db\ActiveRecord
         return new MovementsByCategoryQuery(get_called_class());
     }
 
-    public static function get(int $category_id, int $project_id): MovementsByCategoryQuery
+    public static function get(int $category_id, int $project_id, int $period_id): MovementsByCategoryQuery
     {
+
+        $period = ProjectPeriod::findOne($period_id);
+
+        $start_date = (new FormatDate($period->start_date, 'd/m/Y', 'Y-m-d'))->change()->asString();;
+        $end_date = (new FormatDate($period->end_date, 'd/m/Y', 'Y-m-d'))->change()->asString();;
+
         return self::find()
             ->where(['category_id' => $category_id])
-            ->andwhere(['project_id' => $project_id]);
+            ->andwhere(['project_id' => $project_id])
+            ->andWhere(['between', 'date', $start_date, $end_date]);
     }
 }

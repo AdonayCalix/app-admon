@@ -3,7 +3,10 @@
 namespace app\modules\project\models;
 
 use app\modules\budget\models\BudgetPeriod;
+use app\modules\project\components\GetEgressBySubCategory;
+use app\modules\project\components\GetIncomesBySubCategory;
 use \app\modules\project\models\base\ProjectBudget as BaseProjectBudget;
+use function Symfony\Component\String\u;
 
 /**
  * This is the model class for table "project_budget".
@@ -40,14 +43,16 @@ class ProjectBudget extends BaseProjectBudget
 
             if ($category->subCategories) {
                 $value['activities'] = array_map(function ($subCategory) use ($period_id) {
+                    $amount = BudgetPeriod::getAmount($subCategory->id, $period_id);
+                    $used = (GetIncomesBySubCategory::make($period_id, $subCategory->id) - GetEgressBySubCategory::make($period_id, $subCategory->id));
                     return [
                         'id' => BudgetPeriod::getId($subCategory->id, $period_id),
                         'account_number' => $subCategory->account_number,
                         'activity_id' => $subCategory->id,
                         'name' => $subCategory->name,
-                        'amount' => BudgetPeriod::getAmount($subCategory->id, $period_id),
-                        'used' => 0,
-                        'aviable' => 0,
+                        'amount' => $amount,
+                        'used' => $used,
+                        'aviable' => ($amount - $used),
                         'percentage' => 0
                     ];
                 }, $category->subCategories);

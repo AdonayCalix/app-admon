@@ -5,8 +5,8 @@
 /* @var $model app\modules\project\models\Transfer */
 
 $this->title = 'Movimientos';
-$this->params['breadcrumbs'][] = ['label' => 'Transfer', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Movimientos', 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'Registrando';
 ?>
 <div class="transfer-create">
 

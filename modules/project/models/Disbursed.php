@@ -44,7 +44,7 @@ class Disbursed extends BaseDisbursed
         $movementDetail = MovementDetail::findOne($movement->id) ?? new MovementDetail;
         $movementDetail->transfer_id = $movement->id;
         $movementDetail->amount = $this->amount;
-        $movementDetail->date = (new FormatDate($this->date, 'd/m/Y', 'Y-m-d'))->change()->asString();;
+        $movementDetail->date = (new FormatDate($this->date, 'd/m/Y', 'Y-m-d'))->change()->asString();
         $movementDetail->kind = 'Desembolso';
         $movementDetail->beneficiary_id = self::CEPROSAF_BENEFICIARY;
         $movementDetail->concept = $this->description;

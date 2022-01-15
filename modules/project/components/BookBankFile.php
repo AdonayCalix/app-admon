@@ -6,8 +6,10 @@ use app\components\ExcelExport;
 use app\modules\project\models\BookBank;
 use app\modules\project\Project;
 use Carbon\Carbon;
+use phpDocumentor\Reflection\Types\This;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use SebastianBergmann\Comparator\Book;
+use function Symfony\Component\Translation\t;
 
 class BookBankFile extends ExcelExport
 {
@@ -57,16 +59,18 @@ class BookBankFile extends ExcelExport
     {
         Carbon::setLocale('es');
         $date = Carbon::parse($this->date);
-        $before_month = $date->subMonthsNoOverflow()->endOfMonth();
         $this->name_file = "LIBRO DE BANCOS MES DE: " . strtoupper($date->monthName) . " DE " . $date->year;
+        $before_month = $date->subMonthsNoOverflow()->endOfMonth();
 
+        $this->setValueInCell($this->excelSheet, 'A6', \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($before_month->format('Y-m-d')));
         $this->setValueInCell($this->excelSheet, 'C6', "CEPROSAF");
         $this->setValueInCell($this->excelSheet, 'D6', "Saldo al " . $before_month->day . " de " . $before_month->monthName . " " . $before_month->year);
 
         $balance = $this->project->initial_balance;
 
-        if ($this->first_date->ne($this->last_date->firstOfMonth()))
-            $balance = CalculateBalance::get($this->project->id, $this->first_date->format('Y-m-d'), $this->last_date->endOfMonth()->format('Y-m-d'), $balance);
+        if ($this->first_date->ne($this->last_date->firstOfMonth())) {
+            $balance = CalculateBalance::get($this->project->id, $this->first_date->format('Y-m-d'), $this->last_date->subMonthsNoOverflow()->endOfMonth()->format('Y-m-d'), $balance);
+        }
 
         $this->setValueInCell($this->excelSheet, 'G6', $balance);
 
@@ -78,13 +82,12 @@ class BookBankFile extends ExcelExport
 
     public function writeContent(): BookBankFile
     {
-        $source = BookBank::find()
-            ->select(['excel_date', 'number', 'beneficiary', 'concept', 'income', 'egress'])
-            ->where(['project_id' => $this->project->id])
-            ->andwhere(['between', 'date', $this->first_date->format('Y-m-d'), $this->last_date->endOfMonth()->format('Y-m-d')])
-            ->orderBy(['date' => SORT_DESC])
-            ->asArray()
-            ->all();
+        $date = Carbon::parse($this->date);
+        $source = BookBankSource::get(
+            $this->project->id,
+            $date->firstOfMonth()->format('Y-m-d'),
+            $date->endOfMonth()->format('Y-m-d'),
+        );
 
         $this->setContentTable($this->excelSheet, 'A7', $source);
 
@@ -143,7 +146,7 @@ class BookBankFile extends ExcelExport
             ]
         );
 
-        $this->excelSheet->setCellValue("F{$row}","=SUM(F{$initial_row}:F{$last_row})");
+        $this->excelSheet->setCellValue("F{$row}", "=SUM(F{$initial_row}:F{$last_row})");
         $this->setStyleByCell($this->excelSheet,
             "F{$row}", [
                 'alignment_horizontal' => 'left',

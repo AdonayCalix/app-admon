@@ -70,7 +70,7 @@ class ProjectController extends BaseController
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
             (new UserProject)->store($_POST['UserProject'] ?? [], $model->id);
-            Yii::$app->session->setFlash('success', 'Se actualizo correctamente el proyecto');
+            Yii::$app->session->setFlash('success', 'Se almaceno correctamente el movimiento');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->renderIsAjax('create', [

@@ -4,7 +4,7 @@
 /* @var $model app\modules\project\models\BudgetCategory */
 
 $this->title = 'Editando Registro';
-$this->params['breadcrumbs'][] = ['label' => 'Budget Category', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Categorias', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Editar';
 ?>

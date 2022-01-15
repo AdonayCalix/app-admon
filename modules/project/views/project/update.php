@@ -5,7 +5,7 @@
 /* @var $model app\modules\project\models\Project */
 
 $this->title = 'Actualizando Registro';
-$this->params['breadcrumbs'][] = ['label' => 'Projecto', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Proyecto', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->alias, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Editando';
 ?>

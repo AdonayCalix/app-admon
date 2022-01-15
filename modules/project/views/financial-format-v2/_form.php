@@ -31,12 +31,12 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                                     :options="project_list"/>
                     </div>
                     <div class="col-md-3">
-                        <label for=""><strong>Mes</strong></label>
-                        <treeselect v-model="month" :multiple="false" placeholder="[SELECCIONE]" :options="month_list"/>
+                        <label for=""><strong>Presupuesto</strong></label>
+                        <treeselect v-model="budget_id" :multiple="false" placeholder="[SELECCIONE]" :options="budget_list"/>
                     </div>
                     <div class="col-md-3">
-                        <label for=""><strong>Año</strong></label>
-                        <treeselect v-model="year" :multiple="false" placeholder="[SELECCIONE]" :options="year_list"/>
+                        <label for=""><strong>Periodo</strong></label>
+                        <treeselect v-model="period_id" :multiple="false" placeholder="[SELECCIONE]" :options="period_list"/>
                     </div>
                     <div class="col align-content-center">
                         <br>

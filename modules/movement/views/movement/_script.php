@@ -58,15 +58,7 @@
                     method: 'POST',
                     data: $("#w0").serializeArray()
                 }).done(data => {
-                    document.getElementById('flash').innerHTML = `<div class="alert-success alert alert-dismissible" role="alert">
-                    Se almaceno correctamente el movimiento
-                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span></button>
-                </div>`;
-                    this.details = [];
-                    document.getElementById('movement-number').value = null;
-                    document.getElementById('movement-amount-disp').value = null;
-                    document.getElementById('movement-project_id').value = null;
-                    document.documentElement.scrollTop = 0;
+                    window.location.href = "other-create";
                 }).fail(data => {
                     this.errors = $.parseJSON(data.responseText)
                 })

@@ -39,7 +39,8 @@ use yii\data\ActiveDataProvider;
      */
     public function search($params): ActiveDataProvider
     {
-        $query = BudgetCategory::find();
+        $query = BudgetCategory::find()
+        ->orderBy(['budget_category.id' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

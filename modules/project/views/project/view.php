@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $model app\modules\project\models\Project */
 
 $this->title = 'Visualizando Registro';
-$this->params['breadcrumbs'][] = ['label' => 'Project', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Proyecto', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-view">
