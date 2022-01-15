@@ -9,10 +9,10 @@ class GetRefunds
     /**
      * @throws Exception
      */
-    public static function make(string $number, int $sub_category_id): float
+    public static function make(string $number, int $sub_category_id, string $kind): float
     {
         $result = \Yii::$app->db
-            ->createCommand("select dbo.getRefunds('{$number}', {$sub_category_id}) as refund;")
+            ->createCommand("select dbo.getRefunds('{$number}', {$sub_category_id}, '{$kind}') as refund;")
             ->queryOne();
         return $result['refund'];
     }

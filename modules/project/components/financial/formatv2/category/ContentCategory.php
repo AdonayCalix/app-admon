@@ -41,6 +41,7 @@ class ContentCategory extends ExcelExport
     {
         $source = $this->query
             ->select(['order_number', 'excel_date', 'number', 'name', 'concept'])
+            ->orderBy(['order_number' => SORT_ASC])
             ->asArray()
             ->all();
 
@@ -49,7 +50,7 @@ class ContentCategory extends ExcelExport
         $row = self::CONTENT_ROW;
         $last_column = $this->getLetterColum($this->total_columns - 2, "ZZ");
 
-        foreach ($this->query->select(['movement_detail_id', 'number'])->asArraY()->all() as $item) {
+        foreach ($this->query->select(['movement_detail_id', 'number', 'kind'])->orderBy(['order_number' => SORT_ASC])->asArraY()->all() as $item) {
             foreach ($this->subCategories as $index => $subCategory) {
                 $amount = MovementSubDetail::findOne(
                         [
@@ -58,10 +59,10 @@ class ContentCategory extends ExcelExport
                         ]
                     )->amount ?? 0;
 
-                $refund = GetRefunds::make($item['number'], $subCategory->id);
+                $refund = GetRefunds::make($item['number'], $subCategory->id, $item['kind']);
 
                 $coordinate = $this->getLetterColum((5 + $index), "ZZ") . $row;
-                $this->setValueInCell($this->excelSheet, $coordinate, ($amount - $refund));
+                $this->setValueInCell($this->excelSheet, $coordinate, $amount - $refund);
             }
             $coordinate = $this->getLetterColum($this->total_columns - 1, "ZZ") . $row;
             $formula = "=SUM(F{$row}:{$last_column}{$row})";

@@ -44,7 +44,7 @@ class ProjectBudget extends BaseProjectBudget
             if ($category->subCategories) {
                 $value['activities'] = array_map(function ($subCategory) use ($period_id) {
                     $amount = BudgetPeriod::getAmount($subCategory->id, $period_id);
-                    $used = (GetIncomesBySubCategory::make($period_id, $subCategory->id) - GetEgressBySubCategory::make($period_id, $subCategory->id));
+                    $used = GetEgressBySubCategory::make($period_id, $subCategory->id) - (GetIncomesBySubCategory::make($period_id, $subCategory->id));
                     return [
                         'id' => BudgetPeriod::getId($subCategory->id, $period_id),
                         'account_number' => $subCategory->account_number,
