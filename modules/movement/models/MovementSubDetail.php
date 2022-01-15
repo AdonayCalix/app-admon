@@ -27,6 +27,12 @@ class MovementSubDetail extends BaseMovementSubDetail
             ]);
     }
 
+    public function beforeValidate(): bool
+    {
+        $this->amount = str_replace(',', '', $this->amount);
+        return parent::beforeValidate();
+    }
+
     public function store(array $sub_detail, int $detail_id)
     {
         $movementSubDetail = self::findOne($sub_detail['id']) ?? new self;

@@ -65,7 +65,7 @@
                                 <td><treeselect v-model="sub_detail.sub_category_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][sub_category_id]'" :multiple="false" placeholder="[SELECCIONE]" :options="activity_options"></treeselect></td>
                                 <td><treeselect v-model="sub_detail.class_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][class_id]'" :multiple="false" placeholder="[SELECCIONE]" :options="class_options" /></td>
                                 <td><treeselect v-model="sub_detail.chart_account_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][chart_account_id]'" :multiple="false" placeholder="[SELECCIONE]" :options="account_options" /></td>
-                                <td><input type="number" class="form-control" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][amount]'"  v-model="sub_detail.amount"></td>
+                                <td><money  v-bind="money" class="form-control" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][amount]'"  v-model="sub_detail.amount"></money></td>
                                 <td> <a v-on:click="deleteSubItem(indexSubDetail, index)"><i class="btn btn-sm btn-danger">Eliminar</a></td>
                             </tr>
                             <tr>

@@ -103,8 +103,9 @@
                         let response = await fetch("get-movements-with-details?transfer_id=" + movement_id);
                         this.details = await response.json();
                         await this.details.map((detail) => {
+                            console.log(detail.date);
                             let arrayDate = detail.date.split("-");
-                            detail.date = new Date(arrayDate[0], arrayDate[1], arrayDate[2]);
+                            detail.date = new Date(arrayDate[0], (arrayDate[1] -1   ), arrayDate[2]);
                         });
                     } catch (error) {
                         console.log(error);

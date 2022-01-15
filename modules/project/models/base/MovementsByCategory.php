@@ -79,8 +79,8 @@ class MovementsByCategory extends \yii\db\ActiveRecord
 
         $period = ProjectPeriod::findOne($period_id);
 
-        $start_date = (new FormatDate($period->start_date, 'd/m/Y', 'Y-m-d'))->change()->asString();;
-        $end_date = (new FormatDate($period->end_date, 'd/m/Y', 'Y-m-d'))->change()->asString();;
+        $start_date = (new FormatDate($period->start_date, 'd/m/Y', 'Y-m-d'))->change()->asString();
+        $end_date = (new FormatDate($period->end_date, 'd/m/Y', 'Y-m-d'))->change()->asString();
 
         return self::find()
             ->where(['category_id' => $category_id])

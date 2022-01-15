@@ -135,10 +135,14 @@ class MovementDetail extends ActiveRecord
 
     public function validateSumOfAmount($attribute, $params, $validator, $current)
     {
-        $amountOfSubDetails = ArraySum::make(array_column($this->movementSubDetails, 'amount'));
+        $amountsSubDetail = [];
+        foreach ($this->movementSubDetails as $value)
+            $amountsSubDetail[] = str_replace(',', '', $value['amount']);
+
+        $amountOfSubDetails = ArraySum::make($amountsSubDetail);
 
         if ($amountOfSubDetails != $this->amount) {
-            $this->addError('amount', 'La suma del movimiento debe ser igual a la sumatoria de los detalles de esta');
+            $this->addError('amount', 'La suma del movimiento debe ser igual a la sumatoria de los detalles de esta ' . $this->amount . ' ' . $amountOfSubDetails);
         }
     }
 }
