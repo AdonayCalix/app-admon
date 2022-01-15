@@ -14,11 +14,14 @@
         data: {
             categories: [],
             period: null,
+            project_id: null,
+            project_options: [],
             budget_options: [],
             period_options: []
         },
         methods: {
             initSettings: function () {
+                this.project_id = document.getElementById('project_id').value;
                 this.budget_options.push({
                     id: document.getElementById('budget_id').value,
                     label: document.getElementById('budget_name').value
@@ -36,6 +39,14 @@
                 try {
                     let response = await fetch("get-periods-by-project?id=" + this.budget_options[0].id);
                     this.period_options = await response.json();
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            async getProjects() {
+                try {
+                    let response = await fetch("get-projects");
+                    this.project_options = await response.json();
                 } catch (error) {
                     console.log(error);
                 }

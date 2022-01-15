@@ -3,6 +3,7 @@
 namespace app\modules\project\controllers;
 
 use app\modules\budget\models\BudgetPeriod;
+use app\modules\project\models\base\Project;
 use app\modules\project\models\ProjectPeriod;
 use Yii;
 use app\modules\project\models\ProjectBudget;
@@ -124,17 +125,24 @@ class ProjectBudgetController extends BaseController
         }
     }
 
-    public function actionAssignBudget($id): string
+    public function actionAssignBudget($id, $project_id): string
     {
         if (Yii::$app->request->post()) {
             BudgetPeriod::store($_POST['BudgetPeriod'] ?? []);
         }
-        return $this->render('_assign', ['budget_id' => $id]);
+        return $this->render('_assign', ['budget_id' => $id, 'project_id' => $project_id]);
     }
 
     public function actionGetAll($id, $period_id)
     {
         return json_encode(ProjectBudget::getCategories($id, $period_id));
+    }
+
+    public function actionGetProjects()
+    {
+        return json_encode(Project::find()
+            ->select(['project.id as id', 'project.alias as label'])
+            ->orderBy('id')->asArray()->all());
     }
 
     public function actionGetPeriodsByProject($id)

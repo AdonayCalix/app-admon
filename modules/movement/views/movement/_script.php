@@ -48,7 +48,8 @@
             account_options: [],
             activity_options: [],
             beneficiaries_options: [],
-            options: []
+            options: [],
+            project_id: 3,
         },
         methods: {
             store() {
@@ -130,7 +131,7 @@
             },
             async getActivityOptions() {
                 try {
-                    let response = await fetch("get-all-activities?project_id=" + 3);
+                    let response = await fetch("get-all-activities?project_id=" + this.project_id);
                     this.activity_options = await response.json();
                 } catch (error) {
                     console.log(error);
@@ -151,7 +152,7 @@
             },
             checkIfDateIsValid: function (value, index) {
                 value = value.toISOString().slice(0, 10);
-                fetch("validate-date?date=" + value + "&projectId=" + 3)
+                fetch("validate-date?date=" + value + "&projectId=" + this.project_id)
                     .then(response => response.json())
                     .then((response) => {
                         if (response.isValid === false) {

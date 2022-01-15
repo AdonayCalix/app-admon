@@ -17,6 +17,7 @@ JsBlock::widget(['viewFile' => '_scriptBudget', 'pos' => View::POS_END]);
     <input type="hidden" id="budget_id" value="<?= /** @var int $budget_id */
     $budget_id ?>">
     <input type="hidden" id="budget_name" value="<?= ProjectBudget::findOne($budget_id)->name ?>">
+    <input type="hidden" id="project_id" value="<?= $project_id ?>">
 
     <?php $form = ActiveForm::begin(); ?>
     <div class="card">
@@ -81,9 +82,9 @@ JsBlock::widget(['viewFile' => '_scriptBudget', 'pos' => View::POS_END]);
                                 <td>
                                     <input v-model="activity.amount" type="number" class="form-control"
                                            v-bind:name="'BudgetPeriod' + '[' + activity.activity_id + '][amount]'"></td>
-                                <td><input type="text" class="form-control" disabled></td>
-                                <td><input type="text" class="form-control" disabled></td>
-                                <td><input type="text" class="form-control" disabled></td>
+                                <td><input v-model="activity.used" type="text" class="form-control" disabled></td>
+                                <td><input v-model="activity.percentage" type="text" class="form-control" disabled></td>
+                                <td><input v-model="activity.aviable" type="text" class="form-control" disabled></td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="text-center"><strong>Sub Total</strong></td>

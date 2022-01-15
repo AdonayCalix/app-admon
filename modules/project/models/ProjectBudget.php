@@ -45,6 +45,12 @@ class ProjectBudget extends BaseProjectBudget
                 $value['activities'] = array_map(function ($subCategory) use ($period_id) {
                     $amount = BudgetPeriod::getAmount($subCategory->id, $period_id);
                     $used = GetEgressBySubCategory::make($period_id, $subCategory->id) - (GetIncomesBySubCategory::make($period_id, $subCategory->id));
+                    $percentage = 0;
+
+                    if ($used > 0 && $amount > 0) {
+                        $percentage = round(($used / $amount), 2) * 100;
+                    }
+
                     return [
                         'id' => BudgetPeriod::getId($subCategory->id, $period_id),
                         'account_number' => $subCategory->account_number,
@@ -53,7 +59,7 @@ class ProjectBudget extends BaseProjectBudget
                         'amount' => $amount,
                         'used' => $used,
                         'aviable' => ($amount - $used),
-                        'percentage' => 0
+                        'percentage' => $percentage . '%'
                     ];
                 }, $category->subCategories);
             }
@@ -64,5 +70,4 @@ class ProjectBudget extends BaseProjectBudget
         //echo '<pre>' . print_r($out, true). '</pre>';die;
         return $out;
     }
-
 }

@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'value' => function ($model) {
-                            return Html::a('Asignamiento', ['assign-budget', 'id' => $model->id], ['class' => 'btn btn-sm btn-primary']);
+                            return Html::a('Asignamiento', ['assign-budget', 'id' => $model->id, 'project_id' => $model->project_id], ['class' => 'btn btn-sm btn-primary']);
                         },
                         'format' => 'raw',
                         'width' => '20%'
