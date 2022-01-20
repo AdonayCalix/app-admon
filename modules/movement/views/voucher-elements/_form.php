@@ -26,6 +26,8 @@ use kartik\form\ActiveForm;
         ],
     ]); ?>
 
+    <?= $form->field($voucherFormatForm, 'excelFile')->fileInput()->label('Formato') ?>
+
     <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'placeholder' => 'Numero TB/Cheque']) ?>
 
     <?= $form->field($model, 'emission_date')->textInput(['maxlength' => true, 'placeholder' => 'Fecha de Emision']) ?>

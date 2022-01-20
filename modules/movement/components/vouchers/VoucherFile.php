@@ -154,4 +154,10 @@ class VoucherFile extends ExcelExport
         $this->downloadExcel($this->excelObject, $name);
         return $this;
     }
+
+    public function setBanner(): VoucherFile
+    {
+        $this->setLogo($this->excelObject, 'A1', 150, 'logo_cdm.png');
+        return $this;
+    }
 }

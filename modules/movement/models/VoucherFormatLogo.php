@@ -4,10 +4,10 @@ namespace app\modules\movement\models;
 
 use yii\base\Model;
 
-class VoucherFormatForm extends Model
+class VoucherFormatLogo extends Model
 {
     const NOT_UPLOADED_FILE = 'No Ok';
-    public $logoFile;
+    public $excelFile;
     public $fileName;
     public $originalName;
     public $path;
@@ -15,7 +15,7 @@ class VoucherFormatForm extends Model
     public function rules(): array
     {
         return [
-            [['excelFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'xlsx'],
+            [['logoFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png'],
         ];
     }
 
@@ -25,10 +25,10 @@ class VoucherFormatForm extends Model
         $status = false;
 
         if ($this->validate()) {
-            $this->originalName = $this->logoFile->baseName;
-            $this->fileName = time().uniqid(rand()) . '.' . $this->logoFile->extension;
+            $this->originalName = $this->excelFile->baseName;
+            $this->fileName = time().uniqid(rand()) . '.' . $this->excelFile->extension;
             $this->path = 'excel/voucher_format/' . $this->fileName;
-            $this->logoFile->saveAs($this->path);
+            $this->excelFile->saveAs($this->path);
             $status = true;
         }
 

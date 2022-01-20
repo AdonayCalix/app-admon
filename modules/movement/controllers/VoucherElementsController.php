@@ -3,6 +3,7 @@
 namespace app\modules\movement\controllers;
 
 use app\controllers\base\BaseController;
+use app\modules\movement\models\VoucherFormatLogo;
 use Yii;
 use app\modules\movement\models\VoucherElements;
 use app\modules\movement\models\VoucherElementsSearch;
@@ -11,6 +12,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
+use yii\web\UploadedFile;
 
 /**
  * VoucherElementsController implements the CRUD actions for VoucherElements model.
@@ -50,13 +52,20 @@ class VoucherElementsController extends BaseController
      * Creates a new VoucherElements model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
-     * @throws Exception
      */
     public function actionCreate()
     {
         $model = new VoucherElements();
+        $voucherFormatLogo = new VoucherFormatLogo;
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+        if ($model->loadAll(Yii::$app->request->post())) {
+            $voucherFormatLogo->excelFile = UploadedFile::getInstance($voucherFormatLogo, 'logoFile');
+
+            if ($voucherFormatLogo->upload())
+                $model->logo_path = $voucherFormatLogo->originalName;
+
+            $model->save(false);
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -70,14 +79,22 @@ class VoucherElementsController extends BaseController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return Response|string
-     * @throws Exception
      * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $voucherFormatLogo = new VoucherFormatLogo;
 
-        if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+        if ($model->loadAll(Yii::$app->request->post())) {
+
+            $voucherFormatLogo->excelFile = UploadedFile::getInstance($voucherFormatLogo, 'logoFile');
+
+            if ($voucherFormatLogo->upload())
+                $model->logo_path = $voucherFormatLogo->originalName;
+
+            $model->save(false);
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

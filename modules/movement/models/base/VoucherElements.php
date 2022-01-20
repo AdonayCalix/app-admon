@@ -23,6 +23,7 @@ use yii\db\ActiveQuery;
  * @property string $detail_body
  * @property string $header_body
  * @property string $kind_detail
+ * @property string $logo_path
  * @property integer $project_id
  * @property integer $created_by
  * @property integer $updated_by
