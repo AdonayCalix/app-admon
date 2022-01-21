@@ -7,7 +7,7 @@ use yii\base\Model;
 class VoucherFormatLogo extends Model
 {
     const NOT_UPLOADED_FILE = 'No Ok';
-    public $excelFile;
+    public $logoFile;
     public $fileName;
     public $originalName;
     public $path;
@@ -25,10 +25,10 @@ class VoucherFormatLogo extends Model
         $status = false;
 
         if ($this->validate()) {
-            $this->originalName = $this->excelFile->baseName;
-            $this->fileName = time().uniqid(rand()) . '.' . $this->excelFile->extension;
+            $this->originalName = $this->logoFile->baseName;
+            $this->fileName = time() . uniqid(rand()) . '.' . $this->logoFile->extension;
             $this->path = 'excel/voucher_format/' . $this->fileName;
-            $this->excelFile->saveAs($this->path);
+            $this->logoFile->saveAs($this->path);
             $status = true;
         }
 

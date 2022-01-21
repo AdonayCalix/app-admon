@@ -12,13 +12,26 @@ class VoucherHeaderGlobalFund
 
         foreach ($movement->movementSubDetails as $subDetail){
             $expense_category = $subDetail->subCategory->expense_category ?? '';
+            $poa = $subDetail->subCategory->category->budget->name ?? '';
+
+            if ($poa === 'Nota de Continuidad') {
+                $poa = 'NC';
+            }
+
+            if ($poa === 'Fondo Catalizado') {
+                $poa = 'FC';
+            }
+
+            if ($poa === 'Plan Quinquenal') {
+                $poa = 'DDHH';
+            }
 
             $out[] = [
               $subDetail->subCategory->module ?? '',
               $subDetail->subCategory->intervention ?? '',
               explode(' ', $expense_category)[0] ?? '',
               $subDetail->subCategory->account_number ?? '',
-              $subDetail->subCategory->category->budget->name ?? '',
+              $poa,
             ];
         }
 

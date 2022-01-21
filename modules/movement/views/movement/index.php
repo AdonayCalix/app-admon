@@ -29,6 +29,26 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['attribute' => 'number', 'width' => '20%'],
                     ['attribute' => 'amount', 'width' => '20%'],
                     [
+                        'attribute' => 'date',
+                        'label' => 'Fecha',
+                        'filterType' => GridView::FILTER_DATE,
+                        'filterWidgetOptions' => [
+                            'id' => 'fecha',
+                            'removeButton' => false,
+                            'language' => 'es',
+                            'options' => [
+                                'autocomplete' => 'new-text'
+                            ],
+                            'pluginOptions' => [
+                                'format' => 'yyyy-mm-dd',
+                                'autoclose' => true,
+                                'todayBtn' => false,
+                                'orientation' => 'bottom left'
+                            ],
+                        ],
+                        'width' => '30%'
+                    ],
+                    [
                         'attribute' => 'project_id',
                         'label' => 'Proyecto',
                         'value' => function ($model) {

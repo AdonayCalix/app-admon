@@ -19,7 +19,7 @@ class MovementSearch extends Movement
     {
         return [
             [['id', 'bank_id', 'project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
-            [['number', 'bank_account', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
+            [['number', 'bank_account', 'created_at', 'updated_at', 'deleted_at', 'date'], 'safe'],
             [['amount'], 'number'],
         ];
     }
@@ -43,14 +43,20 @@ class MovementSearch extends Movement
     public function search($params)
     {
         $query = Movement::find()
-            ->select(['movement.id', 'movement.number', 'movement.amount', 'movement.project_id', 'mv.kind'])
+            ->select(['movement.id', 'movement.number', 'movement.amount', 'movement.project_id', 'mv.kind', 'mv.date'])
             ->where(['<>', 'mv.kind', 'Desembolso'])
             ->joinWith('movementDetails mv')
-            ->groupBy(['number', 'movement.id', 'movement.amount', 'movement.project_id', 'mv.kind']);
+            ->groupBy(['number', 'movement.id', 'movement.amount', 'movement.project_id', 'mv.kind', 'mv.date']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pageSize' => 30],
         ]);
+
+        $dataProvider->sort->attributes['date'] = [
+            'asc' => ['date' => SORT_ASC],
+            'desc' => ['date' => SORT_DESC],
+        ];
 
         $this->load($params);
 
@@ -73,8 +79,9 @@ class MovementSearch extends Movement
             'deleted_at' => $this->deleted_at,
         ]);
 
-        $query->andFilterWhere(['like', 'number', $this->number])
-            ->andFilterWhere(['like', 'bank_account', $this->bank_account]);
+        $query->andFilterWhere(['like', 'number', $this->number]);
+        $query->andFilterWhere(['like', 'date', $this->date]);
+        $query->andFilterWhere(['like', 'bank_account', $this->bank_account]);
 
         return $dataProvider;
     }

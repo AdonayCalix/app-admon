@@ -51,7 +51,6 @@ class ListClass extends ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name'], 'unique'],
             [['created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['name', 'identifier'], 'string', 'max' => 255],

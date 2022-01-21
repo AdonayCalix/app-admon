@@ -34,16 +34,16 @@ class ExcelExport
      * @param Spreadsheet $objectoExcel
      * @param string $coordenada
      * @param int $height
-     * @param string $filename
+     * @param string $path
      */
-    public function setLogo(Spreadsheet $objectoExcel, string $coordenada, int $height, string $filename): void
+    public function setLogo(Spreadsheet $objectoExcel, string $coordenada, int $height, string $path): void
     {
         $drawing = new Drawing();
         $drawing->setName('LOGO');
         $drawing->setDescription('LOGO');
 
         try {
-            $drawing->setPath(Yii::$app->basePath . "/web/website/{$filename}");
+            $drawing->setPath(Yii::$app->basePath . "/web/{$path}");
         } catch (Exception $e) {
             die($e->getMessage());
         }
@@ -233,12 +233,12 @@ class ExcelExport
 
     /**
      * @param Spreadsheet $excelObject
-     * @param string $filename
+     * @param string $path
      */
-    public function downloadExcel(Spreadsheet $excelObject, string $filename): void
+    public function downloadExcel(Spreadsheet $excelObject, string $path): void
     {
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename= "' . $filename . '"');
+        header('Content-Disposition: attachment;filename= "' . $path . '"');
         header('Cache-Control: max-age=0');
 
         try {

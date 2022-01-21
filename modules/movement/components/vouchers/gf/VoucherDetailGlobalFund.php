@@ -10,21 +10,25 @@ class VoucherDetailGlobalFund
     {
         $out = [];
 
+
         foreach ($movement->movementSubDetails as $subDetail) {
             $expense_category = $subDetail->subCategory->expense_category ?? '';
+            $identifier = $subDetail->subCategory->category->identifier ?? '';
+
 
             $budget_statement = [
-                $subDetail->subCategory->category->identifier ?? '',
+                $identifier,
                 $subDetail->subCategory->category->name ?? '',
             ];
+
+            $out[] = $budget_statement;
+
 
             $detail = [
                 explode(' ', $expense_category)[0] ?? '',
                 $expense_category,
                 $subDetail->amount ?? 0
             ];
-
-            $out[] = $budget_statement;
             $out[] = $detail;
         }
 

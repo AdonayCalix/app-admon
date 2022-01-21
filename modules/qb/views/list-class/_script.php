@@ -12,6 +12,7 @@
         methods: {
             changeDisabled: function () {
                 this.disabled = this.checked === 'yes';
+                this.subClass = null
             },
             async getData() {
                 try {
@@ -27,7 +28,7 @@
 
                 this.disabled = kind_class === 'Y';
                 this.checked = kind_class === 'Y' ? 'no' : 'yes'
-                this.subClass = kind_class === 'Y' ? null : identifier === -1 ? null : identifier;
+                this.subClass = document.getElementById('last_id').value
                 console.log(this.subAccount);
             }
         },

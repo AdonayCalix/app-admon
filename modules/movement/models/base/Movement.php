@@ -35,6 +35,8 @@ class Movement extends ActiveRecord
 {
     use RelationTrait;
 
+    public $date;
+
     /**
      * This function helps \mootensai\relation\RelationTrait runs faster
      * @return array relation names of this model

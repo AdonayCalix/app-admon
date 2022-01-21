@@ -5,6 +5,7 @@ namespace app\modules\movement\components\checks;
 use app\components\ExcelExport;
 use app\modules\movement\components\MoneyToWords;
 use app\modules\movement\models\base\Movement;
+use app\modules\movement\models\CheckFormat;
 use app\modules\movement\models\MovementDetail;
 use app\modules\project\models\Beneficiary;
 use app\modules\project\models\Project;
@@ -16,6 +17,7 @@ class RequestCheck extends ExcelExport
     private $project_id;
     private $movement;
     private $project;
+    private $checkFormat;
 
     /**
      * @var Spreadsheet
@@ -27,6 +29,7 @@ class RequestCheck extends ExcelExport
     {
         $this->movement_id = $movement_id;
         $this->project_id = $project_id;
+        $this->checkFormat = CheckFormat::findOne(['project_id' => $project_id]);
     }
 
     public function initializeExcel(): RequestCheck
@@ -58,7 +61,15 @@ class RequestCheck extends ExcelExport
         $this->setValueInCell($this->excelSheet, 'D24', $this->project->account_number);
         $this->setValueInCell($this->excelSheet, 'C21', $this->movement->concept);
         $this->setValueInCell($this->excelSheet, 'C27', date('d/m/Y', strtotime($this->movement->date)));
-        $this->setValueInCell($this->excelSheet, 'C29', 'Orlando Calix');
+        $this->setValueInCell($this->excelSheet, 'C29', $this->checkFormat->elaborated_by);
+        $this->setValueInCell($this->excelSheet, 'C31', $this->checkFormat->checked_by);
+        $this->setValueInCell($this->excelSheet, 'C34', $this->checkFormat->authorized_by);
+
+        if ($this->checkFormat->aproved_main_director_by !== null or $this->checkFormat->aproved_main_director_by !== '') {
+            $this->setValueInCell($this->excelSheet, 'A36', 'Vo.Bo DIRECTORA EJECUTIVA :');
+            $this->setValueInCell($this->excelSheet, 'C36', $this->checkFormat->aproved_main_director_by);
+            $this->setStyleByCell($this->excelSheet, 'C36:H36', ['alignment_horizontal' => 'left', 'size' => 18]);
+        }
 
         return $this;
     }
@@ -66,6 +77,12 @@ class RequestCheck extends ExcelExport
     public function downloadFile(string $name): RequestCheck
     {
         $this->downloadExcel($this->excelObject, $name);
+        return $this;
+    }
+
+    public function setBanner(): RequestCheck
+    {
+        $this->setLogo($this->excelObject, 'A1', 80, $this->checkFormat->logo_path);
         return $this;
     }
 }

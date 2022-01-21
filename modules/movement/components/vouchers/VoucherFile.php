@@ -17,6 +17,7 @@ use phpDocumentor\Reflection\Types\This;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use function Symfony\Component\Translation\t;
 use const PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
 class VoucherFile extends ExcelExport
@@ -99,7 +100,9 @@ class VoucherFile extends ExcelExport
 
     public function setDetail(): VoucherFile
     {
-        $details = $this->voucherElements->kind_detail !== 'FM' ? VoucherDetailOtherProject::get($this->movement) : VoucherDetailGlobalFund::get($this->movement);
+        $details = $this->voucherElements->kind_detail !== 'FM' ?
+            VoucherDetailOtherProject::get($this->movement) :
+            VoucherDetailGlobalFund::get($this->movement);
 
         $detail_body = explode(';', $this->voucherElements->detail_body, 2);
         $row = $detail_body[0];
@@ -157,7 +160,7 @@ class VoucherFile extends ExcelExport
 
     public function setBanner(): VoucherFile
     {
-        $this->setLogo($this->excelObject, 'A1', 150, 'logo_cdm.png');
+        $this->setLogo($this->excelObject, 'A1', 150, $this->voucherElements->logo_path);
         return $this;
     }
 }

@@ -17,7 +17,6 @@ class ListClass extends BaseListClass
         return array_replace_recursive(parent::rules(),
 	    [
             [['name'], 'required'],
-            [['name'], 'unique'],
             [['created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['name', 'identifier'], 'string', 'max' => 255],

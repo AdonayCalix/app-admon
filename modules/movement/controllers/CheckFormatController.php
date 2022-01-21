@@ -3,39 +3,41 @@
 namespace app\modules\movement\controllers;
 
 use app\controllers\base\BaseController;
-use app\modules\movement\models\VoucherFormatLogo;
+use app\modules\movement\models\VoucherFormatLogo as CheckLogo;
 use Yii;
-use app\modules\movement\models\VoucherElements;
-use app\modules\movement\models\VoucherElementsSearch;
+use app\modules\movement\models\CheckFormat;
+use yii\data\ActiveDataProvider;
 use yii\db\Exception;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\web\UploadedFile;
+use function Faker\Provider\pt_BR\check_digit;
 
 /**
- * VoucherElementsController implements the CRUD actions for VoucherElements model.
+ * CheckFormatController implements the CRUD actions for CheckFormat model.
  */
-class VoucherElementsController extends BaseController
+class CheckFormatController extends BaseController
 {
+
     /**
-     * Lists all VoucherElements models.
+     * Lists all CheckFormat models.
      * @return string
      */
     public function actionIndex(): string
     {
-        $searchModel = new VoucherElementsSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => CheckFormat::find(),
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single VoucherElements model.
+     * Displays a single CheckFormat model.
      * @param integer $id
      * @return string
      * @throws NotFoundHttpException
@@ -49,64 +51,64 @@ class VoucherElementsController extends BaseController
     }
 
     /**
-     * Creates a new VoucherElements model.
+     * Creates a new CheckFormat model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
      */
     public function actionCreate()
     {
-        $model = new VoucherElements();
-        $voucherFormatLogo = new VoucherFormatLogo;
+        $model = new CheckFormat();
+        $CheckLogo = new CheckLogo;
 
         if ($model->loadAll(Yii::$app->request->post())) {
-            $voucherFormatLogo->logoFile = UploadedFile::getInstance($voucherFormatLogo, 'logoFile');
+            $CheckLogo->logoFile = UploadedFile::getInstance($CheckLogo, 'logoFile');
 
-            if ($voucherFormatLogo->upload())
-                $model->logo_path = $voucherFormatLogo->path;
+            if ($CheckLogo->upload())
+                $model->logo_path = $CheckLogo->path;
 
             $model->save(false);
-            Yii::$app->session->setFlash('success', 'Se creo correctamente el formato de solicitud de cheques');
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'voucherFormatLogo' => $voucherFormatLogo
+                'checkLogo' => $CheckLogo
             ]);
         }
     }
 
     /**
-     * Updates an existing VoucherElements model.
+     * Updates an existing CheckFormat model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return Response|string
+     * @throws Exception
      * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $voucherFormatLogo = new VoucherFormatLogo;
+        $CheckLogo = new CheckLogo;
 
         if ($model->loadAll(Yii::$app->request->post())) {
+            $CheckLogo->logoFile = UploadedFile::getInstance($CheckLogo, 'logoFile');
 
-            $voucherFormatLogo->logoFile = UploadedFile::getInstance($voucherFormatLogo, 'logoFile');
-
-            if ($voucherFormatLogo->upload())
-                $model->logo_path = $voucherFormatLogo->path;
+            if ($CheckLogo->upload())
+                $model->logo_path = $CheckLogo->path;
 
             $model->save(false);
-
+            Yii::$app->session->setFlash('success', 'Se actulizo correctamente el formato de solicitud de cheques');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'voucherFormatLogo' => $voucherFormatLogo
+                'checkLogo' => $CheckLogo
             ]);
         }
     }
 
     /**
-     * Deletes an existing VoucherElements model.
+     * Deletes an existing CheckFormat model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return Response
@@ -120,16 +122,17 @@ class VoucherElementsController extends BaseController
         return $this->redirect(['index']);
     }
 
+
     /**
-     * Finds the VoucherElements model based on its primary key value.
+     * Finds the CheckFormat model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return VoucherElements the loaded model
+     * @return CheckFormat the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id): VoucherElements
+    protected function findModel($id): CheckFormat
     {
-        if (($model = VoucherElements::findOne($id)) !== null) {
+        if (($model = CheckFormat::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

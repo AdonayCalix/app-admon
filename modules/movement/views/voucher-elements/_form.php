@@ -26,7 +26,7 @@ use kartik\form\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($voucherFormatForm, 'excelFile')->fileInput()->label('Formato') ?>
+    <?= $form->field($voucherFormatLogo, 'logoFile')->fileInput()->label('Logo') ?>
 
     <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'placeholder' => 'Numero TB/Cheque']) ?>
 
@@ -48,7 +48,7 @@ use kartik\form\ActiveForm;
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Cancelar'), Yii::$app->request->referrer , ['class'=> 'btn btn-danger']) ?>
+        <?= Html::a(Yii::t('app', 'Cancelar'), Yii::$app->request->referrer, ['class' => 'btn btn-danger']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
