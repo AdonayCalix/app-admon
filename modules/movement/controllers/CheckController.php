@@ -29,6 +29,6 @@ class CheckController extends BaseController
             ->setProject()
             ->writeContent()
             ->setBanner()
-            ->downloadFile('CHEQUE.xlsx');
+            ->downloadFile();
     }
 }

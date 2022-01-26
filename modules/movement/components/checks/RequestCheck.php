@@ -74,9 +74,10 @@ class RequestCheck extends ExcelExport
         return $this;
     }
 
-    public function downloadFile(string $name): RequestCheck
+    public function downloadFile(): RequestCheck
     {
-        $this->downloadExcel($this->excelObject, $name);
+        $number = Movement::findOne($this->movement_id)->number ?? '';
+        $this->downloadExcel($this->excelObject, "CHEQUE {$number}.xlsx");
         return $this;
     }
 

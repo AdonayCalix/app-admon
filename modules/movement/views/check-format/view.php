@@ -7,69 +7,59 @@ use kartik\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\movement\models\CheckFormat */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Check Format', 'url' => ['index']];
+$this->title = 'Formato de Solicitud de Cheques ' . $model->project->alias ?? '';
+$this->params['breadcrumbs'][] = ['label' => 'Solicitud de Cheques', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="check-format-view">
 
-    <div class="row">
-        <div class="col-sm-9">
-            <h2><?= 'Check Format'.' '. Html::encode($this->title) ?></h2>
-        </div>
-        <div class="col-sm-3" style="margin-top: 15px">
-            
-            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
-                    'method' => 'post',
-                ],
-            ])
-            ?>
-        </div>
+    <div class="mb-3">
+        <h1 class="h3 d-inline align-middle"><?= $this->title ?></h1>
     </div>
 
-    <div class="row">
-<?php 
-    $gridColumn = [
-        ['attribute' => 'id', 'visible' => false],
-        'elaborated_by',
-        'checked_by',
-        'authorized_by',
-        'aproved_main_director_by',
-        'logo_path',
-        [
-            'attribute' => 'project.name',
-            'label' => 'Project',
-        ],
-    ];
-    echo DetailView::widget([
-        'model' => $model,
-        'attributes' => $gridColumn
-    ]);
-?>
+    <div class="card">
+        <div class="card-body">
+            <p>
+
+                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Eliminar', ['delete', 'id' => $model->id], [
+                    'class' => 'btn btn-danger',
+                    'data' => [
+                        'confirm' => 'Estas seguro que quieres eliminar este registro',
+                        'method' => 'post',
+                    ],
+                ])
+                ?>
+            </p>
+            <div class="row">
+                <div class="col-md-12">
+                    <?php
+                    $gridColumn = [
+                        ['attribute' => 'id', 'visible' => false],
+                        [
+                            'attribute' => 'project.alias',
+                            'label' => 'Proyecto',
+                        ],
+                        'elaborated_by',
+                        'checked_by',
+                        'authorized_by',
+                        'aproved_main_director_by',
+                        [
+                            'attribute' => 'logo_path',
+                            'value' => function ($model) {
+                                return Html::img('@web/' . $model->logo_path ?? '', ['class' => 'pull-left img-responsive']);;
+                            },
+                            'format' => 'raw'
+                        ]
+                    ];
+                    echo DetailView::widget([
+                        'model' => $model,
+                        'attributes' => $gridColumn
+                    ]);
+                    ?>
+
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        <h4>Project<?= ' '. Html::encode($this->title) ?></h4>
-    </div>
-    <?php 
-    $gridColumnProject = [
-        ['attribute' => 'id', 'visible' => false],
-        'name',
-        'alias',
-        'frecuency',
-        'start_date',
-        'end_date',
-        'budget',
-        'bank',
-        'account_number',
-        'initial_balance',
-        'date_initial_balance',
-    ];
-    echo DetailView::widget([
-        'model' => $model->project,
-        'attributes' => $gridColumnProject    ]);
-    ?>
 </div>
