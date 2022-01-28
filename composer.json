@@ -22,7 +22,8 @@
     "kartik-v/yii2-builder": "1.6.7",
     "npm-asset/vue-the-mask": "*",
     "ext-json": "*",
-    "luecano/numero-a-letras": "^2.0"
+    "luecano/numero-a-letras": "^2.0",
+    "kartik-v/yii2-datecontrol": "dev-master"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",
@@ -41,6 +42,9 @@
     "process-timeout": 1800,
     "fxp-asset": {
       "enabled": false
+    },
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
     }
   },
   "scripts": {
