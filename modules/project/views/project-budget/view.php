@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $model app\modules\project\models\ProjectBudget */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Project Budget', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Presupuesto/POA', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-budget-view">

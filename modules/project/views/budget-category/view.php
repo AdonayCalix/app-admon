@@ -62,7 +62,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'width' => '15%'
                             ],
                             'name',
-                            'identifier'
                         ];
                         echo Gridview::widget([
                             'dataProvider' => $providerSubCategory,
