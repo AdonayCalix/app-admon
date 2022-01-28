@@ -31,7 +31,7 @@ class VoucherDetailOtherProject
             $out[] = $class_statement;
             $out[] = $detail;
         }
-
+       // echo '<pre>' . print_r($out, true) . '</pre>';die;
         return $out;
     }
 }

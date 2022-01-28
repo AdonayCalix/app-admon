@@ -74,7 +74,7 @@ class VoucherElements extends \yii\db\ActiveRecord
             [['number', 'emission_date', 'beneficiary', 'concept', 'amount', 'amount', 'detail_body', 'header_body', 'project_id', 'kind_detail'], 'required'],
             [['project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['createt_at', 'updated_at', 'deleted_at'], 'safe'],
-            [['number', 'emission_date', 'beneficiary', 'concept', 'amount'], 'string', 'max' => 3],
+            [['number', 'emission_date', 'beneficiary', 'concept', 'amount'], 'string', 'max' => 5],
             [['detail_body', 'header_body'], 'string', 'max' => 250]
         ];
     }

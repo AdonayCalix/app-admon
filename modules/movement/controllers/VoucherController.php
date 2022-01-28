@@ -44,6 +44,7 @@ class VoucherController extends BaseController
             ->setAmountInWords()
             ->setConcept()
             ->setDetail()
+            ->setBankTotal()
             ->setBanner()
             ->downloadFile("Voucher {$name}.xlsx");
     }

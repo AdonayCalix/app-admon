@@ -160,7 +160,8 @@
             },
             sumAmount: function (activities) {
                 return activities.reduce((sum, activity) => {
-                    return sum + parseFloat(activity.amount)
+                    let value = parseFloat(sum + parseFloat(activity.amount));
+                    return value;
                 }, 0)
             },
             checkIfDateIsValid: function (value, index) {

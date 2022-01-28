@@ -62,7 +62,7 @@ class VoucherFile extends ExcelExport
     public function initializeExcel(): VoucherFile
     {
         $this->excelObject = $this->initExcel('/web/' . $this->voucherFormatFilePath);
-        $this->excelSheet = $this->excelObject->getSheetByName('TB');
+        $this->excelSheet = $this->excelObject->getSheetByName('VOUCHER');
         return $this;
     }
 
@@ -129,6 +129,12 @@ class VoucherFile extends ExcelExport
     public function setBeneficiary(): VoucherFile
     {
         $this->setValueInCell($this->excelSheet, $this->voucherElements->beneficiary, Beneficiary::findOne($this->movement->beneficiary_id)->name ?? '');
+        return $this;
+    }
+
+    public function setBankTotal(): VoucherFile
+    {
+        $this->setValueInCell($this->excelSheet, $this->voucherElements->amount_total, $this->movement->amount);
         return $this;
     }
 
