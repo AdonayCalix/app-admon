@@ -48,10 +48,14 @@
             account_options: [],
             activity_options: [],
             beneficiaries_options: [],
+            project_options: [],
             options: [],
-            project_id: 3,
+            project_id: null,
         },
         methods: {
+            onChange() {
+                console.log(event.target.value + 'Siu');
+            },
             store() {
                 this.errors = null;
                 $.ajax({
@@ -97,6 +101,7 @@
             },
             async getValues() {
                 let movement_id = document.getElementById('movement_id').value;
+                this.project_id = document.getElementById('project_id').value;
                 console.log(movement_id);
 
                 if (movement_id !== -1) {
@@ -106,7 +111,7 @@
                         await this.details.map((detail) => {
                             console.log(detail.date);
                             let arrayDate = detail.date.split("-");
-                            detail.date = new Date(arrayDate[0], (arrayDate[1] -1   ), arrayDate[2]);
+                            detail.date = new Date(arrayDate[0], (arrayDate[1] - 1), arrayDate[2]);
                         });
                     } catch (error) {
                         console.log(error);
@@ -117,6 +122,14 @@
                 try {
                     let response = await fetch("get-all-classes");
                     this.class_options = await response.json();
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            async getProjectOptions() {
+                try {
+                    let response = await fetch("get-all-project");
+                    this.project_options = await response.json();
                 } catch (error) {
                     console.log(error);
                 }
@@ -168,10 +181,16 @@
         },
         created() {
             this.getValues();
+            this.getProjectOptions();
             this.getClassOptions();
             this.getAccountOptions();
             this.getActivityOptions();
             this.getBeneficiaries();
         },
+        watch: {
+            project_id: function () {
+                this.getActivityOptions();
+            }
+        }
     });
 </script>

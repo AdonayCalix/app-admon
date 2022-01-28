@@ -15,6 +15,7 @@ use app\modules\movement\components\vouchers\VoucherFile;
 use app\modules\movement\models\MovementDetail;
 use app\modules\project\components\HierachyActivityList;
 use app\modules\project\models\Beneficiary;
+use app\modules\project\models\Project;
 use app\modules\project\models\ProjectPeriod;
 use app\modules\qb\components\HierachyChartAccountList;
 use app\modules\qb\components\HierarchyClassList;
@@ -173,6 +174,16 @@ class MovementController extends BaseController
     public function actionGetAllAccounts()
     {
         return json_encode((new HierachyChartAccountList())->setmainAccount()->setOptions()->get());
+    }
+
+    public function actionGetAllProject()
+    {
+        $projects = Project::find()
+            ->select(['project.id', 'alias as label'])
+            ->orderBy('id')
+            ->asArray()
+            ->all();
+        return json_encode($projects);
     }
 
     public function actionGetAllActivities($project_id)

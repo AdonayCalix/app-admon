@@ -33,6 +33,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
     ]); ?>
 
     <input type="hidden" id="movement_id" name="Movement[id]" value="<?= $model->isNewRecord ? -1 : $model->id ?>">
+    <input type="hidden" id="project_id" value="<?= $model->isNewRecord ? null : $model->project_id ?>">
 
     <div id="flash"></div>
 
@@ -58,13 +59,9 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                     ]); ?>
                 </div>
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'project_id')->widget(Select2::class, [
-                        'data' => ArrayHelper::map(Project::find()->orderBy('id')->asArray()->all(), 'id', 'alias'),
-                        'options' => ['placeholder' => '[SELECCIONE]'],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],
-                    ])->label('Proyecto'); ?>
+                    <label for="">Proyecto</label>
+                    <treeselect v-model="project_id" :multiple="false" placeholder="[SELECCIONE]"
+                                :name="'Movement[project_id]'" :options="project_options"/>
                 </div>
             </div>
         </div>
