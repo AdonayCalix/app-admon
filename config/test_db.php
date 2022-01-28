@@ -1,8 +1,8 @@
 <?php
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'sqlsrv:Server=DESKTOP-GTSI\SQLEXPRESS;Database=app-admon',
-    'username' => 'sa',
-    'password' => 'Solid@rio2013',
+    'dsn' => 'sqlsrv:Server=DESKTOP-GPSP3H\SQLEXPRESS;Database=app-admon',
+    'username' => '',
+    'password' => '',
     'charset' => 'utf8',
 ];
