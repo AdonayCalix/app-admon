@@ -46,6 +46,6 @@ class VoucherController extends BaseController
             ->setDetail()
             ->setBankTotal()
             ->setBanner()
-            ->downloadFile("Voucher {$name}.xlsx");
+            ->downloadFile("Voucher {$name}");
     }
 }

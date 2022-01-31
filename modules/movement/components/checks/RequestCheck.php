@@ -77,6 +77,7 @@ class RequestCheck extends ExcelExport
     public function downloadFile(): RequestCheck
     {
         $number = Movement::findOne($this->movement_id)->number ?? '';
+        $this->excelObject->getActiveSheet()->setTitle("CHEQUE {$number}");
         $this->downloadExcel($this->excelObject, "CHEQUE {$number}.xlsx");
         return $this;
     }

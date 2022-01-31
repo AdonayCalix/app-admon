@@ -8,7 +8,8 @@ use app\modules\movement\models\MovementDetail;
 use app\modules\movement\models\MovementSearch;
 use Yii;
 
-class CheckController extends BaseController
+class
+CheckController extends BaseController
 {
     public function actionList()
     {
