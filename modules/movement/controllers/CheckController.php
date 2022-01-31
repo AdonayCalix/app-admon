@@ -24,12 +24,13 @@ CheckController extends BaseController
 
     public function actionGetRequestCheck($movement_id, $project_id)
     {
+
         (new RequestCheck($movement_id, $project_id))
             ->initializeExcel()
             ->setMovement()
             ->setProject()
             ->writeContent()
-            ->setBanner()
+            /*->setBanner()*/
             ->downloadFile();
     }
 }

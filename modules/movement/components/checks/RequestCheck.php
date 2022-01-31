@@ -65,9 +65,10 @@ class RequestCheck extends ExcelExport
         $this->setValueInCell($this->excelSheet, 'C31', $this->checkFormat->checked_by);
         $this->setValueInCell($this->excelSheet, 'C34', $this->checkFormat->authorized_by);
 
-        if ($this->checkFormat->aproved_main_director_by !== null or $this->checkFormat->aproved_main_director_by !== '') {
+        if ($this->checkFormat->aproved_main_director_by !== '') {
+
             $this->setValueInCell($this->excelSheet, 'A36', 'Vo.Bo DIRECTORA EJECUTIVA :');
-            $this->setValueInCell($this->excelSheet, 'C36', $this->checkFormat->aproved_main_director_by);
+            $this->setValueInCell($this->excelSheet, 'C36', $this->checkFormat->aproved_main_director_by . 'ddd');
             $this->setStyleByCell($this->excelSheet, 'C36:H36', ['alignment_horizontal' => 'left', 'size' => 18]);
         }
 
