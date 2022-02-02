@@ -16,7 +16,7 @@
             },
             details: [{
                 id: null,
-                date: new Date(1994, 12, 10),
+                date: new Date(),
                 benefiaciary: null,
                 concept: null,
                 kind: null,
@@ -71,7 +71,7 @@
             addDetail: function (event) {
                 event.preventDefault();
                 this.details.push({
-                    date: null,
+                    date: new Date(),
                     benefiaciary: '',
                     concept: '',
                     kind: '',
