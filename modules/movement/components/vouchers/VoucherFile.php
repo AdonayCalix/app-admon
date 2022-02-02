@@ -107,8 +107,9 @@ class VoucherFile extends ExcelExport
             VoucherDetailOtherProject::get($this->movement) :
             VoucherDetailGlobalFund::get($this->movement);
         $total_details = count($details);
-        $difference = 15 - $total_details;
+        $difference = 14 - $total_details;
 
+        //echo '<pre>' . print_r($details, true) . '</pre>';die;
         $detail_body = explode(';', $this->voucherElements->detail_body, 2);
         $row = $detail_body[0];
         $columns = explode(';', $detail_body[1]);
@@ -117,12 +118,20 @@ class VoucherFile extends ExcelExport
             foreach ($detail as $key => $value) {
                 if (isset($columns[$key]))
                     $this->setValueInCell($this->excelSheet, $columns[$key] . $row, $value);
+
+                if (isset($columns[$key]) && (count($detail) == 2)) {
+                    $this->setStyleByCell($this->excelSheet, ($columns[$key] . $row), [
+                        'bold' => true,
+                        'size' => 14,
+                        'alignment_horizontal' => 'left'
+                    ]);
+                }
             }
 
             $row++;
         }
 
-        $this->excelObject->getActiveSheet()->removeRow($detail_body[0], $difference);
+        $this->excelObject->getActiveSheet()->removeRow($detail_body[0] + $total_details, $difference);
 
         return $this;
     }
@@ -174,7 +183,7 @@ class VoucherFile extends ExcelExport
 
     public function setBanner(): VoucherFile
     {
-        $this->setLogo($this->excelObject, 'A1', 150, $this->voucherElements->logo_path);
+        //$this->setLogo($this->excelObject, 'A1', 150, $this->voucherElements->logo_path);
         return $this;
     }
 }
