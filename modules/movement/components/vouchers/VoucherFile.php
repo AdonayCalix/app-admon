@@ -109,15 +109,16 @@ class VoucherFile extends ExcelExport
         $total_details = count($details);
         $difference = 14 - $total_details;
 
-        //echo '<pre>' . print_r($details, true) . '</pre>';die;
         $detail_body = explode(';', $this->voucherElements->detail_body, 2);
         $row = $detail_body[0];
         $columns = explode(';', $detail_body[1]);
 
+        $this->excelObject->getActiveSheet()->removeRow($detail_body[0] + $total_details, $difference);
+
         foreach ($details as $detail) {
             foreach ($detail as $key => $value) {
                 if (isset($columns[$key]))
-                    $this->setValueInCell($this->excelSheet, $columns[$key] . $row, $value);
+                $this->setValueInCell($this->excelSheet, $columns[$key] . $row, $value);
 
                 if (isset($columns[$key]) && (count($detail) == 2)) {
                     $this->setStyleByCell($this->excelSheet, ($columns[$key] . $row), [
@@ -131,7 +132,6 @@ class VoucherFile extends ExcelExport
             $row++;
         }
 
-        $this->excelObject->getActiveSheet()->removeRow($detail_body[0] + $total_details, $difference);
 
         return $this;
     }
@@ -150,7 +150,7 @@ class VoucherFile extends ExcelExport
 
     public function setBankTotal(): VoucherFile
     {
-        $this->setValueInCell($this->excelSheet, $this->voucherElements->amount_total, $this->movement->amount);
+        //$this->setValueInCell($this->excelSheet, $this->voucherElements->amount_total, $this->movement->amount);
         return $this;
     }
 
