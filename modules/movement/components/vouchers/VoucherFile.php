@@ -161,7 +161,7 @@ class VoucherFile extends ExcelExport
     public function downloadFile(string $name): VoucherFile
     {
         $this->excelObject->getActiveSheet()->setTitle($name);
-        $this->downloadExcel($this->excelObject, $name . 'xlsx');
+        $this->downloadExcel($this->excelObject, $name . '.xlsx');
         return $this;
     }
 

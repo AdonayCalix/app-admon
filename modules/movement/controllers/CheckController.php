@@ -30,7 +30,7 @@ CheckController extends BaseController
             ->setMovement()
             ->setProject()
             ->writeContent()
-            /*->setBanner()*/
+            ->setBanner()
             ->downloadFile();
     }
 }
