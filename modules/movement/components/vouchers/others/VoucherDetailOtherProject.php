@@ -15,7 +15,8 @@ class VoucherDetailOtherProject
         foreach ($movement->movementSubDetails as $subDetail) {
 
             $list_class = ListClass::findOne(['identifier' => $subDetail->class_id]);
-            $list_class = explode('-', $list_class->name, 2);
+
+            $list_class = explode(' ', $list_class->name, 2);
             $class_statement = [
                 $list_class[0] ?? '',
                 $list_class[1] ?? ''
