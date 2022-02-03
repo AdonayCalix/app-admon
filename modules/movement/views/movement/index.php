@@ -64,13 +64,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                      [
                         'value' => function($model) {
-                                return GhostHtml::a('Voucher', ['voucher/get-file', 'movement_id' => $model->id, 'project_id' => $model->project_id], ['target' => '_blank', 'class' => 'badge badge-info']);
+                                return \yii\bootstrap4\Html::a('Voucher', ['voucher/get-file', 'movement_id' => $model->id, 'project_id' => $model->project_id], ['target' => '_blank', 'class' => 'badge badge-info']);
                         },
                         'format' => 'raw'
                     ],
                      [
                         'value' => function($model) {
-                                return GhostHtml::a('Solicitud Cheque', ['check/get-request-check', 'movement_id' => $model->id, 'project_id' => $model->project_id], ['target' => '_blank', 'class' => 'badge badge-info']);
+                                return \yii\bootstrap4\Html::a('Solicitud Cheque', ['check/get-request-check', 'movement_id' => $model->id, 'project_id' => $model->project_id], ['target' => '_blank', 'class' => 'badge badge-info']);
                         },
                         'format' => 'raw'
                     ],

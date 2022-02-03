@@ -17,51 +17,55 @@ use yii\helpers\Url;
             </li>
 
             <li class="sidebar-item active">
-                <a v-on:click="showContent" class="sidebar-link" href="<?= Yii::$app->homeUrl ?>">
+                <a class="sidebar-link" href="<?= Yii::$app->homeUrl ?>">
                     <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Menu de Inicio</span>
                 </a>
             </li>
 
-            <li class="sidebar-header">
-                Administrador
-            </li>
+            <?php if (\Yii::$app->user->isSuperadmin): ?>
+                <li class="sidebar-header">
+                    Administrador
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/user-management/user/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Usuarios</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/user-management/user/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span
+                                class="align-middle">Usuarios</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Yii::$app->homeUrl ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Perfil</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Yii::$app->homeUrl ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Perfil</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/user-management/user-visit-log/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Registro de Visitas</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/user-management/user-visit-log/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Registro de Visitas</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/user-management/auth-item-group/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span
-                            class="align-middle">Grupo de Permisos</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/user-management/auth-item-group/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span
+                                class="align-middle">Grupo de Permisos</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/user-management/permission/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Permisos</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/user-management/permission/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span
+                                class="align-middle">Permisos</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/user-management/role/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Roles</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/user-management/role/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Roles</span>
+                    </a>
+                </li>
+            <?php endif; ?>
 
             <li class="sidebar-header">
                 Proyecto
@@ -112,28 +116,32 @@ use yii\helpers\Url;
                 </a>
             </li>
 
-            <li class="sidebar-header">
-                QuickBook
-            </li>
+            <?php if (\Yii::$app->user->isSuperadmin): ?>
+                <li class="sidebar-header">
+                    QuickBook
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/qb/list-class/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Clases</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/qb/list-class/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Clases</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/qb/chart-account/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Cuentas</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/qb/chart-account/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span
+                                class="align-middle">Cuentas</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/qb/chart-account/import']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span
-                            class="align-middle">Importar Cuentas</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/qb/chart-account/import']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span
+                                class="align-middle">Importar Cuentas</span>
+                    </a>
+                </li>
+
+            <?php endif; ?>
 
             <li class="sidebar-header">
                 Movimientos
@@ -152,42 +160,45 @@ use yii\helpers\Url;
                 </a>
             </li>
 
-            <li class="sidebar-header">
-                Comprobantes
-            </li>
+            <?php if (\Yii::$app->user->isSuperadmin): ?>
+                <li class="sidebar-header">
+                    Comprobantes
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/movement/voucher-format/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span
-                            class="align-middle">Formato Voucher</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/movement/voucher-format/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span
+                                class="align-middle">Formato Voucher</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/movement/voucher-elements/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Asignacion Formato</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/movement/voucher-elements/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Asignacion Formato</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/movement/voucher/list']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Voucher</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/movement/voucher/list']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span
+                                class="align-middle">Voucher</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/movement/check-format/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span
-                            class="align-middle">Formato Solicitud Cheques</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/movement/check-format/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span
+                                class="align-middle">Formato Solicitud Cheques</span>
+                    </a>
+                </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/movement/check/list']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span
-                            class="align-middle">Solicitud Cheques</span>
-                </a>
-            </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/movement/check/list']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span
+                                class="align-middle">Solicitud Cheques</span>
+                    </a>
+                </li>
+            <?php endif; ?>
 
             <li class="sidebar-header">
                 Libros de Banco
