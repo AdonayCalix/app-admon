@@ -26,8 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 $gridColumn = [
                     ['class' => 'yii\grid\SerialColumn'],
                     ['attribute' => 'id', 'visible' => false],
-                    ['attribute' => 'number', 'width' => '20%'],
-                    ['attribute' => 'amount', 'width' => '20%'],
+                    ['attribute' => 'number', 'width' => '12%'],
+                    ['attribute' => 'amount', 'width' => '13%'],
                     [
                         'attribute' => 'date',
                         'label' => 'Fecha',
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'orientation' => 'bottom left'
                             ],
                         ],
-                        'width' => '30%'
+                        'width' => '20%'
                     ],
                     [
                         'attribute' => 'project_id',
@@ -59,7 +59,20 @@ $this->params['breadcrumbs'][] = $this->title;
                         'filterWidgetOptions' => [
                             'pluginOptions' => ['allowClear' => true],
                         ],
-                        'filterInputOptions' => ['placeholder' => '', 'id' => 'grid-transfer-search-project_id']
+                        'filterInputOptions' => ['placeholder' => '', 'id' => 'grid-transfer-search-project_id'],
+                        'width' => '20%'
+                    ],
+                     [
+                        'value' => function($model) {
+                                return GhostHtml::a('Voucher', ['voucher/get-file', 'movement_id' => $model->id, 'project_id' => $model->project_id], ['target' => '_blank', 'class' => 'badge badge-info']);
+                        },
+                        'format' => 'raw'
+                    ],
+                     [
+                        'value' => function($model) {
+                                return GhostHtml::a('Solicitud Cheque', ['check/get-request-check', 'movement_id' => $model->id, 'project_id' => $model->project_id], ['target' => '_blank', 'class' => 'badge badge-info']);
+                        },
+                        'format' => 'raw'
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',
@@ -70,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
-                    'pjax' => true,
+                    'pjax' => false,
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-transfer']]
                 ]); ?>
             </div>

@@ -70,13 +70,7 @@ class MovementSearch extends Movement
             'id' => $this->id,
             'amount' => $this->amount,
             'bank_id' => $this->bank_id,
-            'project_id' => $this->project_id,
-            'created_by' => $this->created_by,
-            'updated_by' => $this->updated_by,
-            'deleted_by' => $this->deleted_by,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'deleted_at' => $this->deleted_at,
+            'movement.project_id' => $this->project_id,
         ]);
 
         $query->andFilterWhere(['like', 'number', $this->number]);

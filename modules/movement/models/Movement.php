@@ -20,6 +20,7 @@ class Movement extends BaseMovement
             [
                 [['number', 'amount', 'project_id'], 'required'],
                 [['amount'], 'number'],
+                ['number', 'unique'],
                 [['bank_id', 'project_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
                 [['created_at', 'updated_at', 'deleted_at'], 'safe'],
                 [['number', 'bank_account'], 'string', 'max' => 100],
