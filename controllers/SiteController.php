@@ -15,6 +15,7 @@ class SiteController extends BaseController
      */
     public function actionIndex(): string
     {
+        Yii::$app->session->setFlash('active_link', 'moose');
         return $this->render('index');
     }
 }

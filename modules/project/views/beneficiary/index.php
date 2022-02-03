@@ -9,7 +9,7 @@ use yii\helpers\Html;
 use kartik\export\ExportMenu;
 use kartik\grid\GridView;
 
-$this->title = 'Beneficiary';
+$this->title = 'Beneficiario';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -43,7 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => true,
-                    'bsVersion' => '4.x',
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-beneficiary']]
                 ]); ?>
             </div>

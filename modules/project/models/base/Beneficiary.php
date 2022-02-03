@@ -21,23 +21,10 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
- *
- * @property \app\modules\project\models\Transfer[] $transfers
  */
 class Beneficiary extends ActiveRecord
 {
     use RelationTrait;
-
-    /**
-     * This function helps \mootensai\relation\RelationTrait runs faster
-     * @return array relation names of this model
-     */
-    public function relationNames(): array
-    {
-        return [
-            'transfers'
-        ];
-    }
 
     /**
      * @inheritdoc
@@ -67,16 +54,8 @@ class Beneficiary extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Nombre',
         ];
-    }
-
-    /**
-     * @return ActiveQuery
-     */
-    public function getTransfers(): ActiveQuery
-    {
-        return $this->hasMany(\app\modules\project\models\Transfer::class, ['beneficiary_id' => 'id']);
     }
 
     /**

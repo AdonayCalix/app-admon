@@ -5,7 +5,7 @@
 /* @var $model app\modules\project\models\Beneficiary */
 
 $this->title = 'Crear Beneficiario';
-$this->params['breadcrumbs'][] = ['label' => 'Beneficiary', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Benficiario', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="beneficiary-create">

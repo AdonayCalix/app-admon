@@ -40,9 +40,7 @@ class BeneficiaryController extends BaseController
     public function actionView($id): string
     {
         $model = $this->findModel($id);
-        $providerTransfer = new \yii\data\ArrayDataProvider([
-            'allModels' => $model->transfers,
-        ]);
+        $providerTransfer = new \yii\data\ArrayDataProvider();
         return $this->render('view', [
             'model' => $this->findModel($id),
             'providerTransfer' => $providerTransfer,
@@ -60,6 +58,7 @@ class BeneficiaryController extends BaseController
         $model = new Beneficiary();
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+            Yii::$app->session->setFlash('success', 'Se creo coreectamente el beneficiario');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -79,6 +78,7 @@ class BeneficiaryController extends BaseController
         $model = $this->findModel($id);
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
+            Yii::$app->session->setFlash('success', 'Se actualizo coreectamente el beneficiario');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

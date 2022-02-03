@@ -8,7 +8,7 @@ use kartik\grid\GridView;
 /* @var $model app\modules\project\models\Beneficiary */
 
 $this->title = 'Visualizando Registro: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Beneficiary', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Beneficiario', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="beneficiary-view">
