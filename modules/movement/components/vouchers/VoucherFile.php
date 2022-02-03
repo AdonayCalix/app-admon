@@ -119,7 +119,7 @@ class VoucherFile extends ExcelExport
         $row = $detail_body[0];
         $columns = explode(';', $detail_body[1]);
 
-        $this->excelObject->getActiveSheet()->removeRow($detail_body[0], $difference);
+        $this->excelObject->getActiveSheet()->removeRow($detail_body[0], $difference - 2);
 
         foreach ($details as $detail) {
             foreach ($detail as $key => $value) {
