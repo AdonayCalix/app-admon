@@ -51,7 +51,7 @@ class MovementController extends BaseController
 
     public function actionOtherCreate()
     {
-        Yii::$app->session->setFlash('success', 'Se actualizo correctamente el proyecto');
+        Yii::$app->session->setFlash('success', 'Se guardo correctamente el movimiento');
         return $this->redirect(['create']);
     }
 
