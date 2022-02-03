@@ -80,6 +80,12 @@ class VoucherFile extends ExcelExport
 
         $headers = VoucherHeaderGlobalFund::get($this->movement);
 
+        $total_details = count($headers);
+        $difference = 6 - $total_details;
+        $row_init_delete = $header_body[0] + $total_details;
+        for ($i = $row_init_delete; $i < ($row_init_delete + $difference); $i++ )
+            $this->excelObject->getActiveSheet()->removeRow($row_init_delete, 1);
+
         foreach ($headers as $header) {
             foreach ($header as $key => $value) {
                 if (isset($columns[$key + 1])) {
@@ -107,13 +113,13 @@ class VoucherFile extends ExcelExport
             VoucherDetailOtherProject::get($this->movement) :
             VoucherDetailGlobalFund::get($this->movement);
         $total_details = count($details);
-        $difference = 14 - $total_details;
+        $difference = 15 - $total_details;
 
         $detail_body = explode(';', $this->voucherElements->detail_body, 2);
         $row = $detail_body[0];
         $columns = explode(';', $detail_body[1]);
 
-        $this->excelObject->getActiveSheet()->removeRow($detail_body[0] + $total_details, $difference);
+        $this->excelObject->getActiveSheet()->removeRow($detail_body[0], $difference);
 
         foreach ($details as $detail) {
             foreach ($detail as $key => $value) {
@@ -123,7 +129,7 @@ class VoucherFile extends ExcelExport
                 if (isset($columns[$key]) && (count($detail) == 2)) {
                     $this->setStyleByCell($this->excelSheet, ($columns[$key] . $row), [
                         'bold' => true,
-                        'size' => 14,
+                        'size' => 16,
                         'alignment_horizontal' => 'left'
                     ]);
                 }

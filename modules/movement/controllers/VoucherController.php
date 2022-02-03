@@ -37,15 +37,13 @@ class VoucherController extends BaseController
             ->initializeExcel()
             ->setMovement()
             ->setVoucherElements()
-            ->setHeader()
             ->setNumberTbCheque($name)
             ->setEmissionDate()
             ->setBeneficiary()
             ->setAmountInWords()
             ->setConcept()
             ->setDetail()
-            ->setBankTotal()
-            ->setBanner()
+            ->setHeader()
             ->downloadFile("Voucher {$name}");
     }
 }

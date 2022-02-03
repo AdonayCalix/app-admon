@@ -14,11 +14,11 @@ class VoucherHeaderGlobalFund
             $expense_category = $subDetail->subCategory->expense_category ?? '';
             $poa = $subDetail->subCategory->category->budget->name ?? '';
 
-            if ($poa === 'Nota de Continuidad') {
+            if ($poa === 'Nota Continuidad') {
                 $poa = 'NC';
             }
 
-            if ($poa === 'Fondo Catalizado') {
+            if ($poa === 'Fondo Catalizador') {
                 $poa = 'FC';
             }
 
