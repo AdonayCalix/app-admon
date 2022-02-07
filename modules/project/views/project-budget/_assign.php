@@ -49,7 +49,7 @@ JsBlock::widget(['viewFile' => '_scriptBudget', 'pos' => View::POS_END]);
                         <tr>
                             <th scope="col">#</th>
                             <th width="45%">Actividad</th>
-                            <th>Presupueso</th>
+                            <th>Presupuesto</th>
                             <th>Ejecutado</th>
                             <th>% Ejecución</th>
                             <th>Disponible</th>
@@ -80,7 +80,7 @@ JsBlock::widget(['viewFile' => '_scriptBudget', 'pos' => View::POS_END]);
                                                                  v-bind:name="'BudgetPeriod' + '[' + activity.activity_id +'][sub_category_id]'">
                                 </td>
                                 <td>
-                                    <input v-model="activity.amount" type="number" class="form-control"
+                                    <input v-model="activity.amount" type="number" step="any" class="form-control"
                                            v-bind:name="'BudgetPeriod' + '[' + activity.activity_id + '][amount]'"></td>
                                 <td><input v-model="activity.used" type="text" class="form-control" disabled></td>
                                 <td><input v-model="activity.percentage" type="text" class="form-control" disabled></td>
