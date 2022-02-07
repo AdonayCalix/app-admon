@@ -68,9 +68,9 @@ class RequestCheck extends ExcelExport
         $this->excelObject->getActiveSheet()->removeRow(14, 1);
 
         if ($this->checkFormat->aproved_main_director_by !== '') {
-            $this->setValueInCell($this->excelSheet, 'A36', 'Vo.Bo DIRECTORA EJECUTIVA :');
             $this->setValueInCell($this->excelSheet, 'C36', $this->checkFormat->aproved_main_director_by);
-            $this->setStyleByCell($this->excelSheet, 'C36:H36', ['alignment_horizontal' => 'left', 'size' => 18]);
+        } else {
+            $this->excelSheet->removeRow('36', 1);
         }
 
         return $this;
