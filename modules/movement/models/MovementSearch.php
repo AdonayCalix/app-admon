@@ -46,7 +46,8 @@ class MovementSearch extends Movement
             ->select(['movement.id', 'movement.number', 'movement.amount', 'movement.project_id', 'mv.kind', 'mv.date'])
             ->where(['<>', 'mv.kind', 'Desembolso'])
             ->joinWith('movementDetails mv')
-            ->groupBy(['number', 'movement.id', 'movement.amount', 'movement.project_id', 'mv.kind', 'mv.date']);
+            ->groupBy(['number', 'movement.id', 'movement.amount', 'movement.project_id', 'mv.kind', 'mv.date'])
+            ->orderBy(['mv.date' => SORT_DESC, 'movement.project_id' => SORT_ASC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
