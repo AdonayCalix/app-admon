@@ -75,7 +75,8 @@ class MovementSearch extends Movement
         ]);
 
         $query->andFilterWhere(['like', 'number', $this->number]);
-        $query->andFilterWhere(['like', 'date', $this->date]);
+        if ($this->date <> null)
+            $query->andFilterWhere(['like', 'date', date('Y-m-d', strtotime(str_replace('/', '-', $this->date))) ?? null]);
         $query->andFilterWhere(['like', 'bank_account', $this->bank_account]);
 
         return $dataProvider;

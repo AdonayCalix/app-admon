@@ -84,10 +84,6 @@ $config = [
             'rules' => [
             ],
         ],
-        'formatter' => [
-            'thousandSeparator' => ',',
-            'currencyCode' => 'Lps',
-        ],
     ],
     'modules' => [
         'gridview' => [
