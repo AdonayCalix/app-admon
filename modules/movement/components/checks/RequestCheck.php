@@ -65,8 +65,6 @@ class RequestCheck extends ExcelExport
         $this->setValueInCell($this->excelSheet, 'C31', $this->checkFormat->checked_by);
         $this->setValueInCell($this->excelSheet, 'C34', $this->checkFormat->authorized_by);
 
-        $this->excelObject->getActiveSheet()->removeRow(14, 1);
-
         if ($this->checkFormat->aproved_main_director_by !== '') {
             $this->setValueInCell($this->excelSheet, 'C35', $this->checkFormat->aproved_main_director_by);
         } else {
