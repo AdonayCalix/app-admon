@@ -56,6 +56,17 @@
             onChange() {
                 console.log(event.target.value + 'Siu');
             },
+            storeBeneficiary() {
+                $.ajax({
+                    url: 'store-beneficiary',
+                    method: 'POST',
+                    data: {name: document.getElementById('new_beneficiary').value}
+                }).done(data => {
+                    this.getBeneficiaries();
+                }).fail(data => {
+                    this.errors = $.parseJSON(data.responseText)
+                })
+            },
             store() {
                 this.errors = null;
                 $.ajax({

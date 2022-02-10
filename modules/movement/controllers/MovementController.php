@@ -87,6 +87,14 @@ class MovementController extends BaseController
         ]);
     }
 
+    public function actionStoreBeneficiary()
+    {
+        $beneficiary = new Beneficiary;
+        $beneficiary->name = $_POST['name'];
+        $beneficiary->save(false);
+        return true;
+    }
+
     /**
      * @throws NotFoundHttpException
      * @throws Exception

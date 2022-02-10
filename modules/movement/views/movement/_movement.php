@@ -26,9 +26,34 @@
                                 <date-picker v-model="detail.date" @change="checkIfDateIsValid(detail.date, index)" :input-attr="{name: 'Movement[MovementDetails]' + '[' + index + '][date]'}" format="YYYY-MM-DD" valuetype="format" lang="es"></date-picker>
                             </div>
                         </div>
+                        <br>
                         <div class="row">
                             <div class="col">
                                 <label for=""><strong>Beneficiario</strong></label>
+                                <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fa fa-plus"></i> Añadir
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Agregar Beneficiario(a)</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="text" id="new_beneficiary" class="form-control">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" id="new_beneficiary" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button v-on:click="storeBeneficiary" type="button" class="btn btn-primary">Guardar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <treeselect v-model="detail.beneficiary_id" :multiple="false" placeholder="[SELECCIONE]" :name="'Movement[MovementDetails]' + '[' + index + '][beneficiary_id]'" :options="beneficiaries_options" />
                             </div>
                         </div>
