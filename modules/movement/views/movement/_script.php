@@ -1,5 +1,4 @@
 <script>
-
     Vue.component('treeselect', VueTreeselect.Treeselect);
     Vue.use(DatePicker);
     Vue.use('v-money', {precision: 4})
@@ -62,6 +61,7 @@
                     method: 'POST',
                     data: {name: document.getElementById('new_beneficiary').value}
                 }).done(data => {
+                    document.getElementById('exampleModal').click();
                     this.getBeneficiaries();
                 }).fail(data => {
                     this.errors = $.parseJSON(data.responseText)
