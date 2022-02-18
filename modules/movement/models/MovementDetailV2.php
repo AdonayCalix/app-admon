@@ -3,12 +3,12 @@
 namespace app\modules\movement\models;
 
 use Yii;
-use \app\modules\movement\models\base\MovementDetail as BaseMovementDetail;
+use \app\modules\movement\models\base\MovementDetailV2 as BaseMovementDetailV2;
 
 /**
- * This is the model class for table "movement_detail".
+ * This is the model class for table "movement_detail_v2".
  */
-class MovementDetail extends BaseMovementDetail
+class MovementDetailV2 extends BaseMovementDetailV2
 {
     /**
      * @inheritdoc
