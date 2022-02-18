@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'value' => function ($model) {
                             return date('d/m/Y', strtotime($model->date));
                         },
-                        'width' => '20%'
+                        'width' => '17%'
                     ],
                     [
                         'attribute' => 'project_id',
@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'pluginOptions' => ['allowClear' => true],
                         ],
                         'filterInputOptions' => ['placeholder' => '', 'id' => 'grid-transfer-search-project_id'],
-                        'width' => '20%'
+                        'width' => '17%'
                     ],
                     [
                         'value' => function ($model) {
@@ -80,6 +80,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'value' => function ($model) {
                             return \yii\bootstrap4\Html::a('Solicitud Cheque', ['check/get-request-check', 'movement_id' => $model->id, 'project_id' => $model->project_id], ['target' => '_blank', 'class' => 'badge badge-info']);
+                        },
+                        'format' => 'raw'
+                    ],
+                    [
+                        'value' => function ($model) {
+                            return \yii\bootstrap4\Html::a('Re Asignacion', ['movement-v2/re-assign', 'id' => $model->id, 'has_v2' => 'no'], ['target' => '_blank', 'class' => 'badge badge-info']);
                         },
                         'format' => 'raw'
                     ],
