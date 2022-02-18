@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'value' => function ($model) {
-                            return \yii\bootstrap4\Html::a('Re Asignacion', ['movement-v2/re-assign', 'id' => $model->id, 'has_v2' => 'no'], ['target' => '_blank', 'class' => 'badge badge-info']);
+                            return \yii\bootstrap4\Html::a('Re Asignacion', ['movement-v2/re-assign', 'id' => $model->id, 'has_v2' => trim($model->has_v2) === 'yes' ? 'si' : 'no'], ['target' => '_blank', 'class' => 'badge badge-info']);
                         },
                         'format' => 'raw'
                     ],

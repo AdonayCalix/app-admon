@@ -22,6 +22,7 @@ class LoadValuesV2
     {
         $movement = Movement::findOne($this->post['Movement']['id']) ?? new Movement;
         $movement->load($this->post['Movement'], '');
+        $movement->has_v2 = 'yes';
         $movement->validate();
         $this->movement = $movement;
         $this->setErrors($this->movement->errors);

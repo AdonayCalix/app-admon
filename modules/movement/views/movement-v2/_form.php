@@ -49,20 +49,21 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
 
             <div class="row">
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'placeholder' => '']) ?>
+                    <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'placeholder' => '', 'readonly' => true]) ?>
                 </div>
                 <div class="col-sm-3">
                     <?= $form->field($model, 'amount')->widget(NumberControl::class, [
                         'maskedInputOptions' => [
                             'allowMinus' => false,
                             'rightAlign' => false
-                        ]
+                        ],
+                        'readonly' => true
                     ]); ?>
                 </div>
                 <div class="col-sm-3">
                     <label for="">Proyecto</label>
                     <treeselect v-model="project_id" :multiple="false" placeholder="[SELECCIONE]"
-                                :name="'Movement[project_id]'" :options="project_options"/>
+                                :name="'Movement[project_id]'" :options="project_options" disabled="true"/>
                 </div>
             </div>
         </div>
