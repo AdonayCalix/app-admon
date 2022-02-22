@@ -75,7 +75,7 @@
                     method: 'POST',
                     data: $("#w0").serializeArray()
                 }).done(data => {
-                   // window.location.href = "other-create";
+                    window.location.href = "other-create";
                 }).fail(data => {
                     this.errors = $.parseJSON(data.responseText)
                 })

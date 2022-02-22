@@ -4,6 +4,7 @@ namespace app\modules\project\components\financial\formatv2\category;
 
 use app\components\ExcelExport;
 use app\modules\movement\models\MovementSubDetail;
+use app\modules\movement\models\MovementSubDetailV2;
 use app\modules\project\models\MovementsByCategoryQuery;
 use phpDocumentor\Reflection\Types\This;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ErfC;
@@ -50,14 +51,26 @@ class ContentCategory extends ExcelExport
         $row = self::CONTENT_ROW;
         $last_column = $this->getLetterColum($this->total_columns - 2, "ZZ");
 
-        foreach ($this->query->select(['movement_detail_id', 'number', 'kind'])->orderBy(['order_number' => SORT_ASC])->asArraY()->all() as $item) {
+        foreach ($this->query->select(['movement_detail_id', 'number', 'kind', 'has_v2'])->orderBy(['order_number' => SORT_ASC])->asArraY()->all() as $item) {
             foreach ($this->subCategories as $index => $subCategory) {
-                $amount = MovementSubDetail::findOne(
-                        [
-                            'detail_id' => $item['movement_detail_id'],
-                            'sub_category_id' => $subCategory->id
-                        ]
-                    )->amount ?? 0;
+                $amount = 0;
+
+                if ($item['has_v2'] === 'yes') {
+                    $amount = MovementSubDetailV2::findOne(
+                            [
+                                'detail_id' => $item['movement_detail_id'],
+                                'sub_category_id' => $subCategory->id
+                            ]
+                        )->amount ?? 0;
+                } else {
+                    $amount = MovementSubDetail::findOne(
+                            [
+                                'detail_id' => $item['movement_detail_id'],
+                                'sub_category_id' => $subCategory->id
+                            ]
+                        )->amount ?? 0;
+                }
+
 
                 $refund = GetRefunds::make($item['number'], $subCategory->id, $item['kind']);
 
