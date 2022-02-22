@@ -13,7 +13,4 @@ class ReceiptExport
     {
          $this->movement = Movement::get($transfer_id);
     }
-
-
-
 }

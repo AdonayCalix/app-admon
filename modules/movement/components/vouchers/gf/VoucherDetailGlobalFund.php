@@ -14,14 +14,12 @@ class VoucherDetailGlobalFund
             $expense_category = $subDetail->subCategory->expense_category ?? '';
             $identifier = $subDetail->subCategory->category->identifier ?? '';
 
-
             $budget_statement = [
                 $identifier,
                 $subDetail->subCategory->category->name ?? '',
             ];
 
             $out[] = $budget_statement;
-
 
             $detail = [
                 explode(' ', $expense_category)[0] ?? '',
@@ -33,5 +31,4 @@ class VoucherDetailGlobalFund
 
         return $out;
     }
-
 }

@@ -113,13 +113,16 @@ class VoucherFile extends ExcelExport
             VoucherDetailOtherProject::get($this->movement) :
             VoucherDetailGlobalFund::get($this->movement);
         $total_details = count($details);
-        $difference = 15 - $total_details;
+        $difference = 14 - $total_details;
 
         $detail_body = explode(';', $this->voucherElements->detail_body, 2);
         $row = $detail_body[0];
         $columns = explode(';', $detail_body[1]);
 
-        $this->excelObject->getActiveSheet()->removeRow($detail_body[0], $difference - 2);
+        $row_init_delete = 46;
+        for ($i = $row_init_delete; $i < ($row_init_delete + $difference); $i++ )
+            $this->excelObject->getActiveSheet()->removeRow($row_init_delete, 1);
+        //$this->excelObject->getActiveSheet()->removeRow($detail_body[0], $difference -2);
 
         foreach ($details as $detail) {
             foreach ($detail as $key => $value) {
