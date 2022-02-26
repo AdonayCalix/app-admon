@@ -38,7 +38,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                         <label for=""><strong>Periodo</strong></label>
                         <treeselect v-model="period_id" :multiple="false" placeholder="[SELECCIONE]" :options="period_list"/>
                     </div>
-                    <div class="col align-content-center">
+                    <div class="col align-content-center" style="margin-top: 10px">
                         <br>
                         <button class="btn btn-success" v-on:click="download">
                             Generar
