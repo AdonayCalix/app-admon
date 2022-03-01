@@ -47,11 +47,11 @@ class MovementSearch extends Movement
             ->where(['<>', 'mv.kind', 'Desembolso'])
             ->joinWith('movementDetails mv')
             ->groupBy(['number', 'movement.id', 'movement.amount', 'movement.project_id', 'mv.kind', 'mv.date', 'movement.has_v2'])
-            ->orderBy(['mv.date' => SORT_DESC, 'movement.project_id' => SORT_ASC]);
+            ->orderBy(['mv.date' => SORT_DESC, 'movement.project_id' => SORT_ASC, 'movement.number' => SORT_DESC]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 30],
+            'pagination' => ['pageSize' => 10],
         ]);
 
         $dataProvider->sort->attributes['date'] = [
@@ -69,11 +69,11 @@ class MovementSearch extends Movement
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'amount' => $this->amount,
             'bank_id' => $this->bank_id,
             'movement.project_id' => $this->project_id,
         ]);
 
+        $query->andFilterWhere(['like', 'movement.amount', $this->amount]);
         $query->andFilterWhere(['like', 'number', $this->number]);
         if ($this->date <> null)
             $query->andFilterWhere(['like', 'date', date('Y-m-d', strtotime(str_replace('/', '-', $this->date))) ?? null]);

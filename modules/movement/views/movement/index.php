@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'amount',
                         'width' => '13%',
                         'value' => function ($model) {
-                            return number_format($model->amount, 2);
+                            return 'Lps ' . number_format($model->amount, 2);
                         }
                     ],
                     [

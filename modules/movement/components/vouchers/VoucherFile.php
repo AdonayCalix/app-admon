@@ -83,7 +83,7 @@ class VoucherFile extends ExcelExport
         $total_details = count($headers);
         $difference = 6 - $total_details;
         $row_init_delete = $header_body[0] + $total_details;
-        for ($i = $row_init_delete; $i < ($row_init_delete + $difference); $i++ )
+        for ($i = $row_init_delete; $i < ($row_init_delete + $difference); $i++)
             $this->excelObject->getActiveSheet()->removeRow($row_init_delete, 1);
 
         foreach ($headers as $header) {
@@ -119,15 +119,15 @@ class VoucherFile extends ExcelExport
         $row = $detail_body[0];
         $columns = explode(';', $detail_body[1]);
 
-        $row_init_delete = 46;
-        for ($i = $row_init_delete; $i < ($row_init_delete + $difference); $i++ )
+        $row_init_delete = $detail_body[0];
+        for ($i = $row_init_delete; $i < ($row_init_delete + $difference); $i++)
             $this->excelObject->getActiveSheet()->removeRow($row_init_delete, 1);
-        //$this->excelObject->getActiveSheet()->removeRow($detail_body[0], $difference -2);
+        //$this->excelObject->getActiveSheet()->removeRow($detail_body[0], $difference - 4);
 
         foreach ($details as $detail) {
             foreach ($detail as $key => $value) {
                 if (isset($columns[$key]))
-                $this->setValueInCell($this->excelSheet, $columns[$key] . $row, $value);
+                    $this->setValueInCell($this->excelSheet, $columns[$key] . $row, $value);
 
                 if (isset($columns[$key]) && (count($detail) == 2)) {
                     $this->setStyleByCell($this->excelSheet, ($columns[$key] . $row), [
