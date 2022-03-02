@@ -9,13 +9,9 @@ use yii\helpers\Html;
 use kartik\export\ExportMenu;
 use kartik\grid\GridView;
 
-$this->title = 'Advance Detail';
+$this->title = 'Detalle de Gasto';
 $this->params['breadcrumbs'][] = $this->title;
-$search = "$('.search-button').click(function(){
-	$('.search-form').toggle(1000);
-	return false;
-});";
-$this->registerJs($search);
+
 ?>
 <div class="advance-detail-index">
 
