@@ -38,6 +38,7 @@ class ProjectBudget extends BaseProjectBudget
         foreach ($project_budget->budgetCategories as $category) {
             $value = [
                 'id' => $category->id,
+                'identifier' => $category->identifier,
                 'name' => $category->name,
             ];
 

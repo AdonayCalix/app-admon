@@ -10,9 +10,11 @@ use app\modules\project\components\financial\formatv2\category\FooterCategory;
 use app\modules\project\components\financial\formatv2\category\HeaderCategory;
 use app\modules\project\components\financial\formatv2\consolidate\ContentConsolidate;
 use app\modules\project\components\financial\formatv2\summary\ContentSummarize;
+use app\modules\project\models\base\BudgetCategory;
 use app\modules\project\models\base\MovementsByCategory;
 use app\modules\project\models\Project;
 use app\modules\project\models\ProjectBudget;
+use app\modules\project\models\ProjectPeriod;
 use phpDocumentor\Reflection\Types\This;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -53,6 +55,8 @@ class FinancialFormatV2File extends ExcelExport
     {
         $this->excelObject = $this->initExcel('/web/excel/financial_format/' . 'format_v2.xlsx');
         $this->excelSheet = $this->excelObject->getSheetByName('CEPROSAF');
+        $budget_name = ProjectBudget::findOne([$this->budget_id])->name . ': "CEPROSAF"';
+        $this->setValueInCell($this->excelSheet, 'A2', $budget_name);
         return $this;
     }
 
@@ -80,6 +84,9 @@ class FinancialFormatV2File extends ExcelExport
     public function setConsolidate(): FinancialFormatV2File
     {
         $this->excelSheet = $this->excelObject->getSheetByName('CONSOLIDADO');
+        $this->setValueInCell($this->excelSheet, 'B1', "EJECUCIÓN DEL: " . ProjectPeriod::findOne($this->period_id)->name ?? '');
+        $budget_name = ProjectBudget::findOne([$this->budget_id])->name . ': "CEPROSAF"';
+        $this->setValueInCell($this->excelSheet, 'B3', $budget_name);
         (new ContentConsolidate($this->budget_id, $this->period_id, $this->excelSheet))
             ->write()
             ->setStyles();
@@ -90,7 +97,8 @@ class FinancialFormatV2File extends ExcelExport
     {
         (new CategorySheets(
             $this->excelObject,
-            $this->budget->budgetCategories)
+            $this->budget->budgetCategories,
+            $this->period_id)
         )->create();
 
         foreach ($this->budget->budgetCategories as $category) {

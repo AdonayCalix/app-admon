@@ -23,8 +23,7 @@ class SummarizeSource
         foreach ($this->project_budget as $budget) {
 
             $last_row = ($first_row + count($budget['activities'])) - 1;
-
-            $out[] = ["", "{$budget['id']} {$budget['name']}", "bold" => true, "italic" => true, "color" => "B00000"];
+            $out[] = ["", "{$budget['identifier']}. {$budget['name']}", "bold" => true, "italic" => true, "color" => "B00000"];
 
             foreach ($budget['activities'] as $activity) {
                 $out[] = [
