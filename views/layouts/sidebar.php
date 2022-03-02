@@ -118,6 +118,19 @@ use yii\helpers\Url;
 
             <?php if (\Yii::$app->user->isSuperadmin): ?>
                 <li class="sidebar-header">
+                    Anticipo de Gastos
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/qb/list-class/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Detalle Gastos</span>
+                    </a>
+                </li>
+
+            <?php endif; ?>
+
+            <?php if (\Yii::$app->user->isSuperadmin): ?>
+                <li class="sidebar-header">
                     QuickBook
                 </li>
 

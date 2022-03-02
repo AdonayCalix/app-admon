@@ -48,29 +48,6 @@ $config = [
                 ],
             ],
         ],
-       /* 'sentry' => [
-            'class' => 'mito\sentry\Component',
-            'dsn' => 'https://91dcc67ed63e4d51bb1d3e7ddc429568@o405404.ingest.sentry.io/6002386',
-            'environment' => 'staging',
-            'jsNotifier' => true,
-            'jsOptions' => [
-                'whitelistUrls' => [
-                    'https://staging.my-product.com',
-                    'https://my-product.com',
-                ],
-            ],
-        ],*/
-       /* 'log' => [
-            'targets' => [
-                [
-                    'class' => 'mito\sentry\Target',
-                    'levels' => ['error', 'warning'],
-                    'except' => [
-                        'yii\web\HttpException:404',
-                    ],
-                ],
-            ],
-        ],*/
         'db' => $db,
         'db2' => [
             'class' => 'yii\db\Connection',
@@ -109,9 +86,9 @@ $config = [
         'movement' => [
             'class' => 'app\modules\movement\Movement',
         ],
-        'budget' => [
-            'class' => 'app\modules\budget\Budget',
-        ],
+        'expense' => [
+            'class' => 'app\modules\expense\Expense',
+        ]
     ],
     'params' => $params,
 ];
