@@ -96,7 +96,7 @@ class VoucherFile extends ExcelExport
                 }
 
                 $this->setValueInCell($this->excelSheet, $columns[$key] . $row, $value);
-                $this->setStyleByCell($this->excelSheet, $column, ['aligment_horizontal' => 'center', 'size' => 16, 'bold' => true]);
+                $this->setStyleByCell($this->excelSheet, $column, ['aligment_horizontal' => 'left', 'size' => 15, 'bold' => true]);
             }
             $row++;
         }

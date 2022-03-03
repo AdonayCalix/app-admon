@@ -3,6 +3,7 @@
 namespace app\modules\movement\controllers;
 
 use app\modules\movement\components\CheckIfDateIsOutPeriod;
+use app\modules\movement\components\ImportMovementFM;
 use app\modules\movement\components\MoneyToWords;
 use app\modules\movement\components\vouchers\gf\VoucherDetailGlobalFund;
 use app\modules\movement\components\LoadValues;
@@ -261,10 +262,10 @@ class MovementController extends BaseController
             ->downloadFile();
     }
 
-    public function actionHeader()
+    public function actionImportVouchers()
     {
-        $movement = MovementDetail::findOne(2009);
-        $algo = VoucherDetailOtherProject::get($movement);
-        echo '<pre>' . print_r($algo, true) . '</pre>';
+        (new ImportMovementFM)
+            ->initializeFile()
+            ->make();
     }
 }
