@@ -29,6 +29,7 @@ use yii\db\ActiveQuery;
  * @property string $updated_at
  * @property integer $created_by
  * @property integer $updated_by
+ * @property integer $requested_day
  *
  * @property Project $project
  * @property \app\modules\expense\models\ExpenseRequestDetail[] $expenseRequestDetails
@@ -40,9 +41,9 @@ class ExpenseRequest extends \yii\db\ActiveRecord
     use \mootensai\relation\RelationTrait;
 
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
+     */
     public function relationNames(): array
     {
         return [
@@ -60,7 +61,7 @@ class ExpenseRequest extends \yii\db\ActiveRecord
     {
         return [
             [['elaborated_at', 'start_date', 'end_date', 'created_at', 'updated_at'], 'safe'],
-            [['beneficiary_id', 'project_id', 'created_by', 'updated_by'], 'integer'],
+            [['beneficiary_id', 'project_id', 'created_by', 'updated_by', 'requested_day'], 'integer'],
             [['project_id'], 'required'],
             [['position'], 'string', 'max' => 225],
             [['place', 'goal'], 'string', 'max' => 500],
@@ -93,9 +94,10 @@ class ExpenseRequest extends \yii\db\ActiveRecord
             'start_date' => 'Fecha de Salida',
             'end_date' => 'Fecha de Entrada',
             'project_id' => 'Proyecto',
+            'requested_day' => 'Dias Solicitados'
         ];
     }
-    
+
     /**
      * @return ActiveQuery
      */
@@ -103,7 +105,7 @@ class ExpenseRequest extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Project::class, ['id' => 'project_id']);
     }
-        
+
     /**
      * @return ActiveQuery
      */
@@ -124,7 +126,7 @@ class ExpenseRequest extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Beneficiary::class, ['id' => 'beneficiary_id']);
     }
-    
+
     /**
      * @inheritdoc
      * @return array mixed

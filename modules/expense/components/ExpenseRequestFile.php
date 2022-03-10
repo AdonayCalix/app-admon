@@ -39,7 +39,6 @@ class ExpenseRequestFile extends ExcelExport
 
     public function setHeader(): ExpenseRequestFile
     {
-        $request_days = 0;
 
         $this->setValueInCell($this->excelSheet, 'F5', $this->expense_request->number_transfer ?? '');
         $this->setValueInCell($this->excelSheet, 'B7', $this->expense_request->elaborated_at ?? '');
@@ -50,7 +49,7 @@ class ExpenseRequestFile extends ExcelExport
         $this->setValueInCell($this->excelSheet, 'B12', $this->expense_request->goal ?? '');
         $this->setValueInCell($this->excelSheet, 'B13', $this->expense_request->start_date ?? '');
         $this->setValueInCell($this->excelSheet, 'B14', $this->expense_request->end_date ?? '');
-        $this->setValueInCell($this->excelSheet, 'B15', $request_days);
+        $this->setValueInCell($this->excelSheet, 'B15', $this->expense_request->requested_day ?? '');
 
         return $this;
     }
@@ -99,7 +98,7 @@ class ExpenseRequestFile extends ExcelExport
 
     public function downloadFile(): ExpenseRequestFile
     {
-        $name = $this->expense_request->beneficiary->name . ' ' . $this->expense_request->number_transfer ?? '';
+        $name = explode(' ', $this->expense_request->beneficiary->name)[0] . ' ' . $this->expense_request->number_transfer ?? '';
         $this->excelObject->getActiveSheet()->setTitle($name);
         $this->downloadExcel($this->excelObject, $name . '.xlsx');
         return $this;

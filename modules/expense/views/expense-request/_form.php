@@ -52,14 +52,6 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
         <input type="hidden" id="expanse_request_id" value="<?= !$model->isNewRecord ? $model->id : -1 ?>">
         <?= $form->field($model, 'id', ['template' => '{input}'])->textInput(['style' => 'display:none']); ?>
 
-        <?= $form->field($model, 'project_id')->widget(\kartik\widgets\Select2::class, [
-            'data' => \yii\helpers\ArrayHelper::map(\app\modules\project\models\Project::find()->orderBy('id')->asArray()->all(), 'id', 'alias'),
-            'options' => ['placeholder' => '[SELECCIONE]'],
-            'pluginOptions' => [
-                'allowClear' => true
-            ],
-        ]); ?>
-
         <?= $form->field($model, 'elaborated_at',
             [
                 'inputOptions' =>
@@ -75,6 +67,8 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
             ]
         ); ?>
 
+        <?= $form->field($model, 'number_transfer')->textInput(['maxlength' => true, 'placeholder' => 'TB/Cheque']) ?>
+
         <?= $form->field($model, 'beneficiary_id')->widget(\kartik\widgets\Select2::class, [
             'data' => \yii\helpers\ArrayHelper::map(\app\modules\project\models\Beneficiary::find()->orderBy('id')->asArray()->all(), 'id', 'name'),
             'options' => ['placeholder' => '[SELECCIONE]'],
@@ -84,6 +78,14 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
         ]); ?>
 
         <?= $form->field($model, 'position')->textInput(['maxlength' => true, 'placeholder' => 'Posicion']) ?>
+
+        <?= $form->field($model, 'project_id')->widget(\kartik\widgets\Select2::class, [
+            'data' => \yii\helpers\ArrayHelper::map(\app\modules\project\models\Project::find()->orderBy('id')->asArray()->all(), 'id', 'alias'),
+            'options' => ['placeholder' => '[SELECCIONE]'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]); ?>
 
         <?= $form->field($model, 'place')->textInput(['maxlength' => true, 'placeholder' => 'Lugares de Destino']) ?>
 
@@ -104,6 +106,8 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                 'format' => 'dd/mm/yyyy hh:ii'
             ]
         ]); ?>
+
+        <?= $form->field($model, 'requested_day')->textInput(['maxlength' => true, 'placeholder' => 'Dias Solicitados']) ?>
     </div>
     <br>
     <?= Yii::$app->controller->renderPartial('_expenseDetails'); ?>

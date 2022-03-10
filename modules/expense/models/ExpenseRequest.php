@@ -18,7 +18,7 @@ class ExpenseRequest extends BaseExpenseRequest
         return array_replace_recursive(parent::rules(),
 	    [
             [['elaborated_at', 'start_date', 'end_date', 'created_at', 'updated_at'], 'safe'],
-            [['beneficiary_id', 'project_id', 'created_by', 'updated_by'], 'integer'],
+            [['beneficiary_id', 'project_id', 'created_by', 'updated_by', 'requested_day'], 'integer'],
             [['project_id'], 'required'],
             [['position'], 'string', 'max' => 225],
             [['place', 'goal'], 'string', 'max' => 500],

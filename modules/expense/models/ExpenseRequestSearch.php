@@ -57,10 +57,7 @@ use app\modules\expense\models\ExpenseRequest;
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'elaborated_at' => $this->elaborated_at,
             'beneficiary_id' => $this->beneficiary_id,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
             'project_id' => $this->project_id,
         ]);
 
@@ -68,6 +65,8 @@ use app\modules\expense\models\ExpenseRequest;
             ->andFilterWhere(['like', 'place', $this->place])
             ->andFilterWhere(['like', 'goal', $this->goal])
             ->andFilterWhere(['like', 'number_transfer', $this->number_transfer]);
+            if ($this->elaborated_at <> null)
+                $query->andFilterWhere(['like', 'elaborated_at', date('Y-m-d', strtotime(str_replace('/', '-', $this->elaborated_at))) ?? null]);
 
         return $dataProvider;
     }
