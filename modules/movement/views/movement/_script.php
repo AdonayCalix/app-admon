@@ -52,6 +52,9 @@
             project_id: null,
         },
         methods: {
+            moose(index, indexSubDetail, value) {
+                alert(index + ' ' + indexSubDetail + ' ' + value);
+            },
             onChange() {
                 console.log(event.target.value + 'Siu');
             },
@@ -69,6 +72,7 @@
             },
             store() {
                 this.errors = null;
+                console.log($("#w0").serializeArray());
                 $.ajax({
                     url: 'store',
                     method: 'POST',
@@ -104,7 +108,9 @@
                     category: '',
                     sub_category: '',
                     amount: 0
-                })
+                });
+
+                this.details[index].sub_details[0].sub_category_id = 'A' + '-' + 1124;
             },
             deleteSubItem: function (indexSubDetail, index) {
                 event.preventDefault();

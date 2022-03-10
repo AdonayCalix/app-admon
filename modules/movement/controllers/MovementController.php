@@ -159,7 +159,6 @@ class MovementController extends BaseController
         return $this->redirect(['index']);
     }
 
-
     /**
      * Finds the Movement model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -225,41 +224,6 @@ class MovementController extends BaseController
     public function actionGetMovementsWithDetails($transfer_id)
     {
         return json_encode((new MovementWithDetails($transfer_id))->make()->get());
-    }
-
-    public function actionAlgoNuevo()
-    {
-        $movement = MovementDetail::findOne(2009);
-        $headers = VoucherHeaderGlobalFund::get($movement);
-
-        foreach ($headers as $header) {
-
-            foreach ($header as $key => $value) {
-                echo '<pre>' . print_r($key, true) . '</pre>';
-            }
-            echo '<br>';
-        }
-        die;
-    }
-
-    /**
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     */
-    public function actionAlgo()
-    {
-        (new VoucherFile(2009, 3))
-            ->setVoucherFormatFilePath()
-            ->initializeExcel()
-            ->setMovement()
-            ->setVoucherElements()
-            ->setHeader()
-            ->setNumberTbCheque()
-            ->setEmissionDate()
-            ->setBeneficiary()
-            ->setAmountInWords()
-            ->setConcept()
-            ->setDetail()
-            ->downloadFile();
     }
 
     public function actionImportVouchers()

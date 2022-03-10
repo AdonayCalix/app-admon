@@ -122,6 +122,12 @@ use yii\helpers\Url;
                 </li>
 
                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/expense/expense-request/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Solicitud de Anticipo</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= Url::to(['/expense/advance-detail/index']) ?>">
                         <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Detalle Gastos</span>
                     </a>
