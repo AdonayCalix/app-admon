@@ -133,6 +133,12 @@ use yii\helpers\Url;
                     </a>
                 </li>
 
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="<?= Url::to(['/expense/places/index']) ?>">
+                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Lugares Destino</span>
+                    </a>
+                </li>
+
             <?php endif; ?>
 
             <?php if (\Yii::$app->user->isSuperadmin): ?>
