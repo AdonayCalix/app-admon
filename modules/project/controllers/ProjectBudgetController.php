@@ -3,8 +3,11 @@
 namespace app\modules\project\controllers;
 
 use app\modules\budget\models\BudgetPeriod;
+use app\modules\project\components\RelatedActivityWithQb;
 use app\modules\project\models\base\Project;
 use app\modules\project\models\ProjectPeriod;
+use app\modules\qb\components\HierachyChartAccountList;
+use app\modules\qb\components\HierarchyClassList;
 use Yii;
 use app\modules\project\models\ProjectBudget;
 use app\modules\project\models\ProjectBudgetSearch;
@@ -133,9 +136,24 @@ class ProjectBudgetController extends BaseController
         return $this->render('_assign', ['budget_id' => $id, 'project_id' => $project_id]);
     }
 
+    public function actionAssignQb($id, $project_id): string
+    {
+        if (Yii::$app->request->post()) {
+            (new RelatedActivityWithQb($_POST))
+                ->store();
+            Yii::$app->session->setFlash('success', 'Se creo correctamente la vinculacion');
+        }
+        return $this->render('_assignQB', ['budget_id' => $id, 'project_id' => $project_id]);
+    }
+
     public function actionGetAll($id, $period_id)
     {
         return json_encode(ProjectBudget::getCategories($id, $period_id));
+    }
+
+    public function actionGetAllCategoriesOnly($id)
+    {
+        return json_encode(ProjectBudget::getCategoriesOnly($id));
     }
 
     public function actionGetProjects()
@@ -148,6 +166,16 @@ class ProjectBudgetController extends BaseController
     public function actionGetPeriodsByProject($id)
     {
         return json_encode(ProjectPeriod::getPeriods($id));
+    }
+
+    public function actionGetAllClasses()
+    {
+        return json_encode((new HierarchyClassList())->setMainClasses()->setOptions()->get());
+    }
+
+    public function actionGetAllAccounts()
+    {
+        return json_encode((new HierachyChartAccountList())->setmainAccount()->setOptions()->get());
     }
 
     /**

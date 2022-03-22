@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\controllers\base\BaseController;
+use app\modules\project\models\base\ClassActivity;
 use Yii;
 use function Symfony\Component\Translation\t;
 
@@ -15,7 +16,6 @@ class SiteController extends BaseController
      */
     public function actionIndex(): string
     {
-        Yii::$app->session->setFlash('active_link', 'moose');
         return $this->render('index');
     }
 }

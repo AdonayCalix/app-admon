@@ -88,7 +88,7 @@
                                 <th scope="row">{{ indexSubDetail + 1 }}</th>
                                 <td style="display:none;"><input type="hidden" v-model="sub_detail.id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][id]'"></td>
                                 <td><treeselect v-model="sub_detail.sub_category_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][sub_category_id]'" :multiple="false" placeholder="[SELECCIONE]" :options="activity_options"></treeselect></td>
-                                <td><treeselect v-model="sub_detail.class_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][class_id]'" :multiple="false" placeholder="[SELECCIONE]" :options="class_options" /></td>
+                                <td><treeselect v-model="sub_detail.class_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][class_id]'" :multiple="true" placeholder="[SELECCIONE]" :options="class_options" /></td>
                                 <td><treeselect v-model="sub_detail.chart_account_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][chart_account_id]'" :multiple="false" placeholder="[SELECCIONE]" :options="account_options" /></td>
                                 <td><money  v-bind="money" class="form-control" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][amount]'"  v-model="sub_detail.amount"></money></td>
                                 <td> <a v-on:click="deleteSubItem(indexSubDetail, index)"><i class="btn btn-sm btn-danger">Eliminar</a></td>

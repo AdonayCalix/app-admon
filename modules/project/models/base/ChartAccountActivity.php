@@ -14,13 +14,12 @@ use yii\db\ActiveQuery;
  *
  * @property integer $id
  * @property integer $chart_account_id
- * @property integer $activity_id
+ * @property string $activity_id
  * @property string $created_at
  * @property string $updated_at
  * @property integer $created_by
  * @property integer $updated_by
  *
- * @property ChartAccount $chartAccount
  * @property \app\modules\project\models\SubCategory $activity
  */
 class ChartAccountActivity extends \yii\db\ActiveRecord
@@ -35,7 +34,6 @@ class ChartAccountActivity extends \yii\db\ActiveRecord
     public function relationNames(): array
     {
         return [
-            'chartAccount',
             'activity'
         ];
     }
@@ -47,7 +45,7 @@ class ChartAccountActivity extends \yii\db\ActiveRecord
     {
         return [
             [['chart_account_id', 'activity_id'], 'required'],
-            [['chart_account_id', 'activity_id', 'created_by', 'updated_by'], 'integer'],
+            [['activity_id', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe']
         ];
     }
@@ -70,14 +68,6 @@ class ChartAccountActivity extends \yii\db\ActiveRecord
             'chart_account_id' => 'Chart Account ID',
             'activity_id' => 'Activity ID',
         ];
-    }
-    
-    /**
-     * @return ActiveQuery
-     */
-    public function getChartAccount(): ActiveQuery
-    {
-        return $this->hasOne(ChartAccount::class, ['id' => 'chart_account_id']);
     }
         
     /**

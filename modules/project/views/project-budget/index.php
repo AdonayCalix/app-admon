@@ -67,7 +67,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('Asignamiento', ['assign-budget', 'id' => $model->id, 'project_id' => $model->project_id], ['class' => 'btn btn-sm btn-primary']);
                         },
                         'format' => 'raw',
-                        'width' => '20%'
+                        'width' => '10%'
+                    ],
+                    [
+                        'value' => function ($model) {
+                            return Html::a('Asignamiento QB', ['assign-qb', 'id' => $model->id, 'project_id' => $model->project_id], ['class' => 'btn btn-sm btn-primary']);
+                        },
+                        'format' => 'raw',
+                        'width' => '15%'
                     ],
                     [
                         'class' => 'yii\grid\ActionColumn',

@@ -18,7 +18,7 @@ class ChartAccountActivity extends BaseChartAccountActivity
         return array_replace_recursive(parent::rules(),
 	    [
             [['chart_account_id', 'activity_id'], 'required'],
-            [['chart_account_id', 'activity_id', 'created_by', 'updated_by'], 'integer'],
+            [['activity_id', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe']
         ]);
     }

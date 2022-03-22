@@ -20,7 +20,6 @@ use yii\db\ActiveQuery;
  * @property integer $created_by
  * @property integer $updated_by
  *
- * @property ListClass $class
  * @property \app\modules\project\models\SubCategory $activity
  */
 class ClassActivity extends \yii\db\ActiveRecord
@@ -35,7 +34,6 @@ class ClassActivity extends \yii\db\ActiveRecord
     public function relationNames(): array
     {
         return [
-            'class',
             'activity'
         ];
     }
@@ -70,14 +68,6 @@ class ClassActivity extends \yii\db\ActiveRecord
             'class_id' => 'Class ID',
             'activity_id' => 'Activity ID',
         ];
-    }
-    
-    /**
-     * @return ActiveQuery
-     */
-    public function getClass(): ActiveQuery
-    {
-        return $this->hasOne(ListClass::class, ['id' => 'class_id']);
     }
         
     /**
