@@ -9,6 +9,7 @@ use webvimark\modules\UserManagement\components\GhostHtml;
 use yii\helpers\Html;
 use kartik\export\ExportMenu;
 use kartik\grid\GridView;
+use app\modules\movement\models\base\TransferAssignment;
 
 $this->title = 'Anticipo de Gastos';
 $this->params['breadcrumbs'][] = $this->title;
@@ -80,6 +81,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'value' => function ($model) {
                             return \yii\bootstrap4\Html::a('Descargar', ['get-file', 'expense_request_id' => $model->id], ['target' => '_blank', 'class' => 'badge badge-info']);
+                        },
+                        'format' => 'raw'
+                    ],
+                    [
+                        'value' => function ($model) {
+                            return \yii\bootstrap4\Html::a('Recibo', array('get-receipt', 'id' => (TransferAssignment::findOne(array('expense_request_id' => $model->id))->id ?? null)), ['target' => '_blank', 'class' => 'badge badge-info']);
                         },
                         'format' => 'raw'
                     ],

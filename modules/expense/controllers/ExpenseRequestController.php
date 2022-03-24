@@ -8,6 +8,8 @@ use app\modules\expense\models\AdvanceDetail;
 use app\modules\expense\models\ExpenseRequestDetail;
 use app\modules\expense\models\FoodExpenseRequest;
 use app\modules\expense\models\Places;
+use app\modules\movement\components\receipt\ReceiptFile;
+use app\modules\movement\models\base\TransferAssignment;
 use app\modules\project\models\Beneficiary;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ErfC;
 use Yii;
@@ -67,13 +69,11 @@ class ExpenseRequestController extends BaseController
      * Creates a new ExpenseRequest model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|Response
-     * @throws Exception
      */
     public function actionCreate()
     {
         $model = new ExpenseRequest();
-
-        //echo '<pre>' . print_r($_POST, true) . '</pre>';die;
+        $model->loadPreviosExpenseRequest();
 
         if ($model->loadAll(Yii::$app->request->post())) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -117,7 +117,8 @@ class ExpenseRequestController extends BaseController
         $expense_request = ExpenseRequest::findOne($_POST['ExpenseRequest']['id'] ?? null) ?? new ExpenseRequest();
 
         if ($expense_request->loadAll($_POST) && $expense_request->saveAll()) {
-            return json_encode(['success' => true]);
+            TransferAssignment::store($expense_request);
+            return json_encode(['success' => true, 'id' => $expense_request->id]);
         } else {
             Yii::$app->response->statusCode = 422;
             return json_encode($expense_request->errors);
@@ -125,10 +126,10 @@ class ExpenseRequestController extends BaseController
 
     }
 
-    public function actionOtherCreate(): Response
+    public function actionOtherCreate($id): Response
     {
         Yii::$app->session->setFlash('success', 'Se guardo correctamente la solicitud de anticipo de gasto');
-        return $this->redirect(['create']);
+        return $this->redirect(['view', 'id' => $id]);
     }
 
     /**
@@ -215,6 +216,9 @@ class ExpenseRequestController extends BaseController
         return json_encode($expense_request_details);
     }
 
+    /**
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     */
     public function actionGetFile($expense_request_id)
     {
         (new ExpenseRequestFile($expense_request_id))
@@ -222,6 +226,30 @@ class ExpenseRequestController extends BaseController
             ->setHeader()
             ->setDetails()
             ->downloadFile();
+    }
+
+    public function actionGetReceipt($id)
+    {
+        (new ReceiptFile($id))
+            ->initializeExcel()
+            ->writeContent()
+            ->downloadFile('RECIBO.xlsx');
+    }
+
+    public function actionStoreNewExpense(): bool
+    {
+        $advanceDetail = new AdvanceDetail;
+        $advanceDetail->name = $_POST['name'];
+        $advanceDetail->save(false);
+        return true;
+    }
+
+    public function actionStoreNewPlace(): bool
+    {
+        $places = new Places;
+        $places->name = $_POST['name'];
+        $places->save(false);
+        return true;
     }
 
 }

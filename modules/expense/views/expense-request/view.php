@@ -22,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card">
         <div class="card-body">
             <p>
+                <?= Html::a('Crear', ['create'], ['class' => 'btn btn-success']) ?>
                 <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
                 <?= Html::a('Eliminar', ['delete', 'id' => $model->id], [
                     'class' => 'btn btn-danger',

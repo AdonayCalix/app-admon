@@ -17,8 +17,8 @@ class TransferAssignment extends BaseTransferAssignment
     {
         return array_replace_recursive(parent::rules(),
             [
-                [['transfer_id', 'beneficiary_id', 'amount', 'position', 'reason'], 'required'],
-                [['transfer_id', 'beneficiary_id', 'created_by', 'deleted_by', 'updated_by'], 'integer'],
+                [['number_transfer', 'beneficiary_id', 'amount', 'position', 'reason', 'expense_request_id'], 'required'],
+                [['number_transfer', 'beneficiary_id', 'created_by', 'deleted_by', 'updated_by', 'expense_request_id'], 'integer'],
                 [['amount'], 'number'],
                 [['created_at', 'updated_at', 'deleted_at'], 'safe'],
                 [['position'], 'string', 'max' => 250],
@@ -26,7 +26,7 @@ class TransferAssignment extends BaseTransferAssignment
             ]);
     }
 
-    public static function getAll(int $transfer_id): array
+    public static function getAll(int $number_transfer): array
     {
         return self::find()
             ->select(['id', 'reason', 'beneficiary_id', 'position', 'amount'])

@@ -193,4 +193,20 @@ class ExpenseRequest extends \yii\db\ActiveRecord
         if ($compareDates->isStartGreaterThanEnd())
             $this->addError('start_date', 'La fecha de salida no puede ser despues que de la entrada');
     }
+
+    public function loadPreviosExpenseRequest()
+    {
+        $values = self::find()
+            ->select(['elaborated_at', 'project_id', 'number_transfer', 'place', 'goal', 'start_date', 'end_date', 'requested_day'])
+            ->where(['created_by' => Yii::$app->user->id])
+            ->orderBy(['created_at' => SORT_DESC])
+            ->asArray()
+            ->one();
+
+        $values['elaborated_at'] = ((new FormatDate($values['elaborated_at'], 'Y-m-d', 'd/m/Y'))->change()->asString());
+        $values['start_date'] = ((new FormatDate($values['start_date'], 'Y-m-d', 'd/m/Y H:i'))->change()->asString());
+        $values['end_date'] = ((new FormatDate($values['end_date'], 'Y-m-d', 'd/m/Y H:i'))->change()->asString());
+
+        $this->load($values, '');
+    }
 }

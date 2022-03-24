@@ -33,9 +33,9 @@ class ReceiptFile extends ExcelExport
     public function writeContent(): ReceiptFile
     {
         $assign = TransferAssignment::findOne($this->assign_id);
-        $date = MovementDetail::findOne(['transfer_id' => $assign->transfer->id, 'kind' => 'Egreso'])->date;
+        $date = '2022-03-13';
 
-        $this->setValueInCell($this->excelSheet, 'B9', $assign->transfer->number);
+        $this->setValueInCell($this->excelSheet, 'B9', $assign->number_transfer);
         $this->setValueInCell($this->excelSheet, 'B10', date('d/m/Y', strtotime($date)));
         $this->setValueInCell($this->excelSheet, 'B11', $assign->beneficiary->name ?? '');
         $this->setValueInCell($this->excelSheet, 'B12', $assign->reason);
@@ -50,5 +50,4 @@ class ReceiptFile extends ExcelExport
         $this->downloadExcel($this->excelObject, $name);
         return $this;
     }
-
 }

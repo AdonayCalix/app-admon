@@ -9,7 +9,33 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col" width="20%">Fecha</th>
-                <th scope="col" width="35%">Destino</th>
+                <th scope="col" width="35%">
+                    Destino
+                    <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#newPlace">
+                        <i class="fa fa-plus"></i> Añadir
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="newPlace" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Agregar Nuevo Destino</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" id="new-place" class="form-control">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="new_place" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button v-on:click="storeNewPlace" type="button" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th>
                 <th scope="col" width="15%">Desayuno</th>
                 <th scope="col" width="15%">Almuerzo</th>
                 <th scope="col" width="15%">Cena</th>
@@ -44,7 +70,33 @@
             <thead>
             <tr>
                 <th scope="col" width="2%">#</th>
-                <th scope="col" width="30%">Gasto</th>
+                <th scope="col" width="30%">
+                    Gasto
+                    <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fa fa-plus"></i> Añadir
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Agregar Nuevo Gasto</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="text" id="new_expense" class="form-control">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="new_beneficiary" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button v-on:click="storeNewExpense" type="button" class="btn btn-primary">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th>
                 <th scope="col" width="20%">Monto</th>
             </tr>
             </thead>

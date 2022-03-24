@@ -34,6 +34,32 @@
             advance_details: [],
         },
         methods: {
+            storeNewExpense() {
+                $.ajax({
+                    url: 'store-new-expense',
+                    method: 'POST',
+                    data: {name: document.getElementById('new_expense').value}
+                }).done(data => {
+                    document.getElementById('exampleModal').click();
+                    document.getElementById('new_expense').value = '';
+                    this.getAdvanceDetailOptions();
+                }).fail(data => {
+                    this.errors = $.parseJSON(data.responseText)
+                })
+            },
+            storeNewPlace() {
+                $.ajax({
+                    url: 'store-new-place',
+                    method: 'POST',
+                    data: {name: document.getElementById('new-place').value}
+                }).done(data => {
+                    document.getElementById('newPlace').click();
+                    document.getElementById('new-place').value = '';
+                    this.getAllPlaces();
+                }).fail(data => {
+                    this.errors = $.parseJSON(data.responseText)
+                })
+            },
             store() {
                 this.errors = null;
                 $.ajax({
@@ -41,7 +67,8 @@
                     method: 'POST',
                     data: $("#w0").serializeArray()
                 }).done(data => {
-                    window.location.href = "other-create";
+                    var json = JSON.parse(data);
+                    window.location.href = "other-create?id=" + json.id;
                 }).fail(data => {
                     this.errors = $.parseJSON(data.responseText);
                     console.log(this.errors);
@@ -94,7 +121,7 @@
                 let expense_request_id = document.getElementById('expanse_request_id').value;
                 console.log(expense_request_id);
 
-                if (expense_request_id !== -1) {
+                if (expense_request_id != -1) {
                     try {
                         let response = await fetch("get-all-food-expense?id=" + expense_request_id);
                         this.food_expenses = await response.json();
@@ -113,6 +140,8 @@
                     } catch (error) {
                         console.log(error);
                     }
+                } else {
+
                 }
             }
         },

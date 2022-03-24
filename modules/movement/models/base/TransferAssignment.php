@@ -2,6 +2,9 @@
 
 namespace app\modules\movement\models\base;
 
+use app\modules\expense\models\base\ExpenseRequest;
+use app\modules\expense\models\ExpenseRequestDetail;
+use app\modules\expense\models\ExpenseRequestQuery;
 use app\modules\movement\models\TransferAssignmentQuery;
 use app\modules\project\models\Beneficiary;
 use Yii;
@@ -9,12 +12,13 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use mootensai\behaviors\UUIDBehavior;
 use yii\db\ActiveQuery;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the base model class for table "transfer_assignment".
  *
  * @property integer $id
- * @property integer $transfer_id
+ * @property integer $number_transfer
  * @property integer $beneficiary_id
  * @property string $amount
  * @property string $position
@@ -25,6 +29,7 @@ use yii\db\ActiveQuery;
  * @property string $updated_at
  * @property string $deleted_at
  * @property integer $updated_by
+ * @property integer $expense_request_id
  *
  * @property \app\modules\movement\models\Movement $transfer
  * @property Beneficiary $beneficiary
@@ -34,9 +39,9 @@ class TransferAssignment extends \yii\db\ActiveRecord
     use \mootensai\relation\RelationTrait;
 
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
+     */
     public function relationNames(): array
     {
         return [
@@ -51,8 +56,8 @@ class TransferAssignment extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['transfer_id', 'beneficiary_id', 'amount', 'position', 'reason'], 'required'],
-            [['transfer_id', 'beneficiary_id', 'created_by', 'deleted_by', 'updated_by'], 'integer'],
+            [['number_transfer', 'beneficiary_id', 'amount', 'position', 'reason', 'expense_request_id'], 'required'],
+            [['number_transfer', 'beneficiary_id', 'created_by', 'deleted_by', 'updated_by', 'expense_request_id'], 'integer'],
             [['amount'], 'number'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['position'], 'string', 'max' => 250],
@@ -75,22 +80,14 @@ class TransferAssignment extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'transfer_id' => 'No TB/Cheque',
+            'number_transfer' => 'No TB/Cheque',
             'beneficiary_id' => 'Beneficiario',
             'amount' => 'Monto',
             'position' => 'Posicion',
             'reason' => 'Motivo',
         ];
     }
-    
-    /**
-     * @return ActiveQuery
-     */
-    public function getTransfer(): ActiveQuery
-    {
-        return $this->hasOne(\app\modules\movement\models\Movement::class, ['id' => 'transfer_id']);
-    }
-        
+
     /**
      * @return ActiveQuery
      */
@@ -98,7 +95,7 @@ class TransferAssignment extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Beneficiary::class, ['id' => 'beneficiary_id']);
     }
-    
+
     /**
      * @inheritdoc
      * @return array mixed
@@ -135,5 +132,37 @@ class TransferAssignment extends \yii\db\ActiveRecord
         return parent::beforeValidate();
     }
 
+    public static function store(ExpenseRequest $expenseRequest)
+    {
+        $transfer = self::findOne(['expense_request_id' => $expenseRequest->id]) ?? new self;
+        $transfer->number_transfer =$expenseRequest->number_transfer ?? '';
+        $transfer->expense_request_id = $expenseRequest->id;
+        $transfer->beneficiary_id = $expenseRequest->beneficiary_id;
+        $transfer->position = $expenseRequest->position ?? '';
+        $transfer->reason = $expenseRequest->goal ?? '';
+        $transfer->amount = self::getTotalExpenses($expenseRequest);
+        $transfer->save(false);
+    }
+
+    public static function getTotalExpenses(ExpenseRequest $expenseRequest): float
+    {
+        $total_breakfast = array_sum(array_column($expenseRequest->foodExpenseRequests, 'breakfast'));
+        $total_lunch = array_sum(array_column($expenseRequest->foodExpenseRequests, 'lunch'));
+        $total_dinner = array_sum(array_column($expenseRequest->foodExpenseRequests, 'dinner'));
+        $total_food = $total_breakfast + $total_lunch + $total_dinner;
+
+        $totalFoodExpense = array_reduce($expenseRequest->foodExpenseRequests, function ($breakfast, $sum) {
+            return $breakfast;
+        });
+
+        $advance_details = ArrayHelper::toArray($expenseRequest->expenseRequestDetails, [
+            ExpenseRequestDetail::class => [
+                'amount'
+            ]
+        ]);
+
+        return $total_food + (array_sum(array_column($advance_details, 'amount')));
+
+    }
 
 }
