@@ -141,7 +141,12 @@
                         console.log(error);
                     }
                 } else {
-
+                    try {
+                        let response = await fetch("get-all-advance-detail-previous");
+                        this.other_expenses = await response.json();
+                    } catch (error) {
+                        console.log(error);
+                    }
                 }
             }
         },

@@ -209,4 +209,13 @@ class ExpenseRequest extends \yii\db\ActiveRecord
 
         $this->load($values, '');
     }
+
+    public static function getLastId(): int
+    {
+        return self::find()
+                ->where(['created_by' => Yii::$app->user->id])
+                ->orderBy(['created_at' => SORT_DESC])
+                ->one()
+                ->id ?? 0;
+    }
 }

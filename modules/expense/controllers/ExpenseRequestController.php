@@ -12,6 +12,7 @@ use app\modules\movement\components\receipt\ReceiptFile;
 use app\modules\movement\models\base\TransferAssignment;
 use app\modules\project\models\Beneficiary;
 use PhpOffice\PhpSpreadsheet\Calculation\Engineering\ErfC;
+use PhpOffice\PhpSpreadsheet\Calculation\MathTrig\Exp;
 use Yii;
 use app\modules\expense\models\ExpenseRequest;
 use app\modules\expense\models\ExpenseRequestSearch;
@@ -210,6 +211,17 @@ class ExpenseRequestController extends BaseController
         $expense_request_details = ExpenseRequestDetail::find()
             ->select(['id', 'advance_detail_id as expense_id', 'amount'])
             ->where(['expense_request_id' => $id])
+            ->asArray()
+            ->all();
+
+        return json_encode($expense_request_details);
+    }
+
+    public function actionGetAllAdvanceDetailPrevious()
+    {
+        $expense_request_details = ExpenseRequestDetail::find()
+            ->select(['id', 'advance_detail_id as expense_id'])
+            ->where(['expense_request_id' => ExpenseRequest::getLastId()])
             ->asArray()
             ->all();
 
