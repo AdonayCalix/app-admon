@@ -181,4 +181,23 @@ class Movement extends ActiveRecord
             $this->addError('amount', 'El monto de la TB/Cheque no coincide con el movimiento de tipo de egreso');
         }
     }
+
+    public function loadPreviosMovement()
+    {
+        $values = self::find()
+            ->select(['movement.project_id', 'movement.number'])
+            ->where(['movement.created_by' => \Yii::$app->user->id])
+            ->orderBy(['movement.created_at' => SORT_DESC])
+            ->asArray()
+            ->one();
+
+        $tb_number = explode(" ", $values['number']);
+
+        $values['number'] = count($tb_number) == 2 ?
+            $tb_number[0] . ' ' . ((int)$tb_number[1] + 1) :
+            ((int)$values['number'] + 1);
+
+
+        $this->load($values, '');
+    }
 }

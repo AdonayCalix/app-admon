@@ -18,7 +18,8 @@
                 date: new Date(),
                 benefiaciary: null,
                 concept: null,
-                kind: null,
+                kind: 'Egreso',
+                amount: 0,
                 sub_details: [
                     {
                         id: null,
@@ -52,9 +53,6 @@
             project_id: null,
         },
         methods: {
-            moose(index, indexSubDetail, value) {
-                alert(index + ' ' + indexSubDetail + ' ' + value);
-            },
             onChange() {
                 console.log(event.target.value + 'Siu');
             },
@@ -109,8 +107,6 @@
                     sub_category: '',
                     amount: 0
                 });
-
-                this.details[index].sub_details[0].sub_category_id = 'A' + '-' + 1124;
             },
             deleteSubItem: function (indexSubDetail, index) {
                 event.preventDefault();
@@ -121,7 +117,7 @@
                 this.project_id = document.getElementById('project_id').value;
                 console.log(movement_id);
 
-                if (movement_id !== -1) {
+                if (movement_id != -1) {
                     try {
                         let response = await fetch("get-movements-with-details?transfer_id=" + movement_id);
                         this.details = await response.json();
@@ -196,6 +192,28 @@
                     })
                     .catch(error => console.error('Error:', error))
             },
+            updateAmount: function (value, index) {
+                if (index != 0) return
+
+                let amount = parseFloat(value);
+                document.getElementById('movement-amount').value = amount.toFixed(2);
+            },
+            setClassAndAccount: function (id, index, sub_index) {
+
+                fetch("get-class-associative?id=" + id)
+                    .then(response => response.json())
+                    .then((response) => {
+                        this.$set(this.details[index].sub_details[sub_index], 'class_id', response.id)
+                    })
+                    .catch(error => console.log(error));
+
+                fetch("get-account-associative?id=" + id)
+                    .then(response => response.json())
+                    .then((response) => {
+                        this.$set(this.details[index].sub_details[sub_index], 'chart_account_id', response.id)
+                    })
+                    .catch(error => console.log(error));
+            }
         },
         created() {
             this.getValues();

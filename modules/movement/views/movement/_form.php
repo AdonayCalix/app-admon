@@ -33,7 +33,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
     ]); ?>
 
     <input type="hidden" id="movement_id" name="Movement[id]" value="<?= $model->isNewRecord ? -1 : $model->id ?>">
-    <input type="hidden" id="project_id" value="<?= $model->isNewRecord ? null : $model->project_id ?>">
+    <input type="hidden" id="project_id" value="<?= $model->project_id === null ? null : $model->project_id ?>">
 
     <div id="flash"></div>
 
@@ -51,18 +51,12 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                     <?= $form->field($model, 'number')->textInput(['maxlength' => true, 'placeholder' => '']) ?>
                 </div>
                 <div class="col-sm-3">
-                    <?= $form->field($model, 'amount')->widget(NumberControl::class, [
-                        'maskedInputOptions' => [
-                            'allowMinus' => false,
-                            'rightAlign' => false
-                        ]
-                    ]); ?>
-                </div>
-                <div class="col-sm-3">
                     <label for="">Proyecto</label>
                     <treeselect v-model="project_id" :multiple="false" placeholder="[SELECCIONE]"
                                 :name="'Movement[project_id]'" :options="project_options"/>
                 </div>
+               <?= $form->field($model, 'amount')->hiddenInput()->label(false); ?>
+
             </div>
         </div>
     </div>

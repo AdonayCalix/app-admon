@@ -2,29 +2,23 @@
 
 namespace app\modules\movement\controllers;
 
+use app\controllers\base\BaseController;
 use app\modules\movement\components\CheckIfDateIsOutPeriod;
 use app\modules\movement\components\ImportMovementFM;
-use app\modules\movement\components\MoneyToWords;
-use app\modules\movement\components\vouchers\gf\VoucherDetailGlobalFund;
 use app\modules\movement\components\LoadValues;
 use app\modules\movement\components\MovementWithDetails;
 use app\modules\movement\components\StoreMovements;
 use app\modules\movement\components\StoreValues;
-use app\modules\movement\components\vouchers\gf\VoucherHeaderGlobalFund;
-use app\modules\movement\components\vouchers\others\VoucherDetailOtherProject;
-use app\modules\movement\components\vouchers\VoucherFile;
-use app\modules\movement\models\MovementDetail;
-use app\modules\project\components\HierachyActivityList;
-use app\modules\project\models\Beneficiary;
-use app\modules\project\models\Project;
-use app\modules\project\models\ProjectPeriod;
-use app\modules\qb\components\HierachyChartAccountList;
-use app\modules\qb\components\HierarchyClassList;
-use Luecano\NumeroALetras\NumeroALetras;
-use Yii;
 use app\modules\movement\models\Movement;
 use app\modules\movement\models\MovementSearch;
-use app\controllers\base\BaseController;
+use app\modules\project\components\HierachyActivityList;
+use app\modules\project\models\Beneficiary;
+use app\modules\project\models\ChartAccountActivity;
+use app\modules\project\models\ClassActivity;
+use app\modules\project\models\Project;
+use app\modules\qb\components\HierachyChartAccountList;
+use app\modules\qb\components\HierarchyClassList;
+use Yii;
 use yii\db\Exception;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
@@ -82,6 +76,7 @@ class MovementController extends BaseController
     public function actionCreate(): string
     {
         $model = new Movement();
+        $model->loadPreviosMovement();
 
         return $this->render('create', [
             'model' => $model,
@@ -231,5 +226,20 @@ class MovementController extends BaseController
         (new ImportMovementFM)
             ->initializeFile()
             ->make();
+    }
+
+    public function actionGetClassAssociative($id)
+    {
+        $id = (explode('-', $id)[1]);
+        $classActivity = ClassActivity::findOne(['activity_id' => $id]);
+
+        return json_encode(['id' => $classActivity->class_id ?? null]);
+    }
+
+    public function actionGetAccountAssociative($id)
+    {
+        $id = (explode('-', $id)[1]);
+        $chartAccountActivity = ChartAccountActivity::findOne(['activity_id' => $id]);
+        return json_encode(['id' => $chartAccountActivity->chart_account_id ?? null]);
     }
 }
