@@ -110,7 +110,7 @@
                     amount: 0
                 });
 
-                this.details[index].sub_details[0].sub_category_id = 'A' + '-' + 1124;
+             
             },
             deleteSubItem: function (indexSubDetail, index) {
                 event.preventDefault();
