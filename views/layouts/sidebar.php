@@ -116,30 +116,29 @@ use yii\helpers\Url;
                 </a>
             </li>
 
-            <?php if (\Yii::$app->user->isSuperadmin): ?>
-                <li class="sidebar-header">
-                    Anticipo de Gastos
-                </li>
+            <li class="sidebar-header">
+                Anticipo de Gastos
+            </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= Url::to(['/expense/expense-request/index']) ?>">
-                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Solicitud de Anticipo</span>
-                    </a>
-                </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/expense/expense-request/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Solicitud de Anticipo</span>
+                </a>
+            </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= Url::to(['/expense/advance-detail/index']) ?>">
-                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Detalle Gastos</span>
-                    </a>
-                </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/expense/advance-detail/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span
+                            class="align-middle">Detalle Gastos</span>
+                </a>
+            </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= Url::to(['/expense/places/index']) ?>">
-                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Lugares Destino</span>
-                    </a>
-                </li>
-
-            <?php endif; ?>
+            <li class="sidebar-item">
+                <a class="sidebar-link" href="<?= Url::to(['/expense/places/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span
+                            class="align-middle">Lugares Destino</span>
+                </a>
+            </li>
 
             <?php if (\Yii::$app->user->isSuperadmin): ?>
                 <li class="sidebar-header">
