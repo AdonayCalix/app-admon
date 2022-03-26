@@ -191,6 +191,8 @@ class Movement extends ActiveRecord
             ->asArray()
             ->one();
 
+        if (empty($values)) return;
+
         $tb_number = explode(" ", $values['number']);
 
         $values['number'] = count($tb_number) == 2 ?

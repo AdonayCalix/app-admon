@@ -203,6 +203,8 @@ class ExpenseRequest extends \yii\db\ActiveRecord
             ->asArray()
             ->one();
 
+        if (empty($values)) return;
+
         $values['elaborated_at'] = ((new FormatDate($values['elaborated_at'], 'Y-m-d', 'd/m/Y'))->change()->asString());
         $values['start_date'] = ((new FormatDate($values['start_date'], 'Y-m-d', 'd/m/Y H:i'))->change()->asString());
         $values['end_date'] = ((new FormatDate($values['end_date'], 'Y-m-d', 'd/m/Y H:i'))->change()->asString());
