@@ -67,7 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'dataProvider' => $providerSubCategory,
                             'pjax' => true,
                             'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-sub-category']],
-                            'columns' => $gridColumnSubCategory
+                            'columns' => $gridColumnSubCategory,
+                            'headerContainer' => ['class' => '']
                         ]);
                     }
                     ?>

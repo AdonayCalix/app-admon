@@ -18,7 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1 class="h3 d-inline align-middle"><?= $this->title ?></h1>
     </div>
 
-
     <div class="card">
         <div class="card-body">
             <p>
@@ -103,6 +102,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'pjax' => true,
                             'columns' => $gridColumnFoodExpenseRequest,
                             'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-food-expense-request']],
+                            'headerContainer' => ['class' => ''],
                             'summary' => false
                         ]);
                     }

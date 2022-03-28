@@ -10,6 +10,8 @@ use webvimark\modules\UserManagement\components\GhostHtml;
 use yii\helpers\ArrayHelper;
 use kartik\grid\GridView;
 
+\yii\bootstrap5\BootstrapAsset::register($this);
+
 $this->title = 'Categorias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -64,9 +66,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
-                    'bsVersion' => '4.x',
                     'pjax' => true,
-                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-budget-category']]
+                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-budget-category']],
+                    'headerContainer' => ['class' => '']
                 ]); ?>
             </div>
         </div>

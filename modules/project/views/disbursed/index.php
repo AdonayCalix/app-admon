@@ -66,6 +66,7 @@ $this->title = 'Desembolsos';
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => true,
+                    'headerContainer' => ['class' => ''],
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-disbursed']]
                 ]); ?>
             </div>

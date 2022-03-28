@@ -61,7 +61,8 @@
                 'before' => false,
                 'footer' => false,
                 'after' => Html::button('<i class="fa fa-plus"></i>&nbsp; ' . 'Agregar', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowProjectBudget()']),
-            ]
+            ],
+            'headerContainer' => ['class' => '']
         ]
     ]);
     echo "    </div>\n\n";

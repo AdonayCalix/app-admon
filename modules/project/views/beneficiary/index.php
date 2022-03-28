@@ -43,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => true,
-                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-beneficiary']]
+                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-beneficiary']],
+                    'headerContainer' => ['class' => '']
                 ]); ?>
             </div>
         </div>

@@ -67,6 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-budget-category']],
                         'export' => false,
                         'summary' => false,
+                        'headerContainer' => ['class' => ''],
                         'columns' => $gridColumnBudgetCategory
                     ]);
                 }

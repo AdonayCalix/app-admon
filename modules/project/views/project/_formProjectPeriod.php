@@ -19,6 +19,9 @@
         'formName' => 'ProjectPeriod',
         'checkboxColumn' => false,
         'actionColumn' => false,
+        'options' => [
+            'headerContainer' => ['class' => '']
+        ],
         'attributeDefaults' => [
             'type' => BaseForm::INPUT_TEXT,
         ],
@@ -71,7 +74,8 @@
                 'before' => false,
                 'footer' => false,
                 'after' => Html::button('<i class="fa fa-plus"></i>&nbsp; ' . 'Agregar', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowProjectPeriod()']),
-            ]
+            ],
+            'headerContainer' => ['class' => '']
         ]
     ]);
     echo "    </div>\n\n";

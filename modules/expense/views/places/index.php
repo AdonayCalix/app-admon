@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => $gridColumn,
                     'pjax' => true,
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-places']],
+                    'headerContainer' => ['class' => '']
                 ]); ?>
             </div>
         </div>

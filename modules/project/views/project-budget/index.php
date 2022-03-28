@@ -14,6 +14,8 @@ use yii\helpers\Html;
 $this->title = 'Presupuestos/POAS';
 $this->params['breadcrumbs'][] = $this->title;
 
+\yii\bootstrap5\BootstrapAsset::register($this);
+
 ?>
 <div class="project-budget-index">
 
@@ -86,7 +88,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => true,
-                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-project-budget']]
+                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-project-budget']],
+                    'headerContainer' => ['class' => '']
                 ]); ?>
             </div>
         </div>

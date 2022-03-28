@@ -110,12 +110,6 @@ use yii\helpers\Url;
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/project/position/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Posiciones</span>
-                </a>
-            </li>
-
             <li class="sidebar-header">
                 Anticipo de Gastos
             </li>
@@ -177,13 +171,6 @@ use yii\helpers\Url;
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/movement/transfer-assignment/index']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span
-                            class="align-middle">Asignacion TB</span>
-                </a>
-            </li>
-
             <?php if (\Yii::$app->user->isSuperadmin): ?>
                 <li class="sidebar-header">
                     Comprobantes
@@ -225,22 +212,17 @@ use yii\helpers\Url;
             <?php endif; ?>
 
             <li class="sidebar-header">
-                Libros de Banco
+                Generar Documentos
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/project/book-bank/generate']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Generar</span>
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Libro de Banco</span>
+
                 </a>
-            </li>
 
-            <li class="sidebar-header">
-                Formato Financiero V2
-            </li>
-
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="<?= Url::to(['/project/financial-format-v2/generate']) ?>">
-                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Generar</span>
+                <a class="sidebar-link" href="<?= Url::to(['/project/book-bank/generate']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Formato Financiero v2</span>
                 </a>
             </li>
         </ul>

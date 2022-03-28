@@ -107,6 +107,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'sorter' => false,
                 'columns' => $gridMovementDetailColums,
                 'pjax' => true,
+                'bsVersion' => '4.x',
+                'headerContainer' => ['class' => ''],
                 'summary' => false
             ]); ?>
 

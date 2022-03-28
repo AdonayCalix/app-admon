@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="row">
                 <?php if ($providerProjectBudget->totalCount): ?>
-                    <h4>Presupuestos/POAS</h4>
+                    <strong>Presupuestos/POAS</strong>
                     <?php $gridColumnProjectBudget = [
                         ['class' => 'yii\grid\SerialColumn'],
                         ['attribute' => 'id', 'visible' => false],
@@ -64,14 +64,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $providerProjectBudget,
                         'pjax' => true,
                         'summary' => false,
-                        'columns' => $gridColumnProjectBudget
+                        'columns' => $gridColumnProjectBudget,
+                        'headerContainer' => ['class' => '']
                     ]); ?>
                 <?php endif; ?>
             </div>
 
             <div class="row">
                 <?php if ($providerProjectPeriod->totalCount): ?>
-                    <h4>Periodos de Ejecucion</h4>
+                    <strong>Periodos de Ejecucion</strong>
                     <?php
                     $gridColumnProjectPeriod = [
                         ['class' => 'yii\grid\SerialColumn'],
@@ -85,7 +86,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         'pjax' => true,
                         'bsVersion' => '4.x',
                         'summary' => false,
-                        'columns' => $gridColumnProjectPeriod
+                        'columns' => $gridColumnProjectPeriod,
+                        'headerContainer' => ['class' => '']
                     ]); ?>
                 <?php endif; ?>
             </div>

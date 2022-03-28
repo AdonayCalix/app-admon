@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'pluginOptions' => ['allowClear' => true],
                         ],
                         'filterInputOptions' => ['placeholder' => '', 'id' => 'grid-expense-request-search-project_id'],
-                        'width' => '18%'
+                        'width' => '15%'
                     ],
                     [
                         'attribute' => 'beneficiary_id',
@@ -71,12 +71,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'orientation' => 'bottom left'
                             ],
                         ],
-                        'width' => '15%'
+                        'width' => '13%'
                     ],
                     'place',
                     [
                         'attribute' => 'number_transfer',
-                        'width' => '10%'
+                        'width' => '9%'
                     ],
                     [
                         'value' => function ($model) {
@@ -99,8 +99,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
+                    'condensed' => true,
                     'pjax' => false,
-                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-expense-request']]
+                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-expense-request']],
+                    'headerContainer' => ['class' => '']
                 ]); ?>
             </div>
         </div>

@@ -42,6 +42,7 @@ $providerSubCategorieDetail = new ArrayDataProvider([
             'columns' => $gridSubCategorieDetail,
             'summary' => false,
             'showFooter' => false,
+            'headerContainer' => ['class' => '']
         ]);
 
     }

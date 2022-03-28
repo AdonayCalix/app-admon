@@ -91,6 +91,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => $gridColumn,
                     'pjax' => true,
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-project']],
+                    'headerContainer' => ['class' => '']
                 ]); ?>
             </div>
         </div>
