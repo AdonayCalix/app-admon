@@ -21,8 +21,8 @@
         },
         methods: {
             async getMovements() {
-                if (this.kind_of_movement_id == 'Egreso') this.getChecks();
-                if (this.kind_of_movement_id == 'Ingreso') this.getDeposits();
+                if (this.kind_of_movement_id === 'Egreso') this.getChecks();
+                if (this.kind_of_movement_id === 'Ingreso') this.getDeposits();
             },
             async getProject() {
                 try {

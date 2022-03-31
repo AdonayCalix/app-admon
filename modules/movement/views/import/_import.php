@@ -52,9 +52,9 @@ JsBlock::widget(['viewFile' => 'script', 'pos' => \yii\web\View::POS_END]);
                 <div class="row" v-if="movements">
                     <div class="col-md-10">
                         <br>
-                        <table class="table table-sm table-condesed table-hover table-bordered align-middle">
+                        <table class="table table-sm table-condesed table-striped table-hover table-bordered align-middle">
                             <tbody>
-                            <tr>
+                            <tr class="kv-table-header">
                                 <td width="5%"><strong>#</strong></td>
                                 <td width="25%"><strong>No TB/Cheque</strong></td>
                                 <td width="25%"><strong>Monto</strong></td>
@@ -63,7 +63,7 @@ JsBlock::widget(['viewFile' => 'script', 'pos' => \yii\web\View::POS_END]);
                             </tr>
 
                             <tr v-for="(movement, index) in movements" v-on:click="diClick(index)">
-                                <td>{{index + 1}}</td>
+                                <td><strong>{{index + 1}}</strong></td>
                                 <td hidden><strong><input type="hidden" :value="movement.id" :name="'Movements[' + index + '][id]'"></strong></td>
                                 <td>{{movement.number}}</td>
                                 <td>{{movement.amount}}</td>
