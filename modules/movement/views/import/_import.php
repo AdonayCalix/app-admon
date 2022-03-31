@@ -49,7 +49,7 @@ JsBlock::widget(['viewFile' => 'script', 'pos' => \yii\web\View::POS_END]);
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" v-if="movements">
                     <div class="col-md-10">
                         <br>
                         <table class="table table-sm table-condesed table-hover table-bordered align-middle">

@@ -17,7 +17,7 @@
             kind_of_movement_id: null,
             project_list: [],
             project_id: null,
-            movements: []
+            movements: null
         },
         methods: {
             async getMovements() {
