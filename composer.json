@@ -3,8 +3,7 @@
   "keywords": [
     "yii2",
     "framework",
-    "basic",
-    "project template"
+    "basic"
   ],
   "minimum-stability": "stable",
   "require": {
