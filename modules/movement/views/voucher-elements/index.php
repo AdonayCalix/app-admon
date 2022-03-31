@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
             <div class="row">
                 <p>
-                    <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Elemenentos Voucher', ['create'], ['class' => 'btn btn-success']) ?>
+                    <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Elemenentos Voucher', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
                 </p>
                 <?php
                 $gridColumn = [
@@ -47,6 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => true,
+                    'condensed' => true,
+                    'headerContainer' => ['class' => ''],
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-voucher-elements']]
                 ]); ?>
             </div>

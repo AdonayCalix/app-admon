@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card">
         <div class="card-body">
             <p>
-                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Presupuesto/POA', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Presupuesto/POA', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
             </p>
             <div class="row">
                 <?php
@@ -66,14 +66,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],
                     [
                         'value' => function ($model) {
-                            return Html::a('Asignamiento', ['assign-budget', 'id' => $model->id, 'project_id' => $model->project_id], ['class' => 'btn btn-sm btn-primary']);
+                            return Html::a('Asignamiento', ['assign-budget', 'id' => $model->id, 'project_id' => $model->project_id], ['class' => 'btn btn-primary btn-sm']);
                         },
                         'format' => 'raw',
                         'width' => '10%'
                     ],
                     [
                         'value' => function ($model) {
-                            return Html::a('Asignamiento QB', ['assign-qb', 'id' => $model->id, 'project_id' => $model->project_id], ['class' => 'btn btn-sm btn-primary']);
+                            return Html::a('Asignamiento QB', ['assign-qb', 'id' => $model->id, 'project_id' => $model->project_id], ['class' => 'btn btn-primary btn-sm']);
                         },
                         'format' => 'raw',
                         'width' => '15%'
@@ -88,6 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => true,
+                    'condensed' => true,
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-project-budget']],
                     'headerContainer' => ['class' => '']
                 ]); ?>

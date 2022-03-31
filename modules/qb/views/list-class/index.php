@@ -18,39 +18,43 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="card-body">
             <p>
-                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Cuenta', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Cuenta', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
             </p>
-            <div class="row">
-                <?php
-                $gridColumn = [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    ['attribute' => 'id', 'visible' => false],
-                    'name',
-                    'identifier',
-                    [
-                        'attribute' => 'is_parent',
-                        'label' => 'Tipo de Clase',
-                        'value' => function($model) {
-                            $name = $model->is_parent === 'Y' ? 'Principal' : 'Sub Clase';
-                            $class = $model->is_parent === 'Y' ? 'badge-success' : 'badge-primary';
-                            return "<span class='badge {$class}'>{$name}</span>";
-                        },
-                        'format' => 'raw'
-                    ],
-                    [
-                        'class' => 'yii\grid\ActionColumn',
-                    ],
-                ];
-                ?>
-                <?= GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
-                    'columns' => $gridColumn,
-                    'pjax' => true,
-                    'condensed' => true,
-                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-list-class']],
-                ]); ?>
-            </div>
+            <?php
+            $gridColumn = [
+                ['class' => 'yii\grid\SerialColumn'],
+                ['attribute' => 'id', 'visible' => false],
+                'name',
+                [
+                    'attribute' => 'identifier',
+                    'width' => '50%'
+                ],
+                [
+                    'attribute' => 'is_parent',
+                    'label' => 'Tipo de Clase',
+                    'value' => function ($model) {
+                        $name = $model->is_parent === 'Y' ? 'Principal' : 'Sub Clase';
+                        $class = $model->is_parent === 'Y' ? 'badge-success' : 'badge-primary';
+                        return "<span class='badge {$class}'>{$name}</span>";
+                    },
+                    'format' => 'raw',
+                    'width' => '10%'
+                ],
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                ],
+            ];
+            ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => $gridColumn,
+                'pjax' => true,
+                'condensed' => true,
+                'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-list-class']],
+                'headerContainer' => ['class' => '']
+            ]); ?>
         </div>
     </div>
 </div>
+

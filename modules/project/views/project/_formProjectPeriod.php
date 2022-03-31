@@ -73,7 +73,7 @@
                 'type' => GridView::TYPE_DEFAULT,
                 'before' => false,
                 'footer' => false,
-                'after' => Html::button('<i class="fa fa-plus"></i>&nbsp; ' . 'Agregar', ['type' => 'button', 'class' => 'btn btn-success kv-batch-create', 'onClick' => 'addRowProjectPeriod()']),
+                'after' => Html::button('<i class="fa fa-plus"></i>&nbsp; ' . 'Agregar', ['type' => 'button', 'class' => 'btn btn-success btn-sm kv-batch-create', 'onClick' => 'addRowProjectPeriod()']),
             ],
             'headerContainer' => ['class' => '']
         ]

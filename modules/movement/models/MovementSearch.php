@@ -51,7 +51,7 @@ class MovementSearch extends Movement
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 10],
+            'pagination' => ['pageSize' => 15],
         ]);
 
         $dataProvider->sort->attributes['date'] = [

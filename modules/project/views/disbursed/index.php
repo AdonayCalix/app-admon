@@ -17,7 +17,7 @@ $this->title = 'Desembolsos';
     <div class="card">
         <div class="card-body">
             <p>
-                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Desembolso', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Desembolso', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
             </p>
             <div class="row">
                 <?php
@@ -39,7 +39,7 @@ $this->title = 'Desembolsos';
                     [
                         'attribute' => 'project_id',
                         'value' => function ($model) {
-                            return $model->project->name;
+                            return $model->project->alias;
                         },
                         'filterType' => GridView::FILTER_SELECT2,
                         'filter' => \yii\helpers\ArrayHelper::map(\app\modules\project\models\Project::find()->asArray()->all(), 'id', 'name'),
@@ -66,6 +66,7 @@ $this->title = 'Desembolsos';
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => true,
+                    'condensed' => true,
                     'headerContainer' => ['class' => ''],
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-disbursed']]
                 ]); ?>

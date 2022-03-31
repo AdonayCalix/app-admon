@@ -6,6 +6,7 @@ use app\controllers\base\BaseController;
 use app\modules\project\models\base\ClassActivity;
 use Yii;
 use function Symfony\Component\Translation\t;
+use WindowsAzure\Common\ServicesBuilder;
 
 class SiteController extends BaseController
 {
@@ -17,5 +18,25 @@ class SiteController extends BaseController
     public function actionIndex(): string
     {
         return $this->render('index');
+    }
+
+    public function actionError()
+    {
+        $exception = Yii::$app->errorHandler->exception;
+
+        switch ($exception) {
+
+            case ($exception instanceof \yii\web\NotFoundHttpException):
+                return $this->render('pnf', ['exception' => $exception->getMessage()]);
+                break;
+
+            case ($exception instanceof \yii\web\ForbiddenHttpException):
+                return $this->render('prohibido', ['exception' => $exception->getMessage()]);
+                break;
+
+            default:
+                return $this->render('error', ['exception' => $exception]);
+                break;
+        }
     }
 }

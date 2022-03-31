@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
 
             <p>
-                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Periodo De Ejecucion', ['create'], ['class' => 'btn btn-success']) ?>            </p>
+                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Periodo De Ejecucion', ['create'], ['class' => 'btn btn-success btn-sm']) ?>            </p>
             <?php
             $gridColumn = [
                 ['class' => 'yii\grid\SerialColumn'],
@@ -93,6 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'columns' => $gridColumn,
                 'pjax' => true,
+                'condensed' => true,
                 'headerContainer' => ['class' => ''],
                 'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-project-period']]
             ]); ?>

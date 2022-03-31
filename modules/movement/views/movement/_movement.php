@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for=""><strong>Beneficiario</strong></label>
-                                <button type="button" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#exampleModal">
+                                <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal">
                                     <i class="fa fa-plus"></i> Añadir
                                 </button>
 
@@ -91,7 +91,7 @@
                                 <td><treeselect v-model="sub_detail.class_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][class_id]'" :multiple="false" placeholder="[SELECCIONE]" :options="class_options" /></td>
                                 <td><treeselect v-model="sub_detail.chart_account_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][chart_account_id]'" :multiple="false" placeholder="[SELECCIONE]" :options="account_options" /></td>
                                 <td><money  v-bind="money" class="form-control" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][amount]'"  v-model="sub_detail.amount"></money></td>
-                                <td> <a v-on:click="deleteSubItem(indexSubDetail, index)"><i class="btn btn-sm btn-danger">Eliminar</a></td>
+                                <td> <a v-on:click="deleteSubItem(indexSubDetail, index)"><i class="btn btn-danger btn-sm">Eliminar</a></td>
                             </tr>
                             <tr>
                                 <td colspan="4"></td>
@@ -103,7 +103,7 @@
 
                     <p>
                         <br>
-                        <button @click="addNewSubCategory(index)" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;Agregar Detalle</button>
+                        <button @click="addNewSubCategory(index)" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>&nbsp;Agregar Detalle</button>
                     </p>
                 </div>
             </div>
@@ -111,7 +111,7 @@
     </div>
 
     <p>
-        <button class="btn btn-sm btn-primary" href="#" v-on:click="addDetail">
+        <button class="btn btn-primary btn-sm" href="#" v-on:click="addDetail">
             <i class="fa fa-plus"></i>&nbsp; Agregar Movimiento
         </button>
     </p>

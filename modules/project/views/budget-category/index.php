@@ -10,8 +10,6 @@ use webvimark\modules\UserManagement\components\GhostHtml;
 use yii\helpers\ArrayHelper;
 use kartik\grid\GridView;
 
-\yii\bootstrap5\BootstrapAsset::register($this);
-
 $this->title = 'Categorias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -19,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="card">
         <div class="card-body">
             <p>
-                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Categoria', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Categoria', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
             </p>
             <div class="row">
                 <?php
@@ -67,6 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => true,
+                    'condensed' => true,
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-budget-category']],
                     'headerContainer' => ['class' => '']
                 ]); ?>
@@ -74,3 +73,11 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 </div>
+
+<?php
+$script = <<< JS
+$("colgroup").remove()
+JS;
+$this->registerJs($script);
+?>
+

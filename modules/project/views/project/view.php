@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\detail\DetailView;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -21,9 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
             <p>
 
-                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
                 <?= Html::a('Eliminar', ['delete', 'id' => $model->id], [
-                    'class' => 'btn btn-danger',
+                    'class' => 'btn btn-danger btn-sm',
                     'data' => [
                         'confirm' => 'Estas seguro que quieres eliminar este registro',
                         'method' => 'post',
@@ -45,12 +45,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     ];
                     echo DetailView::widget([
                         'model' => $model,
-                        'attributes' => $gridColumn
+                        'condensed' => true,
+                        'hAlign' => 'left',
+                        'attributes' => $gridColumn,
                     ]);
                     ?>
                 </div>
             </div>
 
+            <br>
             <div class="row">
                 <?php if ($providerProjectBudget->totalCount): ?>
                     <strong>Presupuestos/POAS</strong>
@@ -63,6 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo Gridview::widget([
                         'dataProvider' => $providerProjectBudget,
                         'pjax' => true,
+                        'condensed' => true,
                         'summary' => false,
                         'columns' => $gridColumnProjectBudget,
                         'headerContainer' => ['class' => '']
@@ -70,6 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php endif; ?>
             </div>
 
+            <br>
             <div class="row">
                 <?php if ($providerProjectPeriod->totalCount): ?>
                     <strong>Periodos de Ejecucion</strong>
@@ -84,8 +89,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo Gridview::widget([
                         'dataProvider' => $providerProjectPeriod,
                         'pjax' => true,
-                        'bsVersion' => '4.x',
                         'summary' => false,
+                        'condensed' => true,
                         'columns' => $gridColumnProjectPeriod,
                         'headerContainer' => ['class' => '']
                     ]); ?>

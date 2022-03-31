@@ -1,7 +1,8 @@
 <?php
 
+use app\modules\project\models\Project;
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\detail\DetailView;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -21,9 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
             <p>
 
-                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
                 <?= Html::a('Eliminar', ['delete', 'id' => $model->id], [
-                    'class' => 'btn btn-danger',
+                    'class' => 'btn btn-danger btn-sm',
                     'data' => [
                         'confirm' => 'Estas seguro que quieres eliminar este registro',
                         'method' => 'post',
@@ -39,20 +40,25 @@ $this->params['breadcrumbs'][] = $this->title;
                         'name',
                         'amount',
                         [
-                            'attribute' => 'project.name',
-                            'label' => 'Project',
+                            'attribute' => '',
+                            'label' => 'Proyecto',
+                            'value' => function ($model) {
+                                return $model->name;
+                            }
                         ],
                     ];
                     echo DetailView::widget([
                         'model' => $model,
+                        'condensed' => true,
+                        'hAlign' => 'left',
                         'attributes' => $gridColumn
                     ]);
                     ?>
                 </div>
             </div>
 
+            <br>
             <div class="row">
-
                 <?php
                 if ($providerBudgetCategory->totalCount) {
                     $gridColumnBudgetCategory = [
@@ -68,6 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'export' => false,
                         'summary' => false,
                         'headerContainer' => ['class' => ''],
+                        'condensed' => true,
                         'columns' => $gridColumnBudgetCategory
                     ]);
                 }

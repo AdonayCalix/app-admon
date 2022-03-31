@@ -35,12 +35,6 @@ use yii\helpers\Url;
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= Yii::$app->homeUrl ?>">
-                        <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Perfil</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
                     <a class="sidebar-link" href="<?= Url::to(['/user-management/user-visit-log/index']) ?>">
                         <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Registro de Visitas</span>
                     </a>
@@ -193,13 +187,6 @@ use yii\helpers\Url;
                     <a class="sidebar-link" href="<?= Url::to(['/movement/voucher/list']) ?>">
                         <i class="align-middle" data-feather="arrow-right"></i> <span
                                 class="align-middle">Voucher</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= Url::to(['/movement/check-format/index']) ?>">
-                        <i class="align-middle" data-feather="arrow-right"></i> <span
-                                class="align-middle">Formato Solicitud Cheques</span>
                     </a>
                 </li>
 

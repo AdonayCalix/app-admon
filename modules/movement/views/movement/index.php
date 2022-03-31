@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
 
             <p>
-                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Registrar Movimiento', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Registrar Movimiento', ['create'], ['class' => 'btn btn-sm btn-success']) ?>
             </p>
             <div class="row">
                 <?php
@@ -99,7 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => $gridColumn,
                     'pjax' => false,
-                    'condensed' => false,
+                    'condensed' => true,
                     'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-transfer']],
                     'headerContainer' => ['class' => '']
                 ]); ?>
