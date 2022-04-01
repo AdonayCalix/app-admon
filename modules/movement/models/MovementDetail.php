@@ -21,8 +21,8 @@ class MovementDetail extends BaseMovementDetail
                 [['date', 'created_at', 'updated_at', 'deleted_at', 'id'], 'safe'],
                 [['beneficiary_id', 'transfer_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
                 [['amount'], 'number'],
-                [['concept'], 'string', 'max' => 500],
-                [['kind'], 'string', 'max' => 20],
+                [['concept', '_listId'], 'string', 'max' => 500],
+                [['kind', 'status'], 'string', 'max' => 20],
                 ['amount', 'validateSumOfAmount']
             ]);
     }
@@ -31,5 +31,18 @@ class MovementDetail extends BaseMovementDetail
     {
         $this->amount = str_replace(',', '', $this->amount);
         return parent::beforeValidate();
+    }
+
+    public static function setStatusToProcess(array $source): bool
+    {
+        foreach ($source as $item) {
+            if (!isset($item['isChecked'])) continue;
+
+            $movementDetail = self::findOne(['id' => $item['id']]);
+            $movementDetail->status = 'Process';
+            $movementDetail->save(false);
+        }
+
+        return true;
     }
 }

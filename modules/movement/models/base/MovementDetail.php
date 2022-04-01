@@ -27,6 +27,8 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
+ * @property string $_listId
+ * @property string $status
  *
  * @property \app\modules\movement\models\Movement $transfer
  * @property \app\modules\movement\models\MovementSubDetail[] $movementSubDetails
@@ -57,8 +59,8 @@ class MovementDetail extends ActiveRecord
             [['date', 'created_at', 'updated_at', 'deleted_at', 'id'], 'safe'],
             [['beneficiary_id', 'transfer_id', 'created_by', 'updated_by', 'deleted_by'], 'integer'],
             [['amount'], 'number'],
-            [['concept'], 'string', 'max' => 500],
-            [['kind'], 'string', 'max' => 20],
+            [['concept', '_listId'], 'string', 'max' => 500],
+            [['kind', 'status'], 'string', 'max' => 20],
             ['amount', 'validateSumOfAmount']
         ];
     }

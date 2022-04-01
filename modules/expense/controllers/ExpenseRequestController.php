@@ -263,5 +263,4 @@ class ExpenseRequestController extends BaseController
         $places->save(false);
         return true;
     }
-
 }
