@@ -203,14 +203,18 @@
                 fetch("get-class-associative?id=" + id)
                     .then(response => response.json())
                     .then((response) => {
-                        this.$set(this.details[index].sub_details[sub_index], 'class_id', response.id)
+                        if (response.id !== null) {
+                            this.$set(this.details[index].sub_details[sub_index], 'class_id', response.id)
+                        }
                     })
                     .catch(error => console.log(error));
 
                 fetch("get-account-associative?id=" + id)
                     .then(response => response.json())
                     .then((response) => {
-                        this.$set(this.details[index].sub_details[sub_index], 'chart_account_id', response.id)
+                        if (response.id !== null) {
+                            this.$set(this.details[index].sub_details[sub_index], 'chart_account_id', response.id)
+                        }
                     })
                     .catch(error => console.log(error));
             }
