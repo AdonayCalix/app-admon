@@ -95,7 +95,7 @@
                             </tr>
                             <tr>
                                 <td colspan="4"></td>
-                                <th scope="row">Total: {{ sumAmount(detail.sub_details) }}</th>
+                                <th scope="row">Total: {{ sumAmount(detail.sub_details).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') }}</th>
                             </tr>
                             </tbody>
                         </table>

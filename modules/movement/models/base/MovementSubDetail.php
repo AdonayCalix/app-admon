@@ -29,6 +29,8 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
+ * @property string $chart_account_list_id
+ * @property string $class_list_id
  *
  * @property BudgetCategory $category
  * @property SubCategory $subCategory
@@ -62,6 +64,7 @@ class MovementSubDetail extends ActiveRecord
             [['amount'], 'number'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['chart_account_id', 'class_id'], 'string', 'max' => 500],
+            [['chart_account_list_id', 'class_list_id'], 'string', 'max' => 100],
             ['sub_category_id', 'validateSubCategory']
         ];
     }

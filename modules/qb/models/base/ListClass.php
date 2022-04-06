@@ -23,6 +23,7 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  * @property string $deleted_at
+ * @property string $list_id
  */
 class ListClass extends ActiveRecord
 {

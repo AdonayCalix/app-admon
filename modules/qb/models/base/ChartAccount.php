@@ -27,6 +27,7 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $update_at
  * @property string $deleted_at
+ * @property string $list_id
  */
 class ChartAccount extends ActiveRecord
 {
