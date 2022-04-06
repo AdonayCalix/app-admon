@@ -78,9 +78,9 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col" width="25%">Actividad</th>
-                                <th scope="col" width="25%">Clase</th>
-                                <th scope="col" width="25%">Cuenta</th>
-                                <th scope="col" width="25%">Monto</th>
+                                <th scope="col" width="22%">Clase</th>
+                                <th scope="col" width="22%">Cuenta</th>
+                                <th scope="col" width="22%">Monto</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -91,7 +91,7 @@
                                 <td><treeselect v-model="sub_detail.class_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][class_id]'" :multiple="false" placeholder="[SELECCIONE]" :options="class_options" /></td>
                                 <td><treeselect v-model="sub_detail.chart_account_id" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][chart_account_id]'" :multiple="false" placeholder="[SELECCIONE]" :options="account_options" /></td>
                                 <td><money  v-bind="money" class="form-control" :name="'Movement[MovementDetails]' + '[' + index + '][MovementSubDetails][' + indexSubDetail + '][amount]'"  v-model="sub_detail.amount"></money></td>
-                                <td> <a v-on:click="deleteSubItem(indexSubDetail, index)"><i class="btn btn-danger btn-sm">Eliminar</a></td>
+                                <td> <a v-on:click="deleteSubItem(indexSubDetail, index)"><i class="btn btn-danger btn-sm"><i class="fa fa-trash small"></i> Eliminar</a></td>
                             </tr>
                             <tr>
                                 <td colspan="4"></td>

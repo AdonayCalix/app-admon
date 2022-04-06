@@ -64,7 +64,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
     <?= Yii::$app->controller->renderPartial('_movement'); ?>
 
     <button type="submit" class="btn btn-success btn-sm" v-on:click.prevent="store">
-        Guardar
+        <i class="fa fa-save"></i> Guardar
     </button>
 
     <?php ActiveForm::end(); ?>
