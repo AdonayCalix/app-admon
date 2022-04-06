@@ -48,10 +48,10 @@ JsBlock::widget(['viewFile' => 'script', 'pos' => \yii\web\View::POS_END]);
                         </a>
                     </div>
                 </div>
-
+                <br>
                 <div class="row" v-if="movements">
                     <div class="col-md-10">
-                        <br>
+                        <h5>Lote: {{ batch_name }}</h5>
                         <table class="table table-sm table-condesed table-striped table-hover table-bordered align-middle">
                             <tbody>
                             <tr class="kv-table-header">

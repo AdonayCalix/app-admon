@@ -3,6 +3,7 @@
 namespace app\modules\movement\controllers;
 
 use app\controllers\base\BaseController;
+use app\modules\movement\models\Batch;
 use app\modules\movement\models\MovementDetail;
 use app\modules\project\models\base\Project;
 use Yii;
@@ -67,6 +68,20 @@ class ImportController extends BaseController
         )->queryAll();
 
         return json_encode($values);
+    }
+
+    public function actionGetBatchInfo(int $project_id, string $kind)
+    {
+        $project = Project::findOne($project_id);
+
+        $batch = Batch::find()
+            ->where(['project_id' => $project_id]);
+
+        $correlative = ['Egreso' => '01', 'Ingreso' => '02', 'Desembolso' => '03'];
+
+        $batch_name = "{$project->alias}-{$correlative[$kind]}-" . str_pad(($batch->count() + 1), 4, '0', STR_PAD_LEFT);;
+
+        return json_encode($batch_name);
     }
 
     /**

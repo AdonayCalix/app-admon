@@ -46,6 +46,7 @@ class Batch extends \yii\db\ActiveRecord
     {
         return [
             [['number', 'kind', 'emission_date', 'project_id'], 'required'],
+            [['number'], 'unique'],
             [['emission_date', 'process_date', 'created_at', 'updated_at'], 'safe'],
             [['project_id', 'created_by', 'updated_by'], 'integer'],
             [['number'], 'string', 'max' => 100],

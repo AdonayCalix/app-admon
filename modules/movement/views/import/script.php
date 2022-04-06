@@ -17,10 +17,12 @@
             kind_of_movement_id: null,
             project_list: [],
             project_id: null,
-            movements: null
+            movements: null,
+            batch_name: null
         },
         methods: {
             async getMovements() {
+                this.getBatchNumber();
                 if (this.kind_of_movement_id === 'Egreso') this.getChecks();
                 if (this.kind_of_movement_id === 'Ingreso') this.getDeposits();
             },
@@ -28,6 +30,14 @@
                 try {
                     let response = await fetch("get-projects");
                     this.project_list = await response.json();
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            async getBatchNumber() {
+                try {
+                    let response = await fetch("get-batch-info?project_id=" + this.project_id + "&kind=" + this.kind_of_movement_id);
+                    this.batch_name = await response.json();
                 } catch (error) {
                     console.log(error);
                 }
