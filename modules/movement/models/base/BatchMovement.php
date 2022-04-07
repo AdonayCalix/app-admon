@@ -130,12 +130,12 @@ class BatchMovement extends \yii\db\ActiveRecord
 
         foreach ($_POST['Movements'] as $item) {
 
-            if (!isset($item['onActive'])) continue;
+            if (!isset($item['isChecked'])) continue;
 
             $batch_movement = new self;
             $batch_movement->movement_id = $item['id'];
             $batch_movement->batch_number = $_POST['batch_number'] ?? '0';
-            $batch_movement->status = 'Prossecc';
+            $batch_movement->status = 'Process';
             $batch_movement->save(false);
         }
 

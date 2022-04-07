@@ -3,6 +3,7 @@
 namespace app\modules\movement\controllers;
 
 use app\controllers\base\BaseController;
+use app\modules\movement\models\base\BatchMovement;
 use app\modules\movement\models\Batch;
 use app\modules\movement\models\MovementDetail;
 use app\modules\project\models\base\Project;
@@ -95,7 +96,8 @@ class ImportController extends BaseController
 
         if (MovementDetail::setStatusToProcess($_POST['Movements'])) {
             $batch = new Batch();
-
+            $batch->store();
+            (new BatchMovement())->store();
             return json_encode(['success' => true]);
         } else {
             Yii::$app->response->statusCode = 422;

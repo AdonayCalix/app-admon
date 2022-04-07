@@ -30,9 +30,9 @@ class Batch extends \yii\db\ActiveRecord
     use \mootensai\relation\RelationTrait;
 
     /**
-    * This function helps \mootensai\relation\RelationTrait runs faster
-    * @return array relation names of this model
-    */
+     * This function helps \mootensai\relation\RelationTrait runs faster
+     * @return array relation names of this model
+     */
     public function relationNames(): array
     {
         return [
@@ -62,7 +62,7 @@ class Batch extends \yii\db\ActiveRecord
     {
         return 'batch';
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -77,7 +77,7 @@ class Batch extends \yii\db\ActiveRecord
             'project_id' => 'Project ID',
         ];
     }
-    
+
     /**
      * @return ActiveQuery
      */
@@ -85,7 +85,7 @@ class Batch extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Project::class, ['id' => 'project_id']);
     }
-    
+
     /**
      * @inheritdoc
      * @return array mixed
@@ -114,9 +114,12 @@ class Batch extends \yii\db\ActiveRecord
 
     public function store(): bool
     {
-        $this->kind = $_POST['kind'] ?? '0';
-        $this->number = $_POST['project_id'] ?? '0';
+        $this->kind = $_POST['kind_id'] ?? '0';
+        $this->number = $_POST['batch_number'] ?? '0';
+        $this->project_id = $_POST['project_id'];
         $this->emission_date = date('Y-m-d');
         $this->save(false);
+
+        return true;
     }
 }
