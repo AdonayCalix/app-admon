@@ -3,6 +3,7 @@
 namespace app\modules\movement\models\base;
 
 use app\modules\project\models\Project;
+use phpDocumentor\Reflection\Types\This;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -109,5 +110,13 @@ class Batch extends \yii\db\ActiveRecord
     public static function find(): \app\modules\movement\models\BatchQuery
     {
         return new \app\modules\movement\models\BatchQuery(get_called_class());
+    }
+
+    public function store(): bool
+    {
+        $this->kind = $_POST['kind'] ?? '0';
+        $this->number = $_POST['project_id'] ?? '0';
+        $this->emission_date = date('Y-m-d');
+        $this->save(false);
     }
 }

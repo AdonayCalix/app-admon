@@ -6,6 +6,7 @@ use app\controllers\base\BaseController;
 use app\modules\movement\models\Batch;
 use app\modules\movement\models\MovementDetail;
 use app\modules\project\models\base\Project;
+use Mpdf\Tag\B;
 use Yii;
 use yii\db\Exception;
 use yii\web\NotFoundHttpException;
@@ -93,6 +94,8 @@ class ImportController extends BaseController
             throw new NotFoundHttpException;
 
         if (MovementDetail::setStatusToProcess($_POST['Movements'])) {
+            $batch = new Batch();
+
             return json_encode(['success' => true]);
         } else {
             Yii::$app->response->statusCode = 422;

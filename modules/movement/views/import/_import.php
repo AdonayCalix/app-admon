@@ -29,12 +29,12 @@ JsBlock::widget(['viewFile' => 'script', 'pos' => \yii\web\View::POS_END]);
                 <div class="row">
                     <div class="col-md-3">
                         <label for=""><strong>Proyecto</strong></label>
-                        <treeselect v-model="project_id" :multiple="false" placeholder="[SELECCIONE]"
+                        <treeselect v-model="project_id" :name="'project_id'" :multiple="false" placeholder="[SELECCIONE]"
                                     :options="project_list"/>
                     </div>
                     <div class="col-md-3">
                         <label for=""><strong>Tipo de Moviemiento</strong></label>
-                        <treeselect v-model="kind_of_movement_id" :multiple="false" placeholder="[SELECCIONE]"
+                        <treeselect v-model="kind_of_movement_id" :name="'kind_id'" :multiple="false" placeholder="[SELECCIONE]"
                                     :options="kind_of_movement_list"/>
                     </div>
 
@@ -49,6 +49,7 @@ JsBlock::widget(['viewFile' => 'script', 'pos' => \yii\web\View::POS_END]);
                     </div>
                 </div>
                 <br>
+                <input type="hidden" name="batch_number" v-bind:value="batch_name">
                 <div class="row" v-if="movements">
                     <div class="col-md-10">
                         <h5>Lote: {{ batch_name }}</h5>
