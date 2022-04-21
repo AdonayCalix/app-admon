@@ -61,6 +61,7 @@ use yii\helpers\Url;
                 </li>
             <?php endif; ?>
 
+            <?php if (!Yii::$app->user->isGuest): ?>
             <li class="sidebar-header">
                 Proyecto
             </li>
@@ -215,6 +216,7 @@ use yii\helpers\Url;
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Formato Financiero v2</span>
                 </a>
             </li>
+            <?php endif; ?>
         </ul>
     </div>
 </nav>

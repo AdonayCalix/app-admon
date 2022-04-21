@@ -110,4 +110,9 @@ class ImportController extends BaseController
         Yii::$app->session->setFlash('success', 'Se cargo el lote de movimientos a registrar en el QB, el proceso puede demorar entre 5-10 minutos');
         return $this->redirect(['to-qb']);
     }
+
+    public function actionVeamos()
+    {
+        MovementDetail::getChecks();
+    }
 }
