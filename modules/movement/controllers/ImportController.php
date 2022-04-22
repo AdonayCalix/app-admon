@@ -105,6 +105,18 @@ class ImportController extends BaseController
         }
     }
 
+    public function actionGetCheckMessage(int $project_id, string $batch_number)
+    {
+        $data = MovementDetail::getChecks($project_id, $batch_number);
+        return json_encode($data);
+    }
+
+    public function actionGetDepositMessage(int $project_id, string $batch_number)
+    {
+        $data = MovementDetail::getDeposits($project_id, $batch_number);
+        return json_encode($data);
+    }
+
     public function actionShowAgain(): Response
     {
         Yii::$app->session->setFlash('success', 'Se cargo el lote de movimientos a registrar en el QB, el proceso puede demorar entre 5-10 minutos');

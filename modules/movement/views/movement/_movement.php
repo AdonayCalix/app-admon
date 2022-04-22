@@ -80,7 +80,7 @@
                                 <th scope="col" width="25%">Actividad</th>
                                 <th scope="col" width="22%">Clase</th>
                                 <th scope="col" width="22%">Cuenta</th>
-                                <th scope="col" width="22%">Monto</th>
+                                <th scope="col" width="20%">Monto</th>
                             </tr>
                             </thead>
                             <tbody>

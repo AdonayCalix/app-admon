@@ -17,6 +17,13 @@ use yii\helpers\ArrayHelper;
  */
 class MovementDetail extends BaseMovementDetail
 {
+
+    const IMCONE_VALUE = 'Ingreso';
+    const EGRESS_VALUE = 'Ingreso';
+    const COMISION_BANCARIA_VALUE = 'Ingreso';
+    const PROCESS_STATUS = 'Process';
+    const DURING_STATUS = 'During';
+
     /**
      * @inheritdoc
      */
@@ -53,23 +60,56 @@ class MovementDetail extends BaseMovementDetail
         return true;
     }
 
-    public static function getChecks()
+    public static function getDeposits(int $project_id, string $batch_number): array
+    {
+        $desposits = self::find()
+            ->joinWith('transfer t')
+            ->where(['t.project_id' => $project_id])
+            ->andWhere(['status' => 'Process'])
+            ->andWhere(['kind' => self::IMCONE_VALUE])
+            ->all();
+
+        $data = array_map(function ($deposit) use ($batch_number) {
+            return [
+                'BatchNumber' => $batch_number,
+                'AccountRef' => Project::findOne($deposit->transfer->project_id)->bank_account ?? "",
+                'TxnDate' => $deposit->date,
+                'Memo' => $deposit->concept,
+                'DepositInfo' => array_map(function ($movementSubDetail) use ($deposit) {
+                    return [
+                        'EntityRef' => Beneficiary::findOne($deposit->beneficiary_id)->name ?? "",
+                        'AccountRef' => $movementSubDetail->chart_account_list_id,
+                        'Amount' => $movementSubDetail->amount,
+                        'Memo' => $deposit->concept,
+                        'CheckNumber' => $deposit->transfer->number ?? "",
+                        'ClassRef' => $movementSubDetail->class_list_id
+                    ];
+                }, $deposit->movementSubDetails)
+            ];
+        }, $desposits);
+
+        return $data;
+    }
+
+
+    public static function getChecks(int $project_id, string $batch_number): array
     {
         $checks = self::find()
             ->joinWith('transfer t')
-            ->where(['t.project_id' => 7])
+            ->where(['t.project_id' => $project_id])
             ->andWhere(['status' => 'Process'])
-            ->andWhere(['kind' => 'Egreso'])
-            //->asArray()
+            ->andWhere(['kind' => self::EGRESS_VALUE])
+            ->orWhere(['kind' => self::COMISION_BANCARIA_VALUE])
             ->all();
 
-        $data = array_map(function ($check) {
+        $data = array_map(function ($check) use ($batch_number) {
             return [
+                'BatchNumber' => $batch_number,
                 'AccountRef' => Project::findOne($check->transfer->project_id)->bank_account ?? "",
                 'PayeeEntityRef' => Beneficiary::findOne($check->beneficiary_id)->name ?? "",
                 'RefNumber' => $check->transfer->number ?? "",
                 'TxnDate' => $check->date,
-                'Memo' => $check->amount,
+                'Memo' => $check->concept,
                 'Adress' => Beneficiary::findOne($check->beneficiary_id)->name ?? "",
                 'ExpenseLine' => array_map(function ($movementSubDetail) use ($check) {
                     return [
@@ -82,7 +122,6 @@ class MovementDetail extends BaseMovementDetail
             ];
         }, $checks);
 
-        echo '<pre>' . print_r(json_encode($data), true) . '</pre>';
-        die;
+        return $data;
     }
 }

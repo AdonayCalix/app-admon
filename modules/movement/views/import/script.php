@@ -59,13 +59,38 @@
                     console.log(error);
                 }
             },
+            async sendChecks() {
+                try {
+                    let response = await fetch("get-check-message?project_id=" + this.project_id + '&batch_number=' + this.batch_name);
+
+                    await fetch('https://ceprosaffunctions.azurewebsites.net/api/SendChecks?code=RWYBgLBfsfvWW1Gz1pwwNOUuoJoHceOv5cVyriMtex8EHWFKBnKqkQ==', {
+                        method: 'POST',
+                        body: JSON.stringify(await response.json())
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            async sendDeposits() {
+                try {
+                    let response = await fetch("get-deposit-message?project_id=" + this.project_id + '&batch_number=' + this.batch_name);
+
+                    await fetch('https://ceprosaffunctions.azurewebsites.net/api/SendChecks?code=RWYBgLBfsfvWW1Gz1pwwNOUuoJoHceOv5cVyriMtex8EHWFKBnKqkQ==', {
+                        method: 'POST',
+                        body: JSON.stringify(await response.json())
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
+            },
             store() {
                 $.ajax({
                     url: 'store',
                     method: 'POST',
                     data: $("#w0").serializeArray()
                 }).done(data => {
-                    window.location.href = "show-again";
+                    this.sendChecks();
+                    //window.location.href = "show-again";
                 }).fail(data => {
                     this.errors = $.parseJSON(data.responseText)
                 })
