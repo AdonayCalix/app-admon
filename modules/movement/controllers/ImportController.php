@@ -41,7 +41,8 @@ class ImportController extends BaseController
                 from movement
                          join movement_detail md on movement.id = md.transfer_id
                          join project p on movement.project_id = p.id
-                where md._listId is null
+                where md._listId is null            
+                  and md.status is null
                   and project_id = {$project_id}
                   and kind in ('Egreso', 'Comision Bancaria');"
         )->queryAll();
@@ -64,6 +65,7 @@ class ImportController extends BaseController
                          join movement_detail md on movement.id = md.transfer_id
                          join project p on movement.project_id = p.id
                 where md._listId is null
+                  and md.status is null
                   and project_id = {$project_id}
                   and kind in ('Ingreso', 'Desembolso')
                 order by md.date;"
@@ -95,9 +97,9 @@ class ImportController extends BaseController
             throw new NotFoundHttpException;
 
         if (MovementDetail::setStatusToProcess($_POST['Movements'])) {
-            $batch = new Batch();
+            /*$batch = new Batch();
             $batch->store();
-            (new BatchMovement())->store();
+            (new BatchMovement())->store();*/
             return json_encode(['success' => true]);
         } else {
             Yii::$app->response->statusCode = 422;

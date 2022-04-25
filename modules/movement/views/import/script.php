@@ -89,8 +89,8 @@
                     method: 'POST',
                     data: $("#w0").serializeArray()
                 }).done(data => {
-                    this.sendChecks();
-                    //window.location.href = "show-again";
+                    //this.sendChecks();
+                    window.location.href = "show-again";
                 }).fail(data => {
                     this.errors = $.parseJSON(data.responseText)
                 })
