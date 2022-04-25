@@ -167,6 +167,9 @@ use yii\helpers\Url;
                 <a class="sidebar-link" href="<?= Url::to(['/movement/import/to-qb']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Importar QuickBook</span>
                 </a>
+                <a class="sidebar-link" href="<?= Url::to(['/movement/qb-movement-log/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Bitacora QB</span>
+                </a>
             </li>
 
             <?php if (\Yii::$app->user->isSuperadmin): ?>

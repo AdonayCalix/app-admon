@@ -4,38 +4,34 @@ namespace app\modules\movement\models\base;
 
 use app\modules\movement\models\QbMovementLogQuery;
 use app\modules\project\models\Project;
-use mootensai\relation\RelationTrait;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
-use yii\db\Expression;
 
 /**
  * This is the base model class for table "qb_movement_log".
  *
- * @property integer $id
  * @property integer $project_id
  * @property integer $movement_detail_id
  * @property integer $movement_id
- * @property integer $kind
+ * @property string $kind
  * @property string $amount
  * @property integer $Code
  * @property string $created_at
  * @property string $number
  * @property string $date
+ * @property integer $id
  *
  * @property Project $project
  */
-class QbMovementLog extends ActiveRecord
+class QbMovementLog extends \yii\db\ActiveRecord
 {
-    use RelationTrait;
-
+    use \mootensai\relation\RelationTrait;
 
     /**
-     * This function helps \mootensai\relation\RelationTrait runs faster
-     * @return array relation names of this model
-     */
+    * This function helps \mootensai\relation\RelationTrait runs faster
+    * @return array relation names of this model
+    */
     public function relationNames(): array
     {
         return [
@@ -49,11 +45,11 @@ class QbMovementLog extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['id', 'project_id', 'movement_detail_id', 'movement_id', 'kind', 'amount', 'number', 'date'], 'required'],
-            [['id', 'project_id', 'movement_detail_id', 'movement_id', 'kind', 'Code'], 'integer'],
+            [['project_id', 'movement_detail_id', 'movement_id', 'kind', 'amount', 'number', 'date'], 'required'],
+            [['project_id', 'movement_detail_id', 'movement_id', 'Code'], 'integer'],
             [['amount'], 'number'],
             [['created_at', 'date'], 'safe'],
-            [['number'], 'string', 'max' => 100]
+            [['kind', 'number'], 'string', 'max' => 100]
         ];
     }
 
@@ -71,7 +67,6 @@ class QbMovementLog extends ActiveRecord
     public function attributeLabels(): array
     {
         return [
-            'id' => 'ID',
             'project_id' => 'Project ID',
             'movement_detail_id' => 'Movement Detail ID',
             'movement_id' => 'Movement ID',
@@ -80,9 +75,10 @@ class QbMovementLog extends ActiveRecord
             'Code' => 'Code',
             'number' => 'Number',
             'date' => 'Date',
+            'id' => 'ID',
         ];
     }
-
+    
     /**
      * @return ActiveQuery
      */
@@ -90,7 +86,7 @@ class QbMovementLog extends ActiveRecord
     {
         return $this->hasOne(Project::class, ['id' => 'project_id']);
     }
-
+    
     /**
      * @inheritdoc
      * @return array mixed
@@ -102,11 +98,10 @@ class QbMovementLog extends ActiveRecord
                 'class' => TimestampBehavior::class,
                 'createdAtAttribute' => 'created_at',
                 'updatedAtAttribute' => false,
-                'value' => new Expression('GETDATE()'),
+                'value' => new \yii\db\Expression('GETDATE()'),
             ],
         ];
     }
-
 
     /**
      * @inheritdoc
