@@ -121,7 +121,7 @@ class ImportController extends BaseController
 
     public function actionShowAgain(): Response
     {
-        Yii::$app->session->setFlash('success', 'Se cargo el lote de movimientos a registrar en el QB, el proceso puede demorar entre 5-10 minutos');
+        Yii::$app->session->setFlash('success', 'Se cargo el lote de movimientos a registrar en el QB, continue el proceso desde la PC del QuickBook');
         return $this->redirect(['to-qb']);
     }
 

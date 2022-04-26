@@ -74,7 +74,8 @@ class QbMovementLogSearch extends QbMovementLog
 
         if ($this->Code <> null && $this->Code == 0)
             $query->andFilterWhere(['Code' => 0]);
-        else
+
+        if ($this->Code <> null && $this->Code > 0)
             $query->andFilterWhere(['>', 'Code', 0]);
 
         return $dataProvider;

@@ -41,12 +41,12 @@ $providerSubCategorieDetail = new ArrayDataProvider([
             'dataProvider' => $providerSubCategorieDetail,
             'columns' => $gridSubCategorieDetail,
             'summary' => false,
+            'condensed' => true,
+            'striped' => true,
             'showFooter' => false,
             'headerContainer' => ['class' => '']
         ]);
-
     }
     ?>
-
 </div>
 

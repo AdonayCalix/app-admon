@@ -11,21 +11,21 @@ use kartik\grid\GridView;
 /* @var $model app\modules\project\models\Transfer */
 
 $this->title = $model->number;
-$this->params['breadcrumbs'][] = ['label' => 'Movimiento', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Movimientos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="transfer-view">
 
     <div class="mb-3">
-        <h1 class="h3 d-inline align-middle"><?= $this->title ?></h1>
+        <h1 class="h4 d-inline align-middle"><?= $this->title ?></h1>
     </div>
 
     <div class="card">
         <div class="card-body">
             <p>
-                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
                 <?= Html::a('Eliminar', ['delete', 'id' => $model->id], [
-                    'class' => 'btn btn-danger',
+                    'class' => 'btn btn-danger btn-sm',
                     'data' => [
                         'confirm' => 'Seguro que quieres borrar este registro',
                         'method' => 'post',
@@ -40,22 +40,26 @@ $this->params['breadcrumbs'][] = $this->title;
                     $gridColumn = [
                         ['attribute' => 'id', 'visible' => false],
                         [
-                            'attribute' => 'project.alias',
+                            'attribute' => 'project_id',
                             'label' => 'Proyecto',
+                            'value' => $model->project->alias
                         ],
                         'number',
                         'amount',
                         'bank_account'
                     ];
-                    echo DetailView::widget([
+                    echo \kartik\detail\DetailView::widget([
                         'model' => $model,
                         'attributes' => $gridColumn,
+                        'condensed' => true,
+                        'hAlign' => 'left',
                         'template' => '<tr><th>{label}</th><td style="width:80%;">{value}</td></tr>'
                     ]);
                     ?>
                 </div>
             </div>
 
+            <br>
             <p class="form-control bg-light" style="margin-bottom: 0px">
                 <i><strong>Detalles del Movimiento</strong></i>
             </p>
@@ -107,12 +111,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'sorter' => false,
                 'columns' => $gridMovementDetailColums,
                 'pjax' => true,
-                'bsVersion' => '4.x',
+                'condensed' => true,
                 'headerContainer' => ['class' => ''],
                 'summary' => false
             ]); ?>
 
-
         </div>
     </div>
 </div>
+
+<?php
+$script = <<< JS
+$("colgroup").remove()
+JS;
+$this->registerJs($script);
+?>
