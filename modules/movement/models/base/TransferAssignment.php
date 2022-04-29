@@ -30,6 +30,7 @@ use yii\helpers\ArrayHelper;
  * @property string $deleted_at
  * @property integer $updated_by
  * @property integer $expense_request_id
+ * @property string $date
  *
  * @property \app\modules\movement\models\Movement $transfer
  * @property Beneficiary $beneficiary
@@ -56,12 +57,13 @@ class TransferAssignment extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['number_transfer', 'beneficiary_id', 'amount', 'position', 'reason', 'expense_request_id'], 'required'],
+            [['number_transfer', 'beneficiary_id', 'amount', 'position', 'reason', 'expense_request_id', 'date'], 'required'],
             [['number_transfer', 'beneficiary_id', 'created_by', 'deleted_by', 'updated_by', 'expense_request_id'], 'integer'],
             [['amount'], 'number'],
             [['created_at', 'updated_at', 'deleted_at'], 'safe'],
             [['position'], 'string', 'max' => 250],
-            [['reason'], 'string', 'max' => 500]
+            [['reason'], 'string', 'max' => 500],
+            [['date'], 'string', 'max' => 20]
         ];
     }
 
@@ -141,6 +143,7 @@ class TransferAssignment extends \yii\db\ActiveRecord
         $transfer->position = $expenseRequest->position ?? '';
         $transfer->reason = $expenseRequest->goal ?? '';
         $transfer->amount = self::getTotalExpenses($expenseRequest);
+        $transfer->date = \Carbon\Carbon::parse($expenseRequest->start_date)->format('d/m/Y');
         $transfer->save(false);
     }
 

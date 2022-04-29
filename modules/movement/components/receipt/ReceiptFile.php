@@ -33,10 +33,9 @@ class ReceiptFile extends ExcelExport
     public function writeContent(): ReceiptFile
     {
         $assign = TransferAssignment::findOne($this->assign_id);
-        $date = '2022-03-13';
 
         $this->setValueInCell($this->excelSheet, 'B9', $assign->number_transfer);
-        $this->setValueInCell($this->excelSheet, 'B10', date('d/m/Y', strtotime($date)));
+        $this->setValueInCell($this->excelSheet, 'B10', $assign->date);
         $this->setValueInCell($this->excelSheet, 'B11', $assign->beneficiary->name ?? '');
         $this->setValueInCell($this->excelSheet, 'B12', $assign->reason);
         $this->setValueInCell($this->excelSheet, 'B13', MoneyToWords::get($assign->amount));
