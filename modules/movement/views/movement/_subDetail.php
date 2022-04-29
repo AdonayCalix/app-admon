@@ -7,7 +7,6 @@ use yii\data\ArrayDataProvider;
 $providerSubCategorieDetail = new ArrayDataProvider([
     'allModels' => $model->movementSubDetails,
 ]);
-
 ?>
 
 

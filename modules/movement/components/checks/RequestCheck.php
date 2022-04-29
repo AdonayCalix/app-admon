@@ -65,6 +65,11 @@ class RequestCheck extends ExcelExport
         $this->setValueInCell($this->excelSheet, 'C31', $this->checkFormat->checked_by);
         $this->setValueInCell($this->excelSheet, 'C34', $this->checkFormat->authorized_by);
 
+        if ($this->project->alias === 'Fondo Interno') {
+            $this->setValueInCell($this->excelSheet, 'A34', 'REVISADO POR:');
+            $this->setValueInCell($this->excelSheet, 'A36', 'APROBADO POR:');
+        }
+
         if ($this->checkFormat->aproved_main_director_by !== '') {
             $this->setValueInCell($this->excelSheet, 'C36', $this->checkFormat->aproved_main_director_by);
         } else {

@@ -8,7 +8,7 @@ use app\modules\qb\models\ListClass;
 
 class VoucherDetailOtherProject
 {
-    public static function get(MovementDetail $movement): array
+    public static function get(MovementDetail $movement, string $project): array
     {
         $out = [];
 
@@ -18,8 +18,8 @@ class VoucherDetailOtherProject
 
             $list_class = explode(' ', $list_class->name, 2);
             $class_statement = [
-                $list_class[0] ?? '',
-                $list_class[1] ?? ''
+                $project === 'Fondo Interno' ? '1' : $list_class[0] ?? '',
+                $project === 'Fondo Interno' ? $subDetail->subCategory->name ?? '' : $list_class[1] ?? ''
             ];
 
             $char_account = ChartAccount::findOne(['account_number' => $subDetail->chart_account_id]);

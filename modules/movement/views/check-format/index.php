@@ -15,20 +15,18 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="check-format-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <div class="card">
-        <div class="card-body">
 
+        <div class="card-body">
             <p>
-                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Formato de Solicitud de Cheques', ['create'], ['class' => 'btn btn-success']) ?>
+                <?= GhostHtml::a('<i class="align-middle" data-feather="check-circle"></i>&nbsp;Crear Nuevo Formato', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
             </p>
             <div class="row">
                 <?php
                 $gridColumn = [
                     ['class' => 'yii\grid\SerialColumn'],
                     ['attribute' => 'id', 'visible' => false],
-                                        [
+                    [
                         'attribute' => 'project_id',
                         'label' => 'Proyecto',
                         'value' => function ($model) {
@@ -54,7 +52,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'columns' => $gridColumn,
                     'pjax' => true,
-                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-check-format']]
+                    'pjaxSettings' => ['options' => ['id' => 'kv-pjax-container-check-format']],
+                    'condensed' => true,
+                    'headerContainer' => ['class' => '']
                 ]); ?>
             </div>
         </div>

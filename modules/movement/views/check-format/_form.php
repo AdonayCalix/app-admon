@@ -39,7 +39,7 @@ use kartik\form\ActiveForm;
     <?= $form->field($model, 'aproved_main_director_by')->textInput(['maxlength' => true, 'placeholder' => 'Vo.Bo. Directora Ejecutiva']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Crear Formato' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success btn-sm' : 'btn btn-primary btn-sm']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

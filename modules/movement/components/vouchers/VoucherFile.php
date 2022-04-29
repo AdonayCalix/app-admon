@@ -110,7 +110,7 @@ class VoucherFile extends ExcelExport
     public function setDetail(): VoucherFile
     {
         $details = $this->voucherElements->kind_detail !== 'FM' ?
-            VoucherDetailOtherProject::get($this->movement) :
+            VoucherDetailOtherProject::get($this->movement, $this->voucherElements->kind_detail) :
             VoucherDetailGlobalFund::get($this->movement);
         $total_details = count($details);
         $difference = 14 - $total_details;

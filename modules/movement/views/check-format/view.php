@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use kartik\detail\DetailView;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -21,9 +21,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="card-body">
             <p>
 
-                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                <?= Html::a('Editar', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-sm']) ?>
                 <?= Html::a('Eliminar', ['delete', 'id' => $model->id], [
-                    'class' => 'btn btn-danger',
+                    'class' => 'btn btn-danger btn-sm',
                     'data' => [
                         'confirm' => 'Estas seguro que quieres eliminar este registro',
                         'method' => 'post',
@@ -37,8 +37,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     $gridColumn = [
                         ['attribute' => 'id', 'visible' => false],
                         [
-                            'attribute' => 'project.alias',
+                            'attribute' => 'project',
                             'label' => 'Proyecto',
+                            'value' => $model->project->alias ?? null
                         ],
                         'elaborated_by',
                         'checked_by',
@@ -46,15 +47,15 @@ $this->params['breadcrumbs'][] = $this->title;
                         'aproved_main_director_by',
                         [
                             'attribute' => 'logo_path',
-                            'value' => function ($model) {
-                                return Html::img('@web/' . $model->logo_path ?? '', ['class' => 'pull-left img-responsive']);;
-                            },
+                            'value' => Html::img('@web/' . $model->logo_path ?? '', ['class' => 'pull-left img-responsive']),
                             'format' => 'raw'
                         ]
                     ];
                     echo DetailView::widget([
                         'model' => $model,
-                        'attributes' => $gridColumn
+                        'attributes' => $gridColumn,
+                        'condensed' => true,
+                        'hAlign' => 'left'
                     ]);
                     ?>
 

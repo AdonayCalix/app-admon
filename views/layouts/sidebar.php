@@ -174,7 +174,7 @@ use yii\helpers\Url;
 
             <?php if (\Yii::$app->user->isSuperadmin): ?>
                 <li class="sidebar-header">
-                    Comprobantes
+                    Configuracion Comprobantes
                 </li>
 
                 <li class="sidebar-item">
@@ -190,19 +190,11 @@ use yii\helpers\Url;
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= Url::to(['/movement/voucher/list']) ?>">
-                        <i class="align-middle" data-feather="arrow-right"></i> <span
-                                class="align-middle">Voucher</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="<?= Url::to(['/movement/check/list']) ?>">
-                        <i class="align-middle" data-feather="arrow-right"></i> <span
-                                class="align-middle">Solicitud Cheques</span>
-                    </a>
-                </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="<?= Url::to(['/movement/check-format/index']) ?>">
+                            <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Formato Sol. Cheque</span>
+                        </a>
+                    </li>
             <?php endif; ?>
 
             <li class="sidebar-header">
