@@ -113,8 +113,8 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
     <br>
     <?= Yii::$app->controller->renderPartial('_expenseDetails'); ?>
 
-    <button type="submit" class="btn btn-success" v-on:click.prevent="store">
-        Guardar
+    <button type="submit" class="btn btn-success btn-sm" v-on:click.prevent="store">
+        Guardar Solicitud de Anticipo
     </button>
 
     <?php ActiveForm::end(); ?>

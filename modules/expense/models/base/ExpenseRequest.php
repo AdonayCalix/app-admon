@@ -29,7 +29,7 @@ use yii\db\ActiveQuery;
  * @property string $updated_at
  * @property integer $created_by
  * @property integer $updated_by
- * @property integer $requested_day
+ * @property float $requested_day
  *
  * @property Project $project
  * @property \app\modules\expense\models\ExpenseRequestDetail[] $expenseRequestDetails
@@ -61,7 +61,8 @@ class ExpenseRequest extends \yii\db\ActiveRecord
     {
         return [
             [['elaborated_at', 'start_date', 'end_date', 'created_at', 'updated_at'], 'safe'],
-            [['beneficiary_id', 'project_id', 'created_by', 'updated_by', 'requested_day'], 'integer'],
+            [['beneficiary_id', 'project_id', 'created_by', 'updated_by'], 'integer'],
+            [['requested_day'], 'double'],
             [['project_id'], 'required'],
             [['position'], 'string', 'max' => 225],
             [['place', 'goal'], 'string', 'max' => 500],

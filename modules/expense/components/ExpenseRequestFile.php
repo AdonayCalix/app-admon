@@ -47,8 +47,8 @@ class ExpenseRequestFile extends ExcelExport
         $this->setValueInCell($this->excelSheet, 'B10', $this->expense_request->project->name ?? '');
         $this->setValueInCell($this->excelSheet, 'B11', $this->expense_request->place ?? '');
         $this->setValueInCell($this->excelSheet, 'B12', $this->expense_request->goal ?? '');
-        $this->setValueInCell($this->excelSheet, 'B13', $this->expense_request->start_date ?? '');
-        $this->setValueInCell($this->excelSheet, 'B14', $this->expense_request->end_date ?? '');
+        $this->setValueInCell($this->excelSheet, 'B13', \Carbon\Carbon::parse($this->expense_request->start_date)->format('d/m/Y h:s a') ?? '');
+        $this->setValueInCell($this->excelSheet, 'B14', \Carbon\Carbon::parse($this->expense_request->end_date)->format('d/m/Y h:s a') ?? '');
         $this->setValueInCell($this->excelSheet, 'B15', $this->expense_request->requested_day ?? '');
 
         return $this;
