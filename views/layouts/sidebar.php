@@ -204,10 +204,9 @@ use yii\helpers\Url;
             <li class="sidebar-item">
                 <a class="sidebar-link" href="<?= Url::to(['/project/book-bank/generate']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Libro de Banco</span>
-
                 </a>
 
-                <a class="sidebar-link" href="<?= Url::to(['/project/book-bank/generate']) ?>">
+                <a class="sidebar-link" href="<?= Url::to(['/project/financial-format-v2/generate']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Formato Financiero v2</span>
                 </a>
             </li>
