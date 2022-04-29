@@ -95,7 +95,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
             'options' => ['placeholder' => 'Fecha de Entrada'],
             'pluginOptions' => [
                 'autoclose' => true,
-                'format' => 'dd/mm/yyyy h:i'
+                'format' => 'dd/mm/yyyy h:ii'
             ]
         ]); ?>
 
