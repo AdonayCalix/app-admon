@@ -142,7 +142,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'label' => 'Gasto',
                                 'width' => '28%',
                             ],
-                            'amount'
+                            [
+                                'attribute' => 'amount',
+                                'value' => function ($model) {
+                                    return 'Lps ' . number_format($model->amount, 2);
+                                }
+                            ],
                         ];
                         echo Gridview::widget([
                             'dataProvider' => $providerExpenseRequestDetail,

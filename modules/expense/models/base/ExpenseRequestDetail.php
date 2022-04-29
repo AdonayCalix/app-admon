@@ -3,6 +3,7 @@
 namespace app\modules\expense\models\base;
 
 use app\modules\expense\models\ExpenseRequestDetailQuery;
+use phpDocumentor\Reflection\Types\This;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -120,4 +121,12 @@ class ExpenseRequestDetail extends \yii\db\ActiveRecord
     {
         return new ExpenseRequestDetailQuery(get_called_class());
     }
+
+    public function beforeValidate()
+    {
+        $this->amount = str_replace(',', '', $this->amount);
+        return parent::beforeValidate();
+    }
+
+
 }
