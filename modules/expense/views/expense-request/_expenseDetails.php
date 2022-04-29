@@ -49,7 +49,7 @@
                 <td><treeselect v-model="food_expense.place_id" :name="'FoodExpenseRequests' + '[' + index + '][place_id]'"  :multiple="false" placeholder="[SELECCIONE]" :options="places_options"></treeselect></td>
                 <td><money v-model="food_expense.breakfast" v-bind="money" class="form-control" :name="'FoodExpenseRequests' + '[' + index + '][breakfast]'"></money></td>
                 <td><money v-model="food_expense.lunch" v-bind="money" class="form-control" :name="'FoodExpenseRequests' + '[' + index + '][lunch]'"></money></td>
-                <td><money  v-bind="money" class="form-control"  :name="'FoodExpenseRequests' + '[' + index + '][dinner]'" ></money></td>
+                <td><money v-model="food_expense.dinner" v-bind="money" class="form-control"  :name="'FoodExpenseRequests' + '[' + index + '][dinner]'" ></money></td>
                 <td> <a v-on:click="deleteFoodExpense(index)"><i class="btn btn-sm btn-danger">Eliminar</a></td>
             </tr>
             </tbody>
