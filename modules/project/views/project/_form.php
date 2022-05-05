@@ -146,7 +146,6 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
         </div>
 
         <?php ActiveForm::end(); ?>
-
     </div>
 
 <?php
