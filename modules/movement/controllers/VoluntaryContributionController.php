@@ -7,9 +7,9 @@ use app\modules\project\models\Beneficiary;
 use Yii;
 use app\modules\movement\models\VoluntaryContribution;
 use app\models\VoluntaryContributionSearch;
-use yii\web\Controller;
+use yii\db\Exception;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * VoluntaryContributionController implements the CRUD actions for VoluntaryContribution model.
@@ -34,9 +34,10 @@ class VoluntaryContributionController extends BaseController
     /**
      * Displays a single VoluntaryContribution model.
      * @param integer $id
-     * @return mixed
+     * @return string
+     * @throws NotFoundHttpException
      */
-    public function actionView($id)
+    public function actionView($id): string
     {
         $model = $this->findModel($id);
         $providerVoluntaryContributionDetail = new \yii\data\ArrayDataProvider([
@@ -51,7 +52,8 @@ class VoluntaryContributionController extends BaseController
     /**
      * Creates a new VoluntaryContribution model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @return Response|string
+     * @throws Exception
      */
     public function actionCreate()
     {
@@ -71,6 +73,7 @@ class VoluntaryContributionController extends BaseController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
+     * @throws NotFoundHttpException|Exception
      */
     public function actionUpdate($id)
     {
@@ -89,9 +92,11 @@ class VoluntaryContributionController extends BaseController
      * Deletes an existing VoluntaryContribution model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
-     * @return mixed
+     * @return Response
+     * @throws NotFoundHttpException
+     * @throws Exception
      */
-    public function actionDelete($id)
+    public function actionDelete($id): Response
     {
         $this->findModel($id)->deleteWithRelated();
 
@@ -106,7 +111,7 @@ class VoluntaryContributionController extends BaseController
      * @return VoluntaryContribution the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($id): VoluntaryContribution
     {
         if (($model = VoluntaryContribution::findOne($id)) !== null) {
             return $model;
@@ -123,5 +128,4 @@ class VoluntaryContributionController extends BaseController
             ->all();
         return json_encode($beneficiaries);
     }
-
 }
