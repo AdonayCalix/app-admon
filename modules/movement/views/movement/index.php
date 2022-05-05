@@ -11,8 +11,8 @@ use yii\helpers\ArrayHelper;
 
 $this->title = 'Movimientos';
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
+
 <div class="transfer-index">
 
     <div class="card">

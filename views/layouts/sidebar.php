@@ -164,6 +164,9 @@ use yii\helpers\Url;
                 <a class="sidebar-link" href="<?= Url::to(['/movement/movement/index']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Movimientos Contables</span>
                 </a>
+                <a class="sidebar-link" href="<?= Url::to(['/movement/voluntary-contribution/index']) ?>">
+                    <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Aporte Voluntario</span>
+                </a>
                 <a class="sidebar-link" href="<?= Url::to(['/movement/import/to-qb']) ?>">
                     <i class="align-middle" data-feather="arrow-right"></i> <span class="align-middle">Importar QuickBook</span>
                 </a>

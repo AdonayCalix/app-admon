@@ -5,8 +5,6 @@ namespace app\controllers;
 use app\controllers\base\BaseController;
 use app\modules\project\models\base\ClassActivity;
 use Yii;
-use function Symfony\Component\Translation\t;
-use WindowsAzure\Common\ServicesBuilder;
 
 class SiteController extends BaseController
 {
