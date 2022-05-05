@@ -2,6 +2,8 @@
 
 namespace app\modules\movement\controllers;
 
+use app\controllers\base\BaseController;
+use app\modules\project\models\Beneficiary;
 use Yii;
 use app\modules\movement\models\VoluntaryContribution;
 use app\models\VoluntaryContributionSearch;
@@ -12,25 +14,13 @@ use yii\filters\VerbFilter;
 /**
  * VoluntaryContributionController implements the CRUD actions for VoluntaryContribution model.
  */
-class VoluntaryContributionController extends Controller
+class VoluntaryContributionController extends BaseController
 {
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['post'],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all VoluntaryContribution models.
-     * @return mixed
+     * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $searchModel = new VoluntaryContributionSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -124,27 +114,14 @@ class VoluntaryContributionController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-    
-    /**
-    * Action to load a tabular form grid
-    * for VoluntaryContributionDetail
-    * @author Yohanes Candrajaya <moo.tensai@gmail.com>
-    * @author Jiwantoro Ndaru <jiwanndaru@gmail.com>
-    *
-    * @return mixed
-    */
-    public function actionAddVoluntaryContributionDetail()
+
+    public function actionGetAllBeneficiaries()
     {
-        if (Yii::$app->request->isAjax) {
-            $row = Yii::$app->request->post('VoluntaryContributionDetail');
-            if (!empty($row)) {
-                $row = array_values($row);
-            }
-            if((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
-                $row[] = [];
-            return $this->renderAjax('_formVoluntaryContributionDetail', ['row' => $row]);
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
+        $beneficiaries = Beneficiary::find()
+            ->select(["id", "name as label"])
+            ->asArray()
+            ->all();
+        return json_encode($beneficiaries);
     }
+
 }
