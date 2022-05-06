@@ -72,7 +72,7 @@
                         <i><strong>Detalles</strong></i>
                     </p>
 
-                    <div class="conta     iner-fluid border">
+                    <div class="container-fluid border">
                         <table class="table table-borderless table-striped table-sm">
                             <thead>
                             <tr>

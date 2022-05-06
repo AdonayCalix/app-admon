@@ -8,9 +8,7 @@ use Yii;
 use app\modules\project\models\Disbursed;
 use app\modules\project\models\DisbursedSearch;
 use yii\db\Exception;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
 
 /**
@@ -77,6 +75,7 @@ class DisbursedController extends BaseController
     {
         $model = $this->findModel($id);
 
+        echo '<pre>' . print_r($_POST, true) . '</pre>';die;
         if ($model->load(Yii::$app->request->post()) && $model->saveMovement()) {
             Yii::$app->session->setFlash('success', 'Se actualizo correctamente el desembolso');
             return $this->redirect(['view', 'id' => $model->id]);

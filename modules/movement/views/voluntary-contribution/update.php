@@ -5,17 +5,25 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\movement\models\VoluntaryContribution */
 
-$this->title = 'Update Voluntary Contribution: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Voluntary Contribution', 'url' => ['index']];
+$this->title = 'Actualizar Lote de Aporte Voluntario: ' . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Aporte Voluntario', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Editando';
 ?>
 <div class="voluntary-contribution-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="mb-3">
+        <h1 class="h3 d-inline align-middle"><?= $this->title ?></h1>
+    </div>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12">
+                    <?= $this->render('_form', compact('model')) ?>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>

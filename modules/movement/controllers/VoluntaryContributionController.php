@@ -3,6 +3,7 @@
 namespace app\modules\movement\controllers;
 
 use app\controllers\base\BaseController;
+use app\modules\movement\models\VoluntaryContributionDetail;
 use app\modules\project\models\Beneficiary;
 use Yii;
 use app\modules\movement\models\VoluntaryContribution;
@@ -103,7 +104,7 @@ class VoluntaryContributionController extends BaseController
         return $this->redirect(['index']);
     }
 
-    
+
     /**
      * Finds the VoluntaryContribution model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -118,6 +119,40 @@ class VoluntaryContributionController extends BaseController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    /**
+     * @throws NotFoundHttpException
+     * @throws Exception
+     */
+    public function actionStore($id)
+    {
+        if (!Yii::$app->request->isAjax)
+            throw new \yii\web\NotFoundHttpException;
+
+        $model = VoluntaryContribution::findOne($id) ?? new VoluntaryContribution;
+        $model->loadAll(Yii::$app->request->post());
+        $model->saveAll();
+
+        if ($model->hasErrors()) {
+            Yii::$app->response->statusCode = 422;
+            return json_encode($model->errors);
+        }
+
+        Yii::$app->session->setFlash('success', 'Se almaceno correctamente la informacion del lote de Aporte Voluntario');
+
+        return json_encode(['id' => $model->id]);
+    }
+
+    public function actionGetDetails($id)
+    {
+        $details = VoluntaryContributionDetail::find()
+            ->select(['id', 'memo', 'amount', 'beneficiary_id as beneficiary'])
+            ->where(['voluntary_contribution_id' => $id])
+            ->asArray()
+            ->all();
+
+        return json_encode($details);
     }
 
     public function actionGetAllBeneficiaries()

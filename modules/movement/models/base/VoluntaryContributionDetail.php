@@ -117,4 +117,12 @@ class VoluntaryContributionDetail extends \yii\db\ActiveRecord
     {
         return new VoluntaryContributionDetailQuery(get_called_class());
     }
+
+    public function beforeValidate()
+    {
+        $this->amount = str_replace(',', '', $this->amount);
+        return parent::beforeValidate();
+    }
+
+
 }

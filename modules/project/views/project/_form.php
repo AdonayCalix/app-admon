@@ -22,7 +22,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
         'isNewRecord' => ($model->isNewRecord) ? 1 : 0
     ]
 ]);
-JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END,
+JsBlock::widget(['viewFile' => '_script',     'pos' => View::POS_END,
     'viewParams' => [
         'class' => 'ProjectPeriod',
         'relID' => 'project-period',
