@@ -36,6 +36,7 @@ class LoadValues
             $movementDetail->loadAll([
                   'MovementDetail' => [
                         'date' => $value['date'] ?? null,
+                        'kind' => $value['kind'] ?? null,
                         'amount' => $value['amount'] ?? null,
                         'beneficiary_id' => $value['beneficiary_id'] ?? null,
                         'concept' => $value['concept'] ?? null,
