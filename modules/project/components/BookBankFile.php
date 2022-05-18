@@ -87,6 +87,7 @@ class BookBankFile extends ExcelExport
             $this->project->id,
             $date->firstOfMonth()->format('Y-m-d'),
             $date->endOfMonth()->format('Y-m-d'),
+            $this->project->alias
         );
 
         $this->setContentTable($this->excelSheet, 'A7', $source);

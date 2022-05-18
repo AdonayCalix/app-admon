@@ -6,6 +6,8 @@ use app\modules\movement\models\VoluntaryContributionQuery;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery as ActiveQueryAlias;
+use app\modules\movement\models\Movement;
+use app\modules\project\models\Project;
 
 /**
  * This is the base model class for table "voluntary_contribution".
@@ -17,13 +19,13 @@ use yii\db\ActiveQuery as ActiveQueryAlias;
  * @property integer $updated_by
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $movement_id
  *
  * @property \app\modules\movement\models\VoluntaryContributionDetail[] $voluntaryContributionDetails
  */
 class VoluntaryContribution extends \yii\db\ActiveRecord
 {
     use \mootensai\relation\RelationTrait;
-
 
     /**
      * This function helps \mootensai\relation\RelationTrait runs faster
@@ -100,5 +102,36 @@ class VoluntaryContribution extends \yii\db\ActiveRecord
     public static function find(): VoluntaryContributionQuery
     {
         return new VoluntaryContributionQuery(get_called_class());
+    }
+
+    public function storeMovements()
+    {
+        $movement = Movement::findOne($this->movement_id) ?? new Movement;
+
+        $post = [
+            'Movement' => [
+                'project_id' => Project::findOne(['alias' => 'Fondo Interno'])->id,
+                'number' => 'AV-' . str_pad($this->id, '2', '0', STR_PAD_LEFT),
+                'amount' => '2.00'
+            ],
+            'MovementDetails' => array_map(function ($detail) {
+                return [
+                    'beneficiary_id' => $detail->beneficiary_id,
+                    'kind' => 'Ingreso',
+                    'amount' => $detail->amount,
+                    'date' => $this->date,
+                    'concept' => $detail->memo
+                ];
+            }, $this->voluntaryContributionDetails)
+        ];
+
+        echo 'MovementId: ' . $this->movement_id . '<br>';
+        $movement->loadAll($post);
+        $movement->validate();
+        echo '<pre>' . print_r($movement->errors, true) . '</pre>';
+        $movement->save();
+        echo 'Real Movement Id: ' . $movement->id . '<br>';
+
+        $this->movement_id = $movement->id;
     }
 }

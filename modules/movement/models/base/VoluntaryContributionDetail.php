@@ -20,6 +20,7 @@ use yii\db\ActiveQuery;
  * @property integer $updated_by
  * @property string $created_at
  * @property string $updated_at
+ * @property integer $movement_detail_id
  *
  * @property Beneficiary $beneficiary
  * @property \app\modules\movement\models\VoluntaryContribution $voluntaryContribution

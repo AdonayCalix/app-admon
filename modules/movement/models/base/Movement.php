@@ -199,7 +199,6 @@ class Movement extends ActiveRecord
             $tb_number[0] . ' ' . ((int)$tb_number[1] + 1) :
             ((int)$values['number'] + 1);
 
-
         $this->load($values, '');
     }
 }

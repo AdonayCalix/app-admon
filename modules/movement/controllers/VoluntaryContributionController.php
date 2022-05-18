@@ -140,7 +140,6 @@ class VoluntaryContributionController extends BaseController
         }
 
         Yii::$app->session->setFlash('success', 'Se almaceno correctamente la informacion del lote de Aporte Voluntario');
-
         return json_encode(['id' => $model->id]);
     }
 

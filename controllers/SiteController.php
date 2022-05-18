@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\controllers\base\BaseController;
-use app\modules\project\models\base\ClassActivity;
 use Yii;
 
 class SiteController extends BaseController

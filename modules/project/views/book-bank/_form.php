@@ -40,7 +40,7 @@ JsBlock::widget(['viewFile' => '_script', 'pos' => View::POS_END]);
                     </div>
                     <div class="col align-content-center" style="margin-top: 10px">
                         <br>
-                        <button class="btn btn-success" v-on:click="download">
+                        <button class="btn btn-success btn-sm" v-on:click="download">
                            Generar
                         </button>
                     </div>
