@@ -112,6 +112,42 @@
                 event.preventDefault();
                 this.details[index].sub_details.splice(indexSubDetail, 1);
             },
+            deleteItem: function (index) {
+                event.preventDefault();
+
+                let detail_id = this.details[index].id;
+
+                if (detail_id == null) {
+                    this.details.splice(index, 1);
+                } else {
+                    Swal.fire({
+                        title: '¿Deseas eliminar este movimiento?',
+                        text: "Se borrara el registro de la base de datos!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, eliminar!',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+
+                            fetch("delete-movement-detail?id=" + detail_id)
+                                .then(response => response.json())
+                                .then((response) => {
+                                    Swal.fire(
+                                        'Eliminado!',
+                                        'Se ha eliminado el moviemiento correctamente.',
+                                        'success'
+                                    );
+
+                                    this.details.splice(index, 1);
+                                })
+                                .catch(error => console.error('Error:', error));
+                        }
+                    })
+                }
+            },
             async getValues() {
                 let movement_id = document.getElementById('movement_id').value;
                 this.project_id = document.getElementById('project_id').value;

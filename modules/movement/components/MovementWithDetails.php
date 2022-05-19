@@ -20,6 +20,7 @@ class MovementWithDetails
         $movements = MovementDetail::find()
             ->select(['id', 'kind', 'amount', 'date', 'beneficiary_id', 'concept'])
             ->where(['transfer_id' => $this->transfer_id])
+            ->orderBy(['created_at' => SORT_ASC])
             ->asArray()
             ->all();
 

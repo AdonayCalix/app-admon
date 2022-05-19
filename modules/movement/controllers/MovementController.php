@@ -9,6 +9,7 @@ use app\modules\movement\components\LoadValues;
 use app\modules\movement\components\MovementWithDetails;
 use app\modules\movement\components\StoreMovements;
 use app\modules\movement\components\StoreValues;
+use app\modules\movement\models\base\MovementDetail;
 use app\modules\movement\models\Movement;
 use app\modules\movement\models\MovementSearch;
 use app\modules\project\components\HierachyActivityList;
@@ -241,5 +242,15 @@ class MovementController extends BaseController
         $id = (explode('-', $id)[1]);
         $chartAccountActivity = ChartAccountActivity::findOne(['activity_id' => $id]);
         return json_encode(['id' => $chartAccountActivity->chart_account_id ?? null]);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function actionDeleteMovementDetail($id)
+    {
+        MovementDetail::findOne($id)->deleteWithRelated();
+
+        return json_encode(['ok' => true]);
     }
 }

@@ -7,6 +7,7 @@
 
                     <p class="form-control bg-light" style="margin-bottom: 0px">
                         <i><strong>Movimiento #{{index +1 }} : {{ detail.kind }}</strong></i>
+                       <i><a v-on:click="deleteItem(index)" class="float-right"><i class="fa fa-trash small"></i> <k>Eliminar</k></a></i>
                     </p>
 
                     <div class="container-fluid border">
@@ -78,9 +79,9 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col" width="25%">Actividad</th>
-                                <th scope="col" width="22%">Clase</th>
-                                <th scope="col" width="22%">Cuenta</th>
-                                <th scope="col" width="20%">Monto</th>
+                                <th scope="col" width="23%">Clase</th>
+                                <th scope="col" width="23%">Cuenta</th>
+                                <th scope="col" width="15%">Monto</th>
                             </tr>
                             </thead>
                             <tbody>
