@@ -16,6 +16,7 @@
             details: [{
                 id: null,
                 date: new Date(),
+                beneficiary_label: 'Beneficiario',
                 benefiaciary: null,
                 concept: null,
                 kind: 'Egreso',
@@ -32,16 +33,20 @@
             }],
             kindOptions: [
                 {
-                    id: 'Ingreso',
-                    'label': 'Ingreso'
+                    id: 'Egreso',
+                    'label': 'Egreso (Cheque/Tb)'
                 },
                 {
-                    id: 'Egreso',
-                    'label': 'Egreso'
+                    id: 'Ingreso',
+                    'label': 'Reintegro'
                 },
                 {
                     id: 'Comision Bancaria',
-                    'label': 'Comision Banacaria'
+                    'label': 'Comision Bancaria'
+                },
+                {
+                    id: 'Deposito',
+                    label: 'Deposito'
                 }
             ],
             class_options: [],
@@ -88,6 +93,7 @@
                     benefiaciary: '',
                     concept: '',
                     kind: '',
+                    beneficiary_label: 'Beneficiario',
                     sub_details: [
                         {
                             id: null,
@@ -158,7 +164,12 @@
                         let response = await fetch("get-movements-with-details?transfer_id=" + movement_id);
                         this.details = await response.json();
                         await this.details.map((detail) => {
-                            console.log(detail.date);
+
+                            if (detail.kind == 'Egreso') detail.beneficiary_label = 'Beneficiario';
+                            if (detail.kind == 'Comision Bancaria') detail.beneficiary_label = 'Beneficiario';
+                            if (detail.kind == 'Deposito') detail.beneficiary_label = 'Remitente';
+                            if (detail.kind == 'Ingreso') detail.beneficiary_label = 'Remitente';
+
                             let arrayDate = detail.date.split("-");
                             detail.date = new Date(arrayDate[0], (arrayDate[1] - 1), arrayDate[2]);
                         });
@@ -227,6 +238,13 @@
                         }
                     })
                     .catch(error => console.error('Error:', error))
+            },
+            changeBeneficiaryLabel: function (kind, index) {
+
+                if (kind == 'Egreso') this.details[index].beneficiary_label = 'Beneficiario';
+                if (kind == 'Comision Bancaria') this.details[index].beneficiary_label = 'Beneficiario';
+                if (kind == 'Deposito') this.details[index].beneficiary_label = 'Remitente';
+                if (kind == 'Ingreso') this.details[index].beneficiary_label = 'Remitente';
             },
             updateAmount: function (value, index) {
                 if (index != 0) return

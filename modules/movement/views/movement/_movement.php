@@ -15,7 +15,7 @@
                             <input type="hidden" v-model="detail.id" :name="'Movement[MovementDetails]' + '[' + index + '][id]'">
                             <div class="col">
                                 <label for=""><strong>Tipo Movimiento</strong></label>
-                                <treeselect v-model="detail.kind" :multiple="false" placeholder="[SELECCIONE]" :name="'Movement[MovementDetails]' + '[' + index + '][kind]'" :options="kindOptions" />
+                                <treeselect v-model="detail.kind" @input="changeBeneficiaryLabel(detail.kind, index)" :multiple="false" placeholder="[SELECCIONE]" :name="'Movement[MovementDetails]' + '[' + index + '][kind]'" :options="kindOptions" />
                             </div>
                             <div class="col">
                                 <label for=""><strong>Monto</strong></label>
@@ -30,7 +30,7 @@
                         <br>
                         <div class="row">
                             <div class="col">
-                                <label for=""><strong>Beneficiario</strong></label>
+                                <label for=""><strong>{{ detail.beneficiary_label }}</strong></label>
                                 <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal">
                                     <i class="fa fa-plus"></i> Añadir
                                 </button>

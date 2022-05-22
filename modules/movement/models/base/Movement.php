@@ -152,6 +152,14 @@ class Movement extends ActiveRecord
         $details_kind = array_column($movementDetails, 'kind');
         $counts = array_count_values($details_kind);
         $quantity_egresos = $counts['Egreso'] ?? 0;
+        $quantity_depositos = $counts['Deposito'] ?? 0;
+
+        if ($quantity_depositos === 1 && count($details_kind) === 1) return;
+
+        if ($quantity_depositos === 1 && count($details_kind) > 1) {
+            $this->addError('', 'Solo se puede agregar un movimiento cuando se registra un deposito');
+            return;
+        }
 
         if ($quantity_egresos === 0) {
             $this->addError('', 'Debes de incluir un movimiento de tipo egreso');
@@ -164,7 +172,7 @@ class Movement extends ActiveRecord
 
     public function validateAmount($attribute, $params, $validator, $current)
     {
-        $movementDetailAmount = 0;
+        $movementDetailAmount = null;
 
         $movementDetails = $_POST['Movement']['MovementDetails'] ?? [];
 
@@ -176,6 +184,8 @@ class Movement extends ActiveRecord
         }
 
         $previusFormat = str_replace(',', '', $movementDetailAmount);
+
+        if ($movementDetailAmount === null) return;
 
         if ($this->amount !== $previusFormat) {
             $this->addError('amount', 'El monto de la TB/Cheque no coincide con el movimiento de tipo de egreso');

@@ -98,7 +98,6 @@ class MovementController extends BaseController
      */
     public function actionStore()
     {
-
         if (!Yii::$app->request->isAjax)
             throw new \yii\web\NotFoundHttpException;
 

@@ -46,7 +46,6 @@ class SummarizeSource
             $first_row = $last_row + 3;
         }
 
-        //echo '<pre>' . print_r($out, true) . '</pre>';die;
         return $out;
     }
 }
