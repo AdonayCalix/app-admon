@@ -134,6 +134,7 @@ class VoluntaryContributionController extends BaseController
         $model->loadAll(Yii::$app->request->post());
         $model->saveAll();
 
+
         if ($model->hasErrors()) {
             Yii::$app->response->statusCode = 422;
             return json_encode($model->errors);
