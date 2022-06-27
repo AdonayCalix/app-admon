@@ -23,7 +23,6 @@
     "ext-json": "*",
     "luecano/numero-a-letras": "^2.0",
     "kartik-v/yii2-datecontrol": "dev-master",
-    "microsoft/windowsazure": "*",
     "kartik-v/yii2-bootstrap5-dropdown": "^1.0",
     "kartik-v/yii2-detail-view": "dev-master"
   },
