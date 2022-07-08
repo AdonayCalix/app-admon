@@ -3,7 +3,6 @@
 namespace app\modules\project\components;
 
 use app\modules\project\models\ProjectBudget;
-use phpDocumentor\Reflection\Types\This;
 
 class HierachyActivityList
 {
