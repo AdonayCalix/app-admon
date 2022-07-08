@@ -1,6 +1,5 @@
 <?php
 
-use app\modules\project\models\Project;
 use yii\helpers\Html;
 use kartik\detail\DetailView;
 use kartik\grid\GridView;
@@ -42,9 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => '',
                             'label' => 'Proyecto',
-                            'value' => function ($model) {
-                                return $model->name;
-                            }
+                            'value' => $model->project->name ?? null
                         ],
                     ];
                     echo DetailView::widget([
