@@ -50,6 +50,26 @@ class ImportController extends BaseController
         return json_encode($values);
     }
 
+    public function actionGetModChecks(int $project_id)
+    {
+        /** @noinspection SqlNoDataSourceInspection */
+        $values = \Yii::$app->db->createCommand(
+            "select md.id as id, 
+                        movement.number as number,
+                        format(md.amount, 'C', 'hn-HN') as amount,
+                        format(md.date, 'dd/MM/yyyy')         as date
+                from movement
+                         join movement_detail md on movement.id = md.transfer_id
+                         join project p on movement.project_id = p.id
+                where md._listId is not null            
+                  and md.status = 'Sucess'
+                  and project_id = {$project_id}
+                  and kind in ('Egreso', 'Comision Bancaria');"
+        )->queryAll();
+
+        return json_encode($values);
+    }
+
     /**
      * @throws Exception
      */
@@ -66,6 +86,27 @@ class ImportController extends BaseController
                          join project p on movement.project_id = p.id
                 where md._listId is null
                   and md.status is null
+                  and project_id = {$project_id}
+                  and kind in ('Ingreso', 'Desembolso')
+                order by md.date;"
+        )->queryAll();
+
+        return json_encode($values);
+    }
+
+    public function actionGetModDeposits(int $project_id)
+    {
+        /** @noinspection SqlNoDataSourceInspection */
+        $values = \Yii::$app->db->createCommand(
+            "select md.id as id, 
+                        movement.number as number,
+                        format(md.amount, 'C', 'hn-HN') as amount,
+                        format(md.date, 'dd/MM/yyyy')         as date
+                from movement
+                         join movement_detail md on movement.id = md.transfer_id
+                         join project p on movement.project_id = p.id
+                where md._listId is not null
+                  and md.status = 'Sucess'
                   and project_id = {$project_id}
                   and kind in ('Ingreso', 'Desembolso')
                 order by md.date;"
@@ -96,15 +137,18 @@ class ImportController extends BaseController
         if (!Yii::$app->request->isAjax)
             throw new NotFoundHttpException;
 
-        if (MovementDetail::setStatusToProcess($_POST['Movements'])) {
-            /*$batch = new Batch();
-            $batch->store();
-            (new BatchMovement())->store();*/
+        if (isset($_POST['kind_operation_id']) && $_POST['kind_operation_id'] === 'add') {
+            MovementDetail::setStatusToProcess($_POST['Movements']);
             return json_encode(['success' => true]);
-        } else {
-            Yii::$app->response->statusCode = 422;
-            return json_encode(['error' => true]);
         }
+
+        if (isset($_POST['kind_operation_id']) && $_POST['kind_operation_id'] === 'update') {
+            MovementDetail::setStatusToModify($_POST['Movements']);
+            return json_encode(['success' => true]);
+        }
+
+        Yii::$app->response->statusCode = 422;
+        return json_encode(['error' => true]);
     }
 
     public function actionGetCheckMessage(int $project_id, string $batch_number)

@@ -4,11 +4,8 @@ namespace app\modules\movement\models;
 
 use app\modules\project\models\Beneficiary;
 use app\modules\project\models\Project;
-use app\modules\qb\models\ChartAccount;
-use app\modules\qb\models\ListClass;
 use Yii;
 use \app\modules\movement\models\base\MovementDetail as BaseMovementDetail;
-use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "movement_detail".
@@ -60,6 +57,19 @@ class MovementDetail extends BaseMovementDetail
         return true;
     }
 
+    public static function setStatusToModify(array $source): bool
+    {
+        foreach ($source as $item) {
+            if (!isset($item['isChecked'])) continue;
+
+            $movementDetail = self::findOne(['id' => $item['id']]);
+            $movementDetail->status = 'Modify';
+            $movementDetail->save(false);
+        }
+
+        return true;
+    }
+
     public static function getDeposits(int $project_id, string $batch_number): array
     {
         $desposits = self::find()
@@ -90,7 +100,6 @@ class MovementDetail extends BaseMovementDetail
 
         return $data;
     }
-
 
     public static function getChecks(int $project_id, string $batch_number): array
     {

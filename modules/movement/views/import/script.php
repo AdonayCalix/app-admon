@@ -14,7 +14,18 @@
                     label: 'Depositos'
                 }
             ],
+            kind_operation: [
+                {
+                    id: 'add',
+                    label: 'Agregar'
+                },
+                {
+                    id: 'update',
+                    label: 'Modificar'
+                }
+            ],
             kind_of_movement_id: null,
+            kind_of_operation_id: null,
             project_list: [],
             project_id: null,
             movements: null,
@@ -23,8 +34,10 @@
         methods: {
             async getMovements() {
                 this.getBatchNumber();
-                if (this.kind_of_movement_id === 'Egreso') this.getChecks();
-                if (this.kind_of_movement_id === 'Ingreso') this.getDeposits();
+                if (this.kind_of_movement_id === 'Egreso' && this.kind_of_operation_id === 'add') this.getChecks();
+                if (this.kind_of_movement_id === 'Ingreso' && this.kind_of_operation_id === 'add') this.getDeposits();
+                if (this.kind_of_movement_id === 'Egreso' && this.kind_of_operation_id === 'update') this.getModChecks();
+                if (this.kind_of_movement_id === 'Ingreso' && this.kind_of_operation_id === 'update') this.getModDeposits();
             },
             async getProject() {
                 try {
@@ -53,6 +66,23 @@
             async getDeposits() {
                 try {
                     let response = await fetch("get-deposits?project_id=" + this.project_id);
+                    this.movements = await response.json();
+                    console.log(this.movements);
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            async getModChecks() {
+                try {
+                    let response = await fetch("get-mod-checks?project_id=" + this.project_id);
+                    this.movements = await response.json();
+                } catch (error) {
+                    console.log(error);
+                }
+            },
+            async getModDeposits() {
+                try {
+                    let response = await fetch("get-mod-deposits?project_id=" + this.project_id);
                     this.movements = await response.json();
                     console.log(this.movements);
                 } catch (error) {

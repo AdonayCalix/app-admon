@@ -38,6 +38,12 @@ JsBlock::widget(['viewFile' => 'script', 'pos' => \yii\web\View::POS_END]);
                                     :options="kind_of_movement_list"/>
                     </div>
 
+                    <div class="col-md-3">
+                        <label for=""><strong>Tipo Operacion</strong></label>
+                        <treeselect v-model="kind_of_operation_id" :name="'kind_operation_id'" :multiple="false" placeholder="[SELECCIONE]"
+                                    :options="kind_operation"/>
+                    </div>
+
                     <div class="col align-content-center" style="margin-top: 10px">
                         <br>
                         <a v-on:click="getMovements" class="btn btn-primary btn-sm">
