@@ -14,7 +14,7 @@
         <p class="text-justify">
             Por este acto dejo constancia de haber recibido a entera conformidad la cantidad de
             L<?= number_format($resumen['total'], '2', '.', ',') ?>(
-            <?= (new \Luecano\NumeroALetras\NumeroALetras())->toString($resumen['total']) ?>
+            <?= (new \Luecano\NumeroALetras\NumeroALetras())->toMoney($resumen['total'], 2, 'LEMPIRAS', 'CENTAVOS') ?>
             ) por la cancelación de todos mis beneficios
             laborales ( Auxilio de Cesantía, Vacaciones, Décimo Tercer Mes y Décimo Cuarto mes de Salario todos
             proporcionales.
