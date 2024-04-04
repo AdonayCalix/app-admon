@@ -49,18 +49,6 @@ $config = [
             ],
         ],
         'db' => $db,
-        'db2' => [
-            'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=ceprosaf-mysql.mysql.database.azure.com;dbname=ceprosaf_ed360_2021',
-            'username' => 'admin_cepro@ceprosaf-mysql',
-            'password' => 'Solid@rio#2013',
-        ],
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
     ],
     'modules' => [
         'gridview' => [
